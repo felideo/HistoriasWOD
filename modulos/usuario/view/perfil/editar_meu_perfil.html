@@ -1,0 +1,165 @@
+<div class="content-panel col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<!-- <h2 class="title">Profile<span class="pro-label label label-warning">PRO</span></h2> -->
+    <form method="post" class="form-horizontal" action="/{$modulo.modulo}/update_meus_dados/{$cadastro['id']}">
+		<fieldset class="fieldset">
+			<h3 class="fieldset-title">Informações Pessoais</h3>
+			<div class="form-group">
+				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Titulo</label>
+				<div class="col-md-10 col-sm-9 col-xs-12">
+			    <input class="form-control somente_letras" type="text" name="{$modulo.modulo}[pessoa][pronome]" value="{if isset($cadastro)}{$cadastro.pessoa.0.pronome}{/if}" >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Nome</label>
+				<div class="col-md-10 col-sm-9 col-xs-12">
+					<input class="form-control embelezar_string somente_letras" name="{$modulo.modulo}[pessoa][nome]" value="{if isset($cadastro.pessoa.0)}{$cadastro.pessoa.0.nome}{/if}" type="text"  >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Sobrenome</label>
+				<div class="col-md-10 col-sm-9 col-xs-12">
+		            <input class="form-control embelezar_string somente_letras" name="{$modulo.modulo}[pessoa][sobrenome]" value="{if isset($cadastro.pessoa.0)}{$cadastro.pessoa.0.sobrenome}{/if}" type="text"  >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Lattes/Site</label>
+				<div class="col-md-10 col-sm-9 col-xs-12">
+    			<input class="form-control" type="text" name="{$modulo.modulo}[pessoa][link]"  value="{if isset($cadastro)}{$cadastro.pessoa.0.link}{/if}">
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset class="fieldset">
+			<h3 class="fieldset-title">Acesso</h3>
+			<div class="form-group">
+				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Email</label>
+				<div class="col-md-10 col-sm-9 col-xs-12">
+			        <input class="form-control validar_email email_unico letras_e_numeros remover_caracteres_especiais" disabled name="{$modulo.modulo}[{$modulo.modulo}][email]" value="{if isset($cadastro)}{$cadastro['email']}{/if}" >
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Senha Antiga</label>
+				<div class="col-md-10 col-sm-9 col-xs-12">
+			        <input type="password" autocomplete="off" name="{$modulo.modulo}[{$modulo.modulo}][senha_antiga]" class="form-control">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Nova Senha</label>
+				<div class="col-md-10 col-sm-9 col-xs-12">
+			        <input id="senha_1" autocomplete="off" type="password" class="form-control" name="{$modulo.modulo}[{$modulo.modulo}][senha]" value="">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Confirmação de Senha</label>
+				<div class="col-md-10 col-sm-9 col-xs-12">
+			        <input id="senha_2" autocomplete="off" type="password" class="form-control">
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset class="fieldset">
+			<h3 class="fieldset-title">Oredem Preferencial do Menu</h3>
+			<div class="form-group">
+				<div class="col-lg-offset-1 col-lg-11">
+					<label class="col-lg-12">
+						Arraste e solte as "caixinhas" com o nome dos módulos para cima e para baixo de acordo com a sua preferencia de ordenação dos itens no menu lateral.
+						<br>
+						A nova ordenação do menu entrará em vigor após o recarregamento da pagina.
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-lg-offset-1 col-lg-11">
+					<div class="gridly">
+					    {foreach from=$_SESSION.modulos key=indice item=item}
+							<div class="brick linha"  data-id_modulo="{$item.id}" data-modulo="{$item.modulo}" data-ordem="{$item.ordem}">
+								<label class="control-label">
+									<i class="fa {$item.icone}"></i> {$item.nome} <span id="ordem_{$item.id}">{$item.ordem}°</span>
+								</label>
+							</div>
+					  	{/foreach}
+					</div>
+
+				</div>
+			</div>
+
+		</fieldset>
+        <div class="module-footer text-center">
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button type="submit" class="btn btn-success botao_enviar pull-right">
+                    Editar Meus Dados
+                </button>
+
+                {if isset($cadastro)}
+                    <button type="button" onclick="window.history.back();" class="btn btn btn-danger botao_voltar pull-right marginR10">
+                        {if isset($cadastro)}Cancelar{else}Voltar{/if}
+                    </button>
+                {/if}
+            </div>
+        </div>
+	</form>
+</div>
+
+<script type="text/javascript">
+    $('#senha_2').on('change', function(){
+        if($('#senha_2').val() == '' && $('#senha_1').val() == ''){
+            return false;
+        }
+
+        if($('#senha_2').val() != $('#senha_1').val()){
+            swal("Erro", "As senha são diferentes uma da outra. Corrija! O botão de envio ficará desabilitado até que a correção seja efetuada.", "error");
+            $('.botao_enviar').attr('disabled', true);
+        }else{
+            $('.botao_enviar').attr('disabled', false);
+        }
+
+    });
+
+
+	var reordering = function(elements) {
+	  	// Called before the drag and drop starts with the elements in their starting position.
+	};
+
+	var reordered = function(modulos) {
+	  	// Called after the drag and drop ends with the elements in their ending position.
+		var nova_ordenacao = [];
+
+		$.each(modulos, function(index, item){
+			$('#ordem_' + $(this).data('id_modulo')).html((index + 1) + '°');
+
+			var modulo = {
+				'id_modulo': $(this).data('id_modulo'),
+				'modulo': $(this).data('modulo'),
+				'ordem':     index + 1
+			};
+
+			nova_ordenacao.push(modulo);
+	    });
+
+		$.ajax({
+            type: 'POST',
+            url: "/usuario/salvar_ordem_preferencial_menu_ajax",
+            data: {
+                data: nova_ordenacao
+            },
+            dataType: 'json',
+            async: true,
+            success: function(dados) {
+            }
+        });
+	};
+
+  	$('.gridly').gridly({
+	    base: 60, // px
+	    gutter: 20, // px
+	    columns: 12,
+  		callbacks: {
+  			reordering: reordering,
+  			reordered: reordered
+  		}
+	});
+</script>

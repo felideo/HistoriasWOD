@@ -3,8 +3,6 @@ php_value error_reporting 9999
 
 RewriteEngine On
 
-RewriteBase /~guilhermesiani/SianiMVC/
-
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l

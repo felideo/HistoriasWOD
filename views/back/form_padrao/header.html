@@ -1,0 +1,38 @@
+<div class="module-wrapper masonry-item col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <section class="module">
+        <div class="module-inner">
+            <div class="module-heading">
+                <h3 class="module-title">{if isset($cadastro)}Editar {$modulo.send}{elseif !empty($lazy_view)}Visualizar {$modulo.send}{else}Cadastrar {$modulo.send}{/if}</h3>
+                <ul class="actions list-inline">
+                    <li>
+                        {if !empty($lazy_view) || isset($cadastro)}
+                            <a class="collapse-module collapsed" data-toggle="collapse" href="#box_cadastro_padrao" aria-expanded="false" aria-controls="box_cadastro_padrao">
+                                <span aria-hidden="true" class="icon arrow_carrot-up"></span>
+                            </a>
+                        {else}
+                            <!-- <a class="collapse-module" data-toggle="collapse" href="#box_cadastro_padrao" aria-expanded="true" aria-controls="box_cadastro_padrao"> -->
+                            <a class="collapse-module collapsed" data-toggle="collapse" href="#box_cadastro_padrao" aria-expanded="false" aria-controls="box_cadastro_padrao">
+                                <span aria-hidden="true" class="icon arrow_carrot-up"></span>
+                            </a>
+                        {/if}
+                    </li>
+                </ul>
+            </div>
+            <form method="post" class="lazy_view" id="lazy_view"
+                {if isset($cadastro)}
+                    action="/{$modulo.modulo}/update/{$cadastro['id']}"
+                {else}
+                    action="/{$modulo.modulo}/create"
+                {/if}
+            >
+                {if !empty($lazy_view) || isset($cadastro)}
+                    <div class="module-content collapse in" id="box_cadastro_padrao" aria-expanded="true" style="">
+                {else}
+                    <!-- <div class="module-content collapse" id="box_cadastro_padrao" aria-expanded="false" style="height: 0px;"> -->
+                    <div class="module-content collapse in" id="box_cadastro_padrao" aria-expanded="true" style="">
+                {/if}
+
+                    <div class="module-content-inner no-padding-bottom">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-md">
+                                <div class="controls">

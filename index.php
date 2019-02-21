@@ -1,26 +1,25 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
 
-require 'config.php';
-require 'util/Auth.php';
+require 'framework/Error.php';
+require 'libs/functions.php';
 
-// spl_autoload_register
-function autoload($className) 
-{
-	$className = ltrim($className, '\\');
-	$fileName  = '';
-	$namespace = '';
-
-	if ($lastNsPos = strrpos($className, '\\')) {
-		$namespace = substr($className, 0, $lastNsPos);
-		$className = substr($className, $lastNsPos + 1);
-		$fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-	}
-
-	$fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-
-	require $fileName;
+if(file_exists('config.php')){
+	require 'config.php';
 }
 
-spl_autoload_register('autoload');
+require 'vendor/autoload.php';
 
-$lib = new Libs\Bootstrap();
+if((!defined('DEVELOPER') || empty(DEVELOPER)) &&
+	(!isset($_SESSION['mostrar_erros']) || empty($_SESSION['mostrar_erros'])) &&
+	(isset($_SESSION['mostrar_erros']) && $_SESSION['mostrar_erros'] != 'habilitado')
+){
+	error_reporting(0);
+	ini_set('display_startup_errors', 0);
+    ini_set('display_errors', 0);
+}
+
+\Libs\Session::init();
+new Framework\BigBang();

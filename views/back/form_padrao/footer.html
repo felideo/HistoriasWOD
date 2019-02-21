@@ -1,0 +1,22 @@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module-footer text-center">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="submit" class="btn btn-success botao_enviar pull-right">
+                                {if isset($cadastro)}Editar {$modulo.send}{else}Cadastrar Novo {$modulo.send}{/if}
+                            </button>
+
+                            {if isset($cadastro)}
+                                <button type="button" onclick="window.history.back();" class="btn btn btn-danger botao_voltar pull-right marginR10">
+                                    {if isset($cadastro)}Cancelar{else}Voltar{/if}
+                                </button>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

@@ -2,23 +2,27 @@
 // Configuração do Fuso Horário
 date_default_timezone_set('America/Sao_Paulo');
 
+$protocolo = !empty($_SERVER["HTTPS"]) ? "https://" : "http://";
+$url       = $protocolo . $_SERVER["HTTP_HOST"] . "/";
+
 // Sempre use barra (/) no final das URLs
-define('URL', 'http://localhost/~guilhermesiani/SianiMVC/');
-define('LIBS', 'libs/');
+define("URL", $url);
 
 // Configuração com Banco de Dados
 define('DB_TYPE', 'mysql');
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'framework');
+define('DB_HOST', '127.0.0.1');
+define('DB_NAME', 'FelideoMVC');
 define('DB_USER', 'root');
-define('DB_PASS', '123456');
+define('DB_PASS', 'lilith');
 
-// HASH KEY, nunca mude esta parte, pois é usada para as senhas!
-define('HASH_GENERAL_KEY', 'MixitUp200');
+define('DEVELOPER', true);
+define('PREVENT_CACHE', true);
 
-// Isto é apenas para o Banco de Dados
-define('HASH_PASSWORD_KEY', 'catsFLYhigh2000miles');
+define('APP_NAME', 'Felideo MVC');
 
-// Configuração de Imagens
-define('IMG_FOLDER', 'images/'); // Pasta das imagens sempre com "/" no final
-define('IMG_SIZE', '1000000'); // Tamanho máximo do arquivo em bytes
+if(function_exists('xdebug_disable')){
+		xdebug_disable();
+}
+
+define('EMAIL_EMAIL', '');
+define('EMAIL_SENHA', '');

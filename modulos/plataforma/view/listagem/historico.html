@@ -1,0 +1,117 @@
+<div class="row" style="display: block; clear: both;">
+<div class="module-wrapper masonry-item col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <section class="module">
+        <div class="module-inner">
+            <div class="module-heading">
+                <h3 class="module-title">Listagem de {$modulo.name}</h3>
+            </div>
+            <div class="module-content collapse in" id="content-listagem-{$modulo.modulo}">
+                <div class="module-content-inner no-padding-bottom">
+                    <div class="table-responsive">
+                        <table id="data_table" class="table table-striped display dataTable responsive" role="grid">
+                            <thead>
+                                <tr>
+                                    {foreach from=$colunas_datatable item=coluna}
+                                        {$coluna}
+                                    {/foreach}
+                                </tr>
+                            </thead>
+                            <!-- <tfoot>
+                                <tr>
+                                    {*foreach from=$colunas_datatable item=coluna*}
+                                        {*$coluna*}
+                                    {*/foreach*}
+                                </tr>
+                            </tfoot> -->
+                            <tbody>
+                                {if !empty($linhas_datatable)}
+                                    {foreach from=$linhas_datatable item=linhas}
+                                        <tr role="row" class="gradeA odd">
+                                            {foreach from=$linhas item=coluna_linha'}
+                                                {$coluna_linha}
+                                            {/foreach}
+                                        </tr>
+                                    {/foreach}
+                                {/if}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</div>
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+
+    $('#data_table').DataTable({
+        "order": [[ 0, "desc" ]],
+        "bProcessing": true,
+        "serverSide": true,
+        "responsive": true,
+        "bInfo" : false,
+        "scrollX": false,
+        "columnDefs": [
+            {"targets": [{/literal}{if isset($datatable.ordenacao_desabilitada) && !empty($datatable.ordenacao_desabilitada)}{$datatable.ordenacao_desabilitada}{else}{/if}{literal}], "orderable": false}
+        ],
+        "language": {
+            "url": "/public/back/js/DataTable-Portuguese-Brasil.json"
+        },
+        "ajax":{
+            url :"/{/literal}{$modulo.modulo}{literal}/carregar_dados_listagem_historico_ajax/{/literal}{$cadastro.id}{literal}",
+            type: "post",
+            error: function(){
+            },
+            complete: function(){
+                $.each($('.validar_deletar'), function(index, item){
+                    var link_deletar = $(this).attr('data-redirecionamento');
+                    var id_deletar = $(this).attr('data-id_registro');
+
+                    $(this).on('click', function(){
+                        swal({
+                            title: $(this).data('mensagem'),
+                            text: "Esta operação é irreversivel e de sua inteira responsabilidade!",
+                            type: "warning",
+
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            animation: "slide-from-top",
+                            dangerMode: true,
+                            confirmButtonColor: "#DD6B55",
+                            showLoaderOnConfirm: true,
+                        },
+                        function(inputValue){
+                            if(inputValue){
+                                window.location.href = link_deletar;
+                            }
+                        });
+                    });
+                });
+            }
+        }
+    });
+});
+
+</script>
+{/literal}
+
+<script type="text/javascript">
+
+        $('.validar_deletar').on('click', function(){
+        swal({
+              title: "Tem certeza que deseja deletar esse registro?",
+              // text: "Digite seu Email",
+              // type: "input",
+              showCancelButton: true,
+              closeOnConfirm: false,
+              animation: "slide-from-top",
+              // inputPlaceholder: "email@email.com.br",
+              showLoaderOnConfirm: true,
+            },
+            function(inputValue){
+                window.location.href = $(this).data('cu');
+            });
+        })
+</script>

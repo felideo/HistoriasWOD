@@ -1,0 +1,107 @@
+        </div>
+    </div>
+</div>
+
+
+
+<!--                         </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!--         <div id="config-panel" class="config-panel hidden-xs">
+            <div class="panel-inner">
+                <a id="config-trigger" class="config-trigger config-panel-hide" href="#"><i class="fa fa-cog"></i></a>
+                <div class="panel-section margin-bottom-md">
+                    <h5 class="panel-title">Choose Colour</h5>
+                    <ul id="color-options" class="list-unstyled list-unstyled">
+                        <li class="theme-1 active" ><a data-style="theme-1"></a></li>
+                        <li class="theme-2"><a data-style="theme-2" ></a></li>
+                        <li class="theme-3"><a data-style="theme-3" ></a></li>
+                        <li class="theme-4"><a data-style="theme-4" ></a></li>
+                    </ul>
+                </div>
+                <div class="panel-section">
+                    <h5 class="panel-title">Toggles</h5>
+                    <div class="checkbox">
+                        <label>
+                            <input id="demo-topalert-toggle" type="checkbox"> Top Alert
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input id="demo-footer-toggle" type="checkbox"> Footer
+                        </label>
+                    </div>
+                </div>
+                <a id="config-close" class="close" href="#"><span aria-hidden="true" class="icon icon_close"></span></a>
+            </div>
+        </div> -->
+
+<!--         <script src="/public/back/js/jquery.js"></script>
+        <script src="/public/back/js/bootstrap.js"></script>
+        <script src="/public/back/js/metisMenu.js"></script>
+        <script src="/public/back/js/imagesloaded.js"></script>
+        <script src="/public/back/js/masonry.js"></script>
+        <script src="/public/back/js/pace.js"></script>
+        <script src="/public/back/js/numeral.js"></script>
+        <script src="/public/back/js/jquery-jvectormap.js"></script>
+        <script src="/public/back/js/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="/public/back/js/jquery-charts-flot.js"></script>
+        <script src="/public/back/js/jquery-flot-tooltip.js"></script>
+        <script src="/public/back/js/jquery-flot-time.js"></script>
+        <script src="/public/back/js/jquery-charts-flot-pie.js"></script>
+        <script src="/public/back/js/jquery-flot-axislabels.js"></script>
+        <script src="/public/back/js/jquery-flot-symbol.js"></script>
+        <script src="/public/back/js/tether.js"></script>
+        <script src="/public/back/js/tether-shepherd.js"></script>
+        <script src="/public/back/js/main.js"></script>
+        <script src="/public/back/js/tour.js"></script>
+        <script src="/public/back/js/demo.js"></script>
+        <script src="/public/back/js/dashboard-projects.js"></script> -->
+
+        <!-- Sweet Alert -->
+        <!-- <script src="/public/sweetalert-master/dist/sweetalert.min.js"></script> -->
+
+        <!-- Autosize -->
+        <!-- <script type="text/javascript" src="/public/autosize-master/dist/autosize.js"></script> -->
+
+        <!-- Select2 3.  -->
+        <!-- <script src="/public/select2_gj/select2.js"></script> -->
+        <!-- <script  type="text/javascript"  src="/public/js/default.js"></script> -->
+
+        <!-- Mascaras -->
+        <!-- <script src="/public/js/jquery.mask.js"></script> -->
+        <!-- <script src="/public/js/mascaras.js"></script> -->
+        <!-- <script src="/public/js/validacoes.js"></script> -->
+        <!-- <script  type="text/javascript"  src="/public/js/default.js"></script> -->
+
+
+
+
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                {if isset($_SESSION['alertas'])}
+                    {$_SESSION['alertas']}
+                {/if}
+
+                {if isset($_SESSION['notificacoes'])}
+                    {foreach from=$_SESSION['notificacoes'] item=notificacao}
+                        {$notificacao}
+                    {/foreach}
+                {/if}
+            });
+
+            $(window).load(function(){
+                limpar_alertas_ajax();
+                limpar_notificacoes_ajax();
+            });
+        </script>
+
+    </body>
+</html>

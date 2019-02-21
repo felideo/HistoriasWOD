@@ -4,15 +4,14 @@ namespace Libs;
 /**
 * Classe Image
 */
-class Image
-{
+class Image {
 	private $file;
 	private $size = IMG_SIZE;
 	private $width;
 	private $height;
 	private $folder = IMG_FOLDER;
 	private $extension = array('jpg', 'png', 'gif');
-	
+
 	function __construct() {}
 
 	public function __set($property, $value)
@@ -27,13 +26,13 @@ class Image
 	 * @param $file contém dos dados da imagem para upload
 	 * @return $data com informação do nome do arquivo e pasta onde foi salvo
 	 */
-	public function upload($file)
-	{
-		$fileExtension = strtolower(end(explode('.', $file['image']['name'])));
+	public function upload($file) {
+
+		$fileExtension = strtolower(end(explode('.', $file['imagem']['name'])));
 
 		if (!in_array($fileExtension, $this->extension))
 			throw new \Exception("Este arquivo não possui uma das extensões: jpg, png ou gif.");
-		elseif ($file['image']['size'] > $this->size)
+		elseif ($file['imagem']['size'] > $this->size)
 			throw new \Exception("O arquivo ultrapassou o limite máximo de {$this->size} bytes");
 
 		if (!is_dir($this->folder)) {
@@ -41,7 +40,7 @@ class Image
 		}
 
 		$images = scandir($this->folder);
-		$filename = $file['image']['name'];
+		$filename = $file['imagem']['name'];
 		$i = 1;
 
 		while (in_array($filename, $images)) {
@@ -69,10 +68,10 @@ class Image
 			'folder'	=> $this->folder
 		);
 
-		if (move_uploaded_file($file['image']['tmp_name'], $uploadFile)) {
+		if (move_uploaded_file($file['imagem']['tmp_name'], $uploadFile)) {
 			return $data;
 		} else {
-			return false;		
+			return false;
 		}
 	}
 

@@ -8,13 +8,15 @@ namespace Libs;
  * @param string $salt O escudo
  * @return string A protegida/codificada $data
  */
-class Hash
-{
-	public static function create($algo, $data, $salt)
-	{
+class Hash {
+	public static function create($algo, $data, $salt) {
 		$context = hash_init($algo, HASH_HMAC, $salt);
 		hash_update($context, $data);
 
 		return hash_final($context);
+	}
+
+	public static function get_unic_hash() {
+		return md5(uniqid(rand(), true));
 	}
 }

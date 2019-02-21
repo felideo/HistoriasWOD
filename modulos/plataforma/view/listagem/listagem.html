@@ -1,0 +1,47 @@
+<div class="module-footer">
+	<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <ul class="list list-custom-style" style="padding-left: 0px;">
+            <li><i class="fa fa-check"></i>Com o modo desenvolvedor ativo, você sempre irá visualizar as versões mais atualizadas das páginas, mesmo sem ter efetuado a publicação.</li>
+        </ul>
+    </div>
+    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <button id="publicar_todas_paginas" class="btn btn-success botao_enviar pull-right">
+            Publicar Todas as Páginas
+        </button>
+
+        {if !empty($permissao_editar)}
+        	<a href="/{$modulo.modulo}/ativar_modo_desenvolvedor/{if empty($_SESSION.plataforma.modo_desenvolvedor)}1{else}0{/if}">
+        		<button id="publicar_todas_paginas" class="btn btn btn-primary botao_enviar pull-right" style="margin: 0px 10px 0px 10px;">
+        		    {if empty($_SESSION.plataforma.modo_desenvolvedor)}Ativar{else}Desativar{/if} Modo Desenvolvedor
+        		</button>
+    		</a>
+    	{/if}
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#publicar_todas_paginas').on('click', function(){
+			 swal({
+                title: 'Tem certeza de que deseja publicar a ultima versão de todas as páginas?',
+                text: "Isso irá apagar todas as paginas atuais e carregar a ultima versão atualizada. Esta operação é irreversivel e de sua inteira responsabilidade!",
+                type: "warning",
+
+                showCancelButton: true,
+                closeOnConfirm: false,
+                animation: "slide-from-top",
+                dangerMode: true,
+                confirmButtonColor: "#DD6B55",
+                showLoaderOnConfirm: true,
+            },
+            function(inputValue){
+                if(inputValue){
+                    window.location.href = '/plataforma/publicar_todas_paginas';
+                }
+            });
+		});
+	});
+</script>
+{include file='views/back/listagem_padrao/listagem_padrao.html'}

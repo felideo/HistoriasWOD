@@ -1,0 +1,210 @@
+.promo .iphone.iphone-black .iphone-holder{
+	background-image: none;
+}
+
+#ser_vivo_imagens .item  {
+    height: 366px;
+}
+
+#ser_vivo_imagens .item img  {
+	display: block;
+	width: 100%;
+}
+
+.carousel-indicators li{
+    border: 1px solid #444444 !important;
+}
+
+.carousel-indicators .active {
+	background-color: ##F1F1F1 !important;
+}
+
+.offset-header {
+    padding-top: 45px;
+}
+
+.promo .overview {
+    margin-top: 0px;
+}
+
+.carousel-inner .item img {
+    position:relative;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+#nome_binominal{
+	opacity: 0;
+	min-height: 39.6px;
+	font-style: italic;
+}
+
+.carousel-control {
+    opacity: 0;
+}
+.folha_text_shadow{
+	text-shadow: 0 4px 3px rgba(0,0,0,1) !important;
+}
+
+#map_wrapper {
+    height: 400px;
+}
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.forma_folha_outer{
+	padding: 10px;
+}
+
+.forma_folha_inner{
+	background: #FFFFFF;
+	border: 1px solid #000;
+	border-radius: 10px;
+	min-height: 120px;
+}
+
+.forma_folha_img{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	min-height: 120px;
+
+}
+
+.option_forma_folha .radio-inline{
+	padding-left: 0px !important;
+	margin-top: -10px;
+}
+
+.green_buttom{
+	color: white;
+	background-color: #317b5e;
+	font-size: 14px;
+	padding: 7px 20px;
+	background-image: none;
+}
+
+.btn-theme-cancel {
+    background: #de5a6a;
+    border: 1px solid #de5a6a;
+    color: #fff;
+}
+
+.btn-theme-cancel:hover{
+    background: #d63044;
+    border: 1px solid #d63044;
+    color: #fff;
+}
+
+.leaf {
+	background-image: url('/public/front_end/images/background/folhas_02.jpg');
+	background-color: #56bc94;
+	background-size: 100%;
+	background-blend-mode: luminosity;order:"
+}
+.item-inner{
+	padding: 10px;
+	min-height: 171px;
+}
+
+.item-inner img{
+	width: 100%;
+}
+
+.botao_listagem{
+	/*font-size: 20px;*/
+	/*padding: 5px;*/
+}
+
+.qq-upload-success{
+	display: none !important;
+}
+
+.qq-uploader{
+	min-height: 0px !important;
+}
+
+.story-container > .story-container-inner {
+    max-width: 100%;
+}
+
+.story-section .title {
+    color: #D4D4D4 !important;
+}
+
+.story-section .team {
+    max-width: 100% !important;
+}
+
+.odd .fa{
+	font-size: 21px !important;
+	margin: 5px !important;
+}
+
+.even .fa{
+	font-size: 21px !important;
+	margin: 5px !important;
+}
+
+.collapse-module.collapsed::before {
+    content: "Abrir Painel";
+}
+
+.collapse-module:not(.collapsed)::before {
+    content: "Fechar Painel";
+}
+
+input[type="text"]:disabled{
+    background-color: #FFFFFF;
+    color: #555;
+}
+
+.width100{
+	width: 100%;
+}
+
+.img-responsive.img-circle{
+	width: 20%;
+}
+
+.promo{
+	height: 420px;
+}
+
+table.dataTable thead th.sorting_disabled::after {
+    content: none !important;
+}
+
+.gridly {
+	position: relative;
+	width: 100%;
+}
+
+.brick.linha {
+	margin-left: 15px;
+	width: 90%;
+	border: 1px #dadae7 solid;
+	padding: 0px 7px 7px 7px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.brick.linha label{
+	cursor: pointer;
+}
+
+.fr-code {
+    width: 98%;
+    margin-left: 1%;
+}
+
+.main-nav-wrapper .main-nav .sub-menu li.active a{
+	border-left: 4px solid #40babd;
+}
+
+.main-nav-wrapper .main-nav .sub-menu li.sub-sub-menu a{
+	border-left: none;
+}
