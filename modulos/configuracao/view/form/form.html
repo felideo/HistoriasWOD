@@ -11,8 +11,8 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <label for="link">Email para Notificações * :</label>
-        <input class="form-control validar_email email_unico letras_e_numeros remover_caracteres_especiais" name="{$modulo.modulo}[email]" value="{if isset($cadastro)}{$cadastro.email}{/if}" required>
+        <label for="link">Email para Notificações :</label>
+        <input class="form-control validar_email letras_e_numeros remover_caracteres_especiais" name="{$modulo.modulo}[email]" value="{if isset($cadastro)}{$cadastro.email}{/if}" >
     </div>
 
     <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
@@ -30,26 +30,6 @@
             <option value="/public/front/css/styles-10.css" {if isset($cadastro) && $cadastro.cor_padrao == '/public/front/css/styles-10.css'} selected {/if} >Cinza</option>
         </select>
     </div>
-
-    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <label for="link">Politica de Aprovação e/ou Reprovação de Trabalho* :</label><br>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                <input type="radio" name="{$modulo.modulo}[politica_aprovacao]" value="1" {if isset($cadastro) && $cadastro.politica_aprovacao == 1} checked {/if} required> Qualquer usuario que possua permissão, pode aprovar o trabalho para ser exibido no site
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                <input type="radio" name="{$modulo.modulo}[politica_aprovacao]" value="2" {if isset($cadastro) && $cadastro.politica_aprovacao == 2} checked {/if} required> Somente o orientador do trabalho pode aprovar o trabalho para ser exibido no site
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                <input type="radio" name="{$modulo.modulo}[politica_aprovacao]" value="3" {if isset($cadastro) && $cadastro.politica_aprovacao == 3} checked {/if} required> Somente orientadores que não sejam o orientador do trabalho, podem aprovar o trabalho para ser exibido no site
-            </div>
-        </div>
-    </div>
-
 </div>
 
 

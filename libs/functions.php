@@ -279,3 +279,21 @@ function performance_stop(){
 
     debug2($retorno, $print_acha_facil);
 }
+
+function show_errors($show_erros = false){
+	if(!empty($show_erros)){
+		error_reporting(E_ALL);
+		ini_set('display_startup_errors', 1);
+		ini_set('display_errors', 1);
+
+		return;
+	}
+
+	error_reporting(0);
+	ini_set('display_startup_errors', 0);
+    ini_set('display_errors', 0);
+
+    return;
+}
+
+

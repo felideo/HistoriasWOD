@@ -1,5 +1,4 @@
 <?php
-namespace Framework;
 
 class Error extends \Exception{
 	private $backtrace;

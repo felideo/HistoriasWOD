@@ -26,6 +26,7 @@ class BigBang{
 		}
 
 		$this->load_friendly_url();
+
 		$this->identificar_arquivo_metodo_parametro();
 
 		$this->execute();
@@ -69,7 +70,7 @@ class BigBang{
 				exit;
 			}
 
-		}catch(\Framework\Error $e) {
+		}catch(\Error $e) {
 			$e->show_error(true);
 		}
 
@@ -79,31 +80,39 @@ class BigBang{
 	private function validate_execution(){
 		if(!isset($this->file_class_method_parameters['file']) || empty($this->file_class_method_parameters['file'])){
 			$this->error();
-			// throw new \Framework\Error('Erro ao identificar o arquivo a ser carregado.');
+			// throw new \Error('Erro ao identificar o arquivo a ser carregado.');
 		}
 
 		if(!isset($this->file_class_method_parameters['class']) || empty($this->file_class_method_parameters['class'])){
 			$this->error();
-			// throw new \Framework\Error('Erro ao identificar a classe a ser instanciada.');
+			// throw new \Error('Erro ao identificar a classe a ser instanciada.');
 		}
 
 		if(!isset($this->file_class_method_parameters['method']) || empty($this->file_class_method_parameters['method'])){
 			// $this->error();
-			// throw new \Framework\Error('Erro ao identificar o metodo a ser executado.');
+			// throw new \Error('Erro ao identificar o metodo a ser executado.');
 		}
 	}
 
 	private function load_friendly_url(){
-		if(!isset($this->url[1])){
-			return false;
-		}
-
-		if(@!defined(DB_NAME) || @!defined(DB_HOST) || @!defined(DB_USER) || @!defined(DB_PASS)){
-			return false;
-		}
+		// if(!isset($this->url[1])){
+		// 	return false;
+		// }
 
 	    $pdo = new \PDO('mysql:dbname=' . DB_NAME . ";host=" . DB_HOST, DB_USER, DB_PASS);
-	    $sql = $pdo->prepare("SELECT controller, metodo, id_controller FROM `url` WHERE controller = '{$this->url[0]}' AND url = '{$this->url[1]}' AND ativo = 1");
+
+	    $select = "SELECT controller, metodo, id_controller FROM `url` WHERE url = '{$this->url[0]}' AND ativo = 1";
+
+	    if(isset($this->url[1])){
+	    	$select = "SELECT controller, metodo, id_controller FROM `url` WHERE controller = '{$this->url[0]}' AND url = '{$this->url[1]}' AND ativo = 1";
+
+	    }
+
+	    // $sql = $pdo->prepare("SELECT controller, metodo, id_controller FROM `url` WHERE controller = '{$this->url[0]}' AND url = '{$this->url[1]}' AND ativo = 1");
+	    // $sql = $pdo->prepare("SELECT controller, metodo, id_controller FROM `url` WHERE url = '{$this->url[0]}' AND ativo = 1");
+	    $sql = $pdo->prepare($select);
+
+
 		$sql->execute();
 
 		$retorno = $sql->fetchAll(\PDO::FETCH_NUM);
@@ -112,7 +121,7 @@ class BigBang{
 			$this->url = [
 				$retorno[0][0],
 				$retorno[0][1],
-				$retorno[0][2],
+				$this->url[0],
 			];
 		}
 	}

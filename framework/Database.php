@@ -40,7 +40,7 @@ class Database extends \PDO {
 		];
 
 		if(isset($retorno[2][2]) && !empty($retorno[2][2])){
-			throw new \Framework\Error($retorno[2][2], $retorno[2][1]);
+			throw new \Error($retorno[2][2], $retorno[2][1]);
 		}
 
 		return $sth->fetchAll($fetchMode);
@@ -56,7 +56,7 @@ class Database extends \PDO {
 		];
 
 		if(isset($retorno[2][2]) && !empty($retorno[2][2])){
-			throw new \Framework\Error($retorno[2][2], $retorno[2][1]);
+			throw new \Error($retorno[2][2], $retorno[2][1]);
 		}
 
 		return $retorno;

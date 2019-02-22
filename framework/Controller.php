@@ -13,7 +13,10 @@ abstract class Controller {
 		$model = explode('\\', get_class($this));
 		$this->model = $this->get_model(strtolower(end($model)));
 
-		// $_SESSION['configuracoes'] = $this->model->full_load_by_id('configuracao', 1)[0];
+		if(method_exists($this->model, 'full_load_by_id')){
+			$_SESSION['configuracoes'] = $this->model->full_load_by_id('configuracao', 1)[0];
+		}
+
 		$this->view = new View();
 
 		$this->view->modulo = $this->modulo;
@@ -67,7 +70,8 @@ abstract class Controller {
 		$file          = "modulos/{$controller}/controller/{$subcontroller}.php";
 
 		if(!file_exists($file)){
-			throw new \Framework\Error('Controller Inexistente ' . $controller . ' - ' . $subcontroller);
+			get_declared_classes();
+			throw new \Error('Controller Inexistente ' . $controller . ' - ' . $subcontroller);
 		}
 
 		$instancia_controller = '\\Controller\\' . ucfirst($subcontroller);
@@ -93,7 +97,7 @@ abstract class Controller {
 
 		if(!file_exists($file)) {
 			// return new GenericModel();
-			throw new \Framework\Error('Model Inexistente ' . $model . ' - ' . $submodel);
+			throw new \Error('Model Inexistente ' . $model . ' - ' . $submodel);
 		}
 
 		$instancia_model = '\\Model\\' . ucfirst($submodel);
