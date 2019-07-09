@@ -61,6 +61,7 @@ class ControllerCrud extends \Framework\Controller {
 			$this->cadastrar_url($dados);
 		}
 
+
 		if(isset($retorno['status']) && !empty($retorno['status'])){
 			$this->view->alert_js(ucfirst($this->modulo['send']) . ' cadastrado com sucesso!!!', 'sucesso');
 		} else {

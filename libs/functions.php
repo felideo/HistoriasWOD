@@ -296,4 +296,22 @@ function show_errors($show_erros = false){
     return;
 }
 
+function carregar_trim($text) {
+    if (is_string($text)) {
+        return trim(preg_replace('/\s+/', ' ',$text));
+    }
 
+    if (is_array($text)) {
+        foreach ($text as $k => $v) {
+            $text[$k] = carregar_trim($text[$k]);
+        }
+        return $text;
+    }
+
+    if (is_object($text)) {
+        $l = get_object_vars($text);
+        foreach ($l as $k => $v) {
+            $text->$k = carregar_trim($v);
+        }
+    }
+}

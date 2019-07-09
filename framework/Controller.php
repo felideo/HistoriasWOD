@@ -71,7 +71,7 @@ abstract class Controller {
 
 		if(!file_exists($file)){
 			get_declared_classes();
-			throw new \Error('Controller Inexistente ' . $controller . ' - ' . $subcontroller);
+			throw new \Erro('Controller Inexistente ' . $controller . ' - ' . $subcontroller);
 		}
 
 		$instancia_controller = '\\Controller\\' . ucfirst($subcontroller);
@@ -97,7 +97,7 @@ abstract class Controller {
 
 		if(!file_exists($file)) {
 			// return new GenericModel();
-			throw new \Error('Model Inexistente ' . $model . ' - ' . $submodel);
+			throw new \Erro('Model Inexistente ' . $model . ' - ' . $submodel);
 		}
 
 		$instancia_model = '\\Model\\' . ucfirst($submodel);

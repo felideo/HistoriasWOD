@@ -70,7 +70,7 @@ class BigBang{
 				exit;
 			}
 
-		}catch(\Error $e) {
+		}catch(\Erro $e) {
 			$e->show_error(true);
 		}
 
@@ -80,17 +80,17 @@ class BigBang{
 	private function validate_execution(){
 		if(!isset($this->file_class_method_parameters['file']) || empty($this->file_class_method_parameters['file'])){
 			$this->error();
-			// throw new \Error('Erro ao identificar o arquivo a ser carregado.');
+			// throw new \Erro('Erro ao identificar o arquivo a ser carregado.');
 		}
 
 		if(!isset($this->file_class_method_parameters['class']) || empty($this->file_class_method_parameters['class'])){
 			$this->error();
-			// throw new \Error('Erro ao identificar a classe a ser instanciada.');
+			// throw new \Erro('Erro ao identificar a classe a ser instanciada.');
 		}
 
 		if(!isset($this->file_class_method_parameters['method']) || empty($this->file_class_method_parameters['method'])){
 			// $this->error();
-			// throw new \Error('Erro ao identificar o metodo a ser executado.');
+			// throw new \Erro('Erro ao identificar o metodo a ser executado.');
 		}
 	}
 

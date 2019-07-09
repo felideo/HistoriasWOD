@@ -20,7 +20,7 @@ class Instalacao {
 	        $this->create_tables();
 	        $this->criar_usuario();
 	    } catch (PDOException $e) {
-			throw new \Error($e->getMessage());
+			throw new \Erro($e->getMessage());
 	    }
 
 	    return ['sucesso' => true];

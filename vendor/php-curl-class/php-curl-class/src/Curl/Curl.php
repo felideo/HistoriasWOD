@@ -7,7 +7,7 @@ use Curl\Decoder;
 
 class Curl
 {
-    const VERSION = '8.5.0';
+    const VERSION = '8.6.0';
     const DEFAULT_TIMEOUT = 30;
 
     public $curl;
@@ -305,7 +305,7 @@ class Curl
 
             $mode = 'wb';
             // Attempt to resume download only when a temporary download file exists and is not empty.
-            if (file_exists($download_filename) && $filesize = filesize($download_filename)) {
+            if (is_file($download_filename) && $filesize = filesize($download_filename)) {
                 $mode = 'ab';
                 $first_byte_position = $filesize;
                 $range = $first_byte_position . '-';
@@ -596,6 +596,11 @@ class Curl
      */
     public function post($url, $data = '', $follow_303_with_post = false)
     {
+
+
+    	// debug2($data);
+    	// exit;
+
         if (is_array($url)) {
             $follow_303_with_post = (bool)$data;
             $data = $url;
@@ -1070,7 +1075,7 @@ class Curl
      */
     public function setProxyAuth($auth)
     {
-        $this-setOpt(CURLOPT_PROXYAUTH, $auth);
+        $this->setOpt(CURLOPT_PROXYAUTH, $auth);
     }
 
     /**
@@ -1136,8 +1141,13 @@ class Curl
     /**
      * Set Retry
      *
-     * Number of retries to attempt or decider callable. Maximum number of
-     * attempts is $maximum_number_of_retries + 1.
+     * Number of retries to attempt or decider callable.
+     *
+     * When using a number of retries to attempt, the maximum number of attempts
+     * for the request is $maximum_number_of_retries + 1.
+     *
+     * When using a callable decider, the request will be retried until the
+     * function returns a value which evaluates to false.
      *
      * @access public
      * @param  $mixed

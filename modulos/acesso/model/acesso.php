@@ -11,6 +11,7 @@ class Acesso extends \Framework\Model{
 
 	public function run_back($acesso){
 		$this->acesso = $acesso;
+		$this->acesso['senha'] = \Libs\Crypto::encode($this->acesso['senha']);
 
 		$this->verificar_usuario_senha();
 

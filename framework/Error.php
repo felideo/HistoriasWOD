@@ -1,6 +1,6 @@
 <?php
 
-class Error extends \Exception{
+class Erro extends \Exception{
 	private $backtrace;
 	private $error;
 

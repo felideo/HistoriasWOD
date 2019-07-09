@@ -10,6 +10,7 @@ class Painel_Controle extends \Framework\ControllerCrud {
 	];
 
 	public function index(){
+		\Libs\Auth::handLeLoggin('/');
 		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/painel_controle');
 	}
 }

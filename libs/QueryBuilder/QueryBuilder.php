@@ -285,7 +285,7 @@ class QueryBuilder{
 		];
 
 		if(isset($retorno[2][2]) && !empty($retorno[2][2])){
-			throw new \Error($retorno[2][2], $retorno[2][1]);
+			throw new \Erro($retorno[2][2], $retorno[2][1]);
 		}
 
 		return $sth->fetchAll(\PDO::FETCH_ASSOC);
