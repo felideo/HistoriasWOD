@@ -109,12 +109,16 @@ class Usuario extends \Framework\ControllerCrud {
 	public function insert_update($usuario, $where = null){
 		if(empty($where['id'])){
 			// $usuario['senha']         = \Libs\Hash::get_unic_hash()
-			$usuario['usuario']['senha'] = 12345;
 			$usuario['usuario']['ativo'] = 1;
 			$where['email']              = $usuario['usuario']['email'];
 		}
 
-		// $usuario['usuario']['email'] = 'felideo+swdb@gmail.com';
+		if(!isset($usuario['pessoa']['sobrenome'])){
+			$usuario['pessoa']['sobrenome'] = '';
+		}
+
+		unset($usuario['usuario']['senha_antiga']);
+		$usuario['usuario']['senha'] = \Libs\Crypto::encode($usuario['usuario']['senha']);
 
 		$usuario['usuario']['retorno'] = $this->model->insert_update(
 			$this->modulo['modulo'],
@@ -140,14 +144,14 @@ class Usuario extends \Framework\ControllerCrud {
 			// 	$email = new \Libs\Mail();
 
 			// 	$msg = "Olá {$verificacao_usuario['pessoa'][0]['nome']} {$verificacao_usuario['pessoa'][0]['sobrenome']}<br><br>"
-			// 		. " Voce foi cadastrado no sistema SWDB - http://swdb.felideo.com<br>"
+			// 		. " Voce foi cadastrado no sistema EXEMPLO - http://Pieces of a Crypto Mystery.com<br>"
 			// 		. " Sua senha é: {$verificacao_usuario['senha']}<br><br>"
-			// 		. " Para acessar use o link: http://swdb.felideo.com/acesso/admin";
+			// 		. " Para acessar use o link: Pieces of a Crypto Mystery/acesso/admin";
 
 			// 	$email->set_from(EMAIL_EMAIL)
 			// 		->set_pass(EMAIL_SENHA)
 			// 		->set_to(trim($verificacao_usuario['email']))
-			// 		->set_assunto('Cadastro no SWDB')
+			// 		->set_assunto('Cadastro no EXEMPLO')
 			// 		->set_mensagem($msg)
 			// 		->send_mail();
 			// }

@@ -5,6 +5,7 @@ use \Libs\QueryBuilder\QueryBuilder;
 abstract class Model {
 	private $db;
 	public  $query;
+	public $controller;
 
 	function __construct() {
 		$this->db    = new Database(DB_TYPE, DB_HOST, DB_NAME, DB_USER, DB_PASS);
@@ -164,5 +165,10 @@ abstract class Model {
 
 	public function depois_delete($table, $data, $where, $retorno){
 		return $data;
+	}
+
+	public function set_controller($controller){
+		$this->controller = $controller;
+		return $this;
 	}
 }

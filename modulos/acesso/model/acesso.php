@@ -9,11 +9,32 @@ class Acesso extends \Framework\Model{
 	private $session;
 	private $permissoes;
 
+	public function run_front($acesso){
+		$this->acesso = $acesso;
+		$this->acesso['senha'] = \Libs\Crypto::encode($this->acesso['senha']);
+
+		$this->verificar_usuario_senha();
+
+		if(empty($this->usuario)){
+			return false;
+		}
+
+		$controller_board = $this->controller->get_controller('board');
+		$board = $controller_board->carregar_board($this->usuario['id']);
+
+		\Libs\Session::set('logado', true);
+		\Libs\Session::set('usuario', $this->usuario);
+		\Libs\Session::set('board', $board);
+
+		return true;
+	}
+
 	public function run_back($acesso){
 		$this->acesso = $acesso;
 		$this->acesso['senha'] = \Libs\Crypto::encode($this->acesso['senha']);
 
 		$this->verificar_usuario_senha();
+
 
 		if(empty($this->usuario)){
 			return false;

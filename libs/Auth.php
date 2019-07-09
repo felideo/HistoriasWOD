@@ -2,13 +2,8 @@
 namespace Libs;
 
 class Auth {
-	public static function handLeLoggin($redirect = null) {
+	public static function handLeLoggin() {
 		if(!isset($_SESSION) || empty($_SESSION['logado'])){
-			if(!empty($redirect)){
-				header('location: ' . $redirect);
-				exit;
-			}
-
 			header('location: ' . Redirect::getUrl());
 			exit;
 		}

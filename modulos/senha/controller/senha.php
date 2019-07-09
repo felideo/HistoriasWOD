@@ -30,10 +30,10 @@ class Senha extends \Framework\Controller {
 				. "Redefinir Senha NeuroSis\n"
 				. "</a>\n";
 
-			$send_email->set_from('felideo@gmail.com')
+			$send_email->set_from('dninguem@gmail.com')
 				->set_to($usuario[0]['email'])
-				->set_assunto('NeuroSis - Recuperação de Senha')
-				->set_cco('felideo@gmail.com')
+				->set_assunto(APP_NAME . ' - Recuperação de Senha')
+				->set_cco('dninguem@gmail.com')
 				->set_mensagem($mensagem);
 
 			$retorno_email = $send_email->send_mail();

@@ -64,7 +64,7 @@ class Mail {
  		}
 
  		try {
-			$this->mail = new PHPMailer(true);
+			$this->mail = new \PHPMailer(true);
 
  			// debug2($this->sender);
  			// debug2($this->to);

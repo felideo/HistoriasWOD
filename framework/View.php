@@ -10,8 +10,7 @@ class View {
 		$this->dwoo->setCompileDir('template_compile');
 		$this->assign = new \Dwoo\Data();
 
-		$this->assign('app_name', @defined(APP_NAME) ? APP_NAME : 'FelideoMVC');
-		$this->assign('_SESSION', $_SESSION);
+		$this->assign('app_name', @defined(APP_NAME) ? APP_NAME : '');
 	}
 
 	public function assign($index, $data){
@@ -31,9 +30,15 @@ class View {
 			$this->mount_sidebar();
 		}
 
-		$header = new \Dwoo\Template\File('views/' 		. $header_footer 	. '/header.html');
-		$body   = new \Dwoo\Template\File('modulos/' 	. $body 			. '.html');
-		$footer = new \Dwoo\Template\File('views/' 		. $header_footer 	. '/footer.html');
+		if(!empty($header_footer)){
+			$header = new \Dwoo\Template\File('views/' 		. rtrim($header_footer, '/') 	. '/header.html');
+		}
+
+		$body   = new \Dwoo\Template\File('modulos/' 	. $body 			         	. '.html');
+
+		if(!empty($header_footer)){
+			$footer = new \Dwoo\Template\File('views/' 		. rtrim($header_footer, '/') 	. '/footer.html');
+		}
 
 		if(isset($this->lazy_view) && !empty($this->lazy_view)){
 			$this->assign('lazy_view', true);
@@ -41,17 +46,35 @@ class View {
 
 		$this->assign('_SESSION', $_SESSION);
 
-		echo $this->dwoo->get($header, $this->assign);
+		if(!empty($header_footer)){
+			echo $this->dwoo->get($header, $this->assign);
+		}
+
 		echo $this->dwoo->get($body, $this->assign);
-		echo $this->dwoo->get($footer, $this->assign);
+
+		if(!empty($header_footer)){
+			echo $this->dwoo->get($footer, $this->assign);
+		}
 
 		if(isset($this->lazy_view) && !empty($this->lazy_view)){
 			$lazy_view = new \Dwoo\Template\File('views/back/form_padrao/lazy_view.html');
 			echo $this->dwoo->get($lazy_view, $this->assign);
 		}
 
+		$this->clear_template_compile_folder();
 		exit;
 	}
+
+	private function clear_template_compile_folder(){
+		$folder = 'template_compile';
+		$files = glob($folder . '/*');
+		foreach($files as $file){
+		    if(is_file($file)){
+		        unlink($file);
+		    }
+		}
+	}
+
 
 	public function render_plataforma($identificador){
 		if(file_exists('views/plataforma/' . $identificador . '.html')){

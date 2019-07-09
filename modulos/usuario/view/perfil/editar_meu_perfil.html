@@ -4,12 +4,6 @@
 		<fieldset class="fieldset">
 			<h3 class="fieldset-title">Informações Pessoais</h3>
 			<div class="form-group">
-				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Titulo</label>
-				<div class="col-md-10 col-sm-9 col-xs-12">
-			    <input class="form-control somente_letras" type="text" name="{$modulo.modulo}[pessoa][pronome]" value="{if isset($cadastro)}{$cadastro.pessoa.0.pronome}{/if}" >
-				</div>
-			</div>
-			<div class="form-group">
 				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Nome</label>
 				<div class="col-md-10 col-sm-9 col-xs-12">
 					<input class="form-control embelezar_string somente_letras" name="{$modulo.modulo}[pessoa][nome]" value="{if isset($cadastro.pessoa.0)}{$cadastro.pessoa.0.nome}{/if}" type="text"  >
@@ -19,12 +13,6 @@
 				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Sobrenome</label>
 				<div class="col-md-10 col-sm-9 col-xs-12">
 		            <input class="form-control embelezar_string somente_letras" name="{$modulo.modulo}[pessoa][sobrenome]" value="{if isset($cadastro.pessoa.0)}{$cadastro.pessoa.0.sobrenome}{/if}" type="text"  >
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-2 col-sm-3 col-xs-12 control-label">Lattes/Site</label>
-				<div class="col-md-10 col-sm-9 col-xs-12">
-    			<input class="form-control" type="text" name="{$modulo.modulo}[pessoa][link]"  value="{if isset($cadastro)}{$cadastro.pessoa.0.link}{/if}">
 				</div>
 			</div>
 		</fieldset>

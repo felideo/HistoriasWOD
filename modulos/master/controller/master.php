@@ -35,7 +35,7 @@ class Master extends \Framework\Controller {
 			exit;
 		}
 
-		echo shell_exec("sudo sh /www/swdb/automatic_deploy.sh");
+		echo shell_exec("sudo sh /www/pieces_of_a_crypto_mystery/automatic_deploy.sh");
 		exit;
 	}
 
@@ -45,7 +45,7 @@ class Master extends \Framework\Controller {
 	}
 
 	public function sudo_service_elastic_search_restart(){
-		echo shell_exec("sudo sh /www/swdb/sudo_service_elastic_search_restart.sh");
+		echo shell_exec("sudo sh /www/pieces_of_a_crypto_mystery/sudo_service_elastic_search_restart.sh");
 		exit;
 	}
 }

@@ -13,10 +13,7 @@ abstract class Controller {
 		$model = explode('\\', get_class($this));
 		$this->model = $this->get_model(strtolower(end($model)));
 
-		if(method_exists($this->model, 'full_load_by_id')){
-			$_SESSION['configuracoes'] = $this->model->full_load_by_id('configuracao', 1)[0];
-		}
-
+		$_SESSION['configuracoes'] = $this->model->full_load_by_id('configuracao', 1)[0];
 		$this->view = new View();
 
 		$this->view->modulo = $this->modulo;
@@ -70,7 +67,6 @@ abstract class Controller {
 		$file          = "modulos/{$controller}/controller/{$subcontroller}.php";
 
 		if(!file_exists($file)){
-			get_declared_classes();
 			throw new \Erro('Controller Inexistente ' . $controller . ' - ' . $subcontroller);
 		}
 
@@ -105,6 +101,7 @@ abstract class Controller {
 		require_once $file;
 
 		$this->models[$model . '_' . $submodel] = new $instancia_model;
+		$this->models[$model . '_' . $submodel]->set_controller($this);
 
 		return $this->models[$model . '_' . $submodel];
 	}

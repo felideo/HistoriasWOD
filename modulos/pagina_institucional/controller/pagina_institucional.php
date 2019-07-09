@@ -54,3 +54,4 @@ class Pagina_institucional extends \Framework\ControllerCrud {
 
 	}
 }
+
