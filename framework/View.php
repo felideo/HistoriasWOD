@@ -4,8 +4,10 @@ namespace Framework;
 class View {
 	private $dwoo;
 	private $assign;
+	private $core_modulo;
 
-	function __construct(){
+	function __construct($core_modulo = 'modulo'){
+		$this->core_modulo = $core_modulo;
 		$this->dwoo   = new \Dwoo\Core();
 		$this->dwoo->setCompileDir('template_compile');
 		$this->assign = new \Dwoo\Data();
@@ -34,7 +36,7 @@ class View {
 			$header = new \Dwoo\Template\File('views/' 		. rtrim($header_footer, '/') 	. '/header.html');
 		}
 
-		$body   = new \Dwoo\Template\File('modulos/' 	. $body 			         	. '.html');
+		$body   = new \Dwoo\Template\File($this->core_modulo . '/' 	. $body 			         	. '.html');
 
 		if(!empty($header_footer)){
 			$footer = new \Dwoo\Template\File('views/' 		. rtrim($header_footer, '/') 	. '/footer.html');

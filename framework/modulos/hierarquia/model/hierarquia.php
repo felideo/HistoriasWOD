@@ -62,8 +62,8 @@ class Hierarquia extends \Framework\Model{
 			$retorno[0]['hierarquia_relaciona_permissao'] = $permissoes;
 
 			return $retorno[0];
-		}catch(Exception $e){
-            if (ERROS) throw new Exception('<pre>' . $e->getMessage() . '</pre>');
+		}catch(\Fail $e){
+            $e->show_error(true);
 
 		}
 	}

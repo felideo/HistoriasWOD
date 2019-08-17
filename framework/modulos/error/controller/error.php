@@ -10,6 +10,7 @@ class Error extends \Framework\Controller {
 	];
 
 	public function index() {
+		http_response_code (404);
 		$this->view->render('back/cabecalho_rodape', $this->modulo['modulo'] . '/view/error/error');
 	}
 }

@@ -1,14 +1,12 @@
 <?php
 namespace Framework;
 
-use Libs\URL;
-
 class ControllerCrud extends \Framework\Controller {
 	protected $modulo    = [];
 	protected $datatable = [];
 
-	public function __construct() {
-		parent::__construct();
+	public function __construct($core_module) {
+		parent::__construct($core_module);
 		$this->view->modulo = $this->modulo;
 		$this->view->assign('modulo', $this->modulo);
 	}

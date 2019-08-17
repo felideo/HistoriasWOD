@@ -6,8 +6,8 @@ class Database extends \PDO {
 		try {
 			parent::__construct($DB_TYPE.':host='.$DB_HOST.';dbname='.$DB_NAME, $DB_USER, $DB_PASS);
 			parent::exec("SET CHARACTER SET utf8");
-		} catch(Exception $e) {
-			die('Falha de conexão com o Banco de Dados.');
+		} catch(\Fail $e) {
+			$e->show_error(true);
 		}
 	}
 
@@ -86,8 +86,8 @@ class Database extends \PDO {
 				$sth->errorCode(),
 				$sth->errorInfo()
 			];
-		}catch(Exception $e){
-            if (ERROS) throw new Exception($e->getMessage());
+		}catch(\Fail $e){
+            $e->show_error(true);
 		}
 
 		return [
@@ -139,8 +139,8 @@ class Database extends \PDO {
 				$sth->errorCode(),
 				$sth->errorInfo()
 			];
-		}catch(Exception $e){
-            if (ERROS) throw new Exception($e->getMessage());
+		}catch(\Fail $e){
+            $e->show_error(true);
 		}
 
 		return [

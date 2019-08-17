@@ -2,10 +2,19 @@
 namespace Framework;
 
 abstract class Controller {
+	protected $core_module;
 	private $models      = [];
 	private $controllers = [];
 
-	public function __construct() {
+	public function __construct(){
+	}
+
+	public function set_core_module($core_module){
+		$this->core_module = $core_module;
+		return $this;
+	}
+
+	public function execute(){
 		$this->define_modulo();
 
 		$_SESSION['modulo_ativo'] = $this->modulo['modulo'];
@@ -14,7 +23,7 @@ abstract class Controller {
 		$this->model = $this->get_model(strtolower(end($model)));
 
 		$_SESSION['configuracoes'] = $this->model->full_load_by_id('configuracao', 1)[0];
-		$this->view = new View();
+		$this->view = new View($this->core_module);
 
 		$this->view->modulo = $this->modulo;
 
@@ -64,7 +73,7 @@ abstract class Controller {
 		}
 
 		$subcontroller = (!empty($subcontroller) ? $subcontroller : $controller);
-		$file          = "modulos/{$controller}/controller/{$subcontroller}.php";
+		$file          = "{$this->core_module}/{$controller}/controller/{$subcontroller}.php";
 
 		if(!file_exists($file)){
 			throw new \Erro('Controller Inexistente ' . $controller . ' - ' . $subcontroller);
@@ -89,11 +98,11 @@ abstract class Controller {
 		}
 
 		$submodel = (!empty($submodel) ? $submodel : $model);
-		$file          = "modulos/{$model}/model/{$submodel}.php";
+		$file          = "{$this->core_module}/{$model}/model/{$submodel}.php";
 
 		if(!file_exists($file)) {
 			// return new GenericModel();
-			throw new \Erro('Model Inexistente ' . $model . ' - ' . $submodel);
+			throw new \Fail('Model Inexistente ' . $model . ' - ' . $submodel);
 		}
 
 		$instancia_model = '\\Model\\' . ucfirst($submodel);

@@ -5,8 +5,6 @@ class Acesso extends \Framework\Controller {
 
 	protected $modulo = [
 		'modulo' 	=> 'acesso',
-		'name'		=> 'Acesso',
-		'send'		=> 'Acesso'
 	];
 
 	public function index($parametros){

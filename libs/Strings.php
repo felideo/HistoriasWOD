@@ -26,7 +26,7 @@ abstract class Strings{
 	// Remove todos os acentos da string
 	// Substitu espaço por underline
     static function limparStringCompleto($string, $caractere_replace = '-'){
-    	return remover_acentos(str_replace(' ', $caractere_replace, self::limparString($string)));
+    	return Strings::remover_acentos(str_replace(' ', $caractere_replace, self::limparString($string)));
     }
 
     static function somenteNumeros($string){

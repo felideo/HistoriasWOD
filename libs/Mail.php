@@ -91,15 +91,8 @@ class Mail {
 
 
 		    debug2($this->mail->send());
-		} catch (Exception $e){
-	        $error = [
-	           'exception_msg' => $e->getMessage(),
-	           'code'          => $e->getCode(),
-	           'localizador'   => "Class => " . __CLASS__ . " - Function => " . __FUNCTION__ . "() - Line => " . __LINE__,
-	           'line'          => $e->getLine(),
-	           'file'          => $e->getFile(),
-	           'backtrace'     => $e->getTraceAsString(),
-	        ];
+		} catch (\Fail $e){
+	        $e->show_error(true);
 
 	        debug2($error);
 	        exit;

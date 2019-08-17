@@ -10,13 +10,7 @@ class URL {
 	private $metodo;
 
 	public function __construct(){
-
 		$this->model = new \Framework\GenericModel();
-	}
-
-	public static function modulo_url($url) {
-		$url = explode('/', $url);
-		return $url;
 	}
 
 	public function cadastrarUrlAmigavel(){

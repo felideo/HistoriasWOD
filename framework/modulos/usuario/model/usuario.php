@@ -59,8 +59,8 @@ class Usuario extends \Framework\Model{
 			$select = "SELECT * FROM usuario WHERE email = '{$email}' AND ativo = 1";
 
 			return $this->select($select);
-		}catch(Exception $e){
-            if (ERROS) throw new Exception('<pre>' . $e->getMessage() . '</pre>');
+		}catch(\Fail $e){
+            $e->show_error(true);
 		}
 	}
 
@@ -68,8 +68,8 @@ class Usuario extends \Framework\Model{
 		try {
 			$select = "SELECT * FROM usuario WHERE token = '{$token}'";
 			return $this->select($select);
-		}catch(Exception $e){
-            if (ERROS) throw new Exception('<pre>' . $e->getMessage() . '</pre>');
+		}catch(\Fail $e){
+            $e->show_error(true);
 		}
 	}
 

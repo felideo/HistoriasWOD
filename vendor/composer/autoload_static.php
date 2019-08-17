@@ -4,8 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit325366b012c31d9646a698e42c71ed54
+class ComposerStaticInit182071bef4ba7abf3f4185ff002f29d1
 {
+    public static $files = array (
+        '2c0c79444069dd013c85805496406646' => __DIR__ . '/..' . '/felideo/debug2/src/debug2.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'U' => 
         array (
@@ -63,8 +67,8 @@ class ComposerStaticInit325366b012c31d9646a698e42c71ed54
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit325366b012c31d9646a698e42c71ed54::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit325366b012c31d9646a698e42c71ed54::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit182071bef4ba7abf3f4185ff002f29d1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit182071bef4ba7abf3f4185ff002f29d1::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

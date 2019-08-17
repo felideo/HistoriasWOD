@@ -1,44 +1,4 @@
 <?php
-
-function debug2($var, $legenda = false, $exit = false) {
-    echo "\n<pre style='position: relative; z-index: 99999;''>";
-    echo "============================ DEBUG2 OFICIAL ==========================\n";
-
-    foreach($GLOBALS as $var_name => $value) {
-        if ($value === $var) {
-
-            $variavel = "Variavel => $" . $var_name;
-
-            $tamanho = strlen ($variavel);
-            $tabs = str_repeat('&nbsp;', (70 - $tamanho) / 2);
-            echo $tabs . $variavel . "\n";
-        }
-    }
-
-    if ($legenda){
-        $legenda = strtoupper($legenda);
-        $tamanho = strlen ($legenda);
-        $tabs = str_repeat('&nbsp;', (70 - $tamanho) / 2);
-        echo $tabs . $legenda . "\n\n";
-    }
-    if (is_array($var) || is_object($var)) {
-        echo htmlentities(print_r($var, true));
-    } elseif (is_string($var)) {
-        echo "string(" . strlen($var) . ") \"" . htmlentities($var) . "\"\n";
-    } else {
-        var_dump($var);
-    }
-    echo "\n";
-    debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-    echo "\n";
-
-    echo "</pre>";
-
-    if ($exit) {
-        die;
-    }
-}
-
 function toText($msg){
     ob_start();
     echo "\n<pre>";
@@ -163,97 +123,6 @@ function transformar_numero($numero, $forcar_verificacao = false) {
     return $var;
 }
 
-function performance_start($acha_facil = false){
-    unset($_SESSION['performance_test']);
-    $_SESSION['performance_test']['acha_facil'] = $acha_facil;
-
-    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-
-    $_SESSION['performance_test'] = [
-        'start'        => microtime(true),
-        'memory_start' => memory_get_peak_usage(true),
-        'place'        => [
-            'start' => [
-                'class'    => isset($backtrace[1]['class']) ? $backtrace[1]['class'] : '',
-                'line'     => $backtrace[0]['line'],
-                'function' => isset($backtrace[1]) ? $backtrace[1]['function'] : $backtrace[0]['function'],
-                'file'     => $backtrace[0]['file']
-            ]
-        ]
-    ];
-}
-
-function performance_stop(){
-    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-    $index_backtrace = [0, 1];
-
-    if($backtrace[1]['function'] == 'performance_start'){
-        $index_backtrace = [1, 2];
-    }
-
-    if(!isset($_SESSION['performance_test']['start']) || !is_array($_SESSION['performance_test'])){
-        $erro = [
-            'error' => 'Obrigatorio efetuar a chamada de performance_start() anterior a performance_stop()',
-            'place' => [
-                'end' => [
-                    'class'    => isset($backtrace[$index_backtrace[1]]['class']) ? $backtrace[$index_backtrace[1]]['class'] : '',
-                    'line'     => $backtrace[$index_backtrace[0]]['line'],
-                    'function' => $backtrace[$index_backtrace[1]]['function'],
-                    'file'     => $backtrace[$index_backtrace[0]]['file']
-                ]
-            ]
-        ];
-
-        debug2($erro, $_SESSION['performance_test']['acha_facil']);
-        exit;
-    }
-
-    $_SESSION['performance_test'] += [
-        'end'        => microtime(true),
-        'memory_end' => memory_get_peak_usage(true)
-    ];
-
-    $_SESSION['performance_test']['duration'] = $_SESSION['performance_test']['end'] - $_SESSION['performance_test']['start'];
-
-
-
-    $_SESSION['performance_test']['place']['end'] = [
-        'class'    => isset($backtrace[$index_backtrace[1]]['class']) ? $backtrace[$index_backtrace[1]]['class'] : '',
-        'line'     => $backtrace[$index_backtrace[0]]['line'],
-        'function' => $backtrace[$index_backtrace[1]]['function'],
-        'file'     => $backtrace[$index_backtrace[0]]['file']
-    ];
-
-    $duration =  $_SESSION['performance_test']['end'] - $_SESSION['performance_test']['start'];
-
-    $hours        = round(($duration / 60 / 60), 2);
-    $minutes      = round(($duration / 60) - $hours * 60, 2);
-    $seconds      = round($duration - $hours * 60 * 60 - $minutes * 60, 2);
-    // $microseconds = (float) ($duration - $seconds - ($minutes * 60));
-    $milisegundos = round($_SESSION['performance_test']['duration'] * 1000, 2);
-
-    $_SESSION['performance_test']['duration'] = [
-        'horas'        => $hours,
-        'minutos'      => $minutes,
-        'segundos'     => $seconds,
-        'milisegundos' => $milisegundos,
-    ];
-
-    $retorno = [
-        'memory_start' => $_SESSION['performance_test']['memory_start'] / 1048576 . ' Mb',
-        'memory_end'   => $_SESSION['performance_test']['memory_end'] / 1048576 . ' Mb',
-        'memory_usage' => ($_SESSION['performance_test']['memory_end'] - $_SESSION['performance_test']['memory_start']) / 1048576 . ' Mb',
-        'place'        => $_SESSION['performance_test']['place'],
-        'duration'     => $_SESSION['performance_test']['duration'],
-    ];
-
-    unset($_SESSION['performance_test']);
-
-    debug2($retorno, $print_acha_facil);
-    unset($_SESSION['performance_test']);
-
-}
-
 function show_errors($show_erros = false){
 	if(!empty($show_erros)){
 		error_reporting(E_ALL);
@@ -268,8 +137,4 @@ function show_errors($show_erros = false){
     ini_set('display_errors', 0);
 
     return;
-}
-
-function remover_acentos($string){
-    return preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),$string);
 }

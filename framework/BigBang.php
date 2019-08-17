@@ -5,42 +5,45 @@ class BigBang{
 	private $url;
 	private $file_class_method_parameters;
 
-	public function __construct(){
+	public function expanse(){
 		$this->get_url();
 		$this->acelerate_return_inexistente_file();
-
-		// if(empty($this->url['path'][0])){
-		if($this->url['path'][0] === ''){
-			$this->index();
-		}
-
+		$this->is_index();
 		$this->load_friendly_url();
+		$this->is_core_module();
 		$this->identificar_arquivo_metodo_parametro();
 		$this->execute();
 	}
 
 	private function get_url(){
-		$this->url         = URL::get_url();
-		$this->url         = ['full' => $this->url] + parse_url($this->url);
+		$url = new URL();
+
+		$this->url = array_merge(['url' => $url->get_url()], $url->get_parsed());
 		$this->url['path'] = explode('/', trim($this->url['path'], '/'));
+
+		if(isset($this->url['query'])){
+			parse_str($this->url['query'], $this->url['query']);
+		}
 	}
 
 	private function acelerate_return_inexistente_file(){
-		if(count(explode('.', end($this->url['path']))) > 1){
+		if(substr_count(end($this->url['path']), '.') > 0){
 			http_response_code (404);
 			exit;
 		}
 	}
 
-	private function index(){
-		$this->file_class_method_parameters = [
-			'file'       => 'modulos/index/controller/index.php',
-			'class'      => 'Index',
-			'method'     => 'index',
-			'parameters' => null
-		];
-
-		$this->execute();
+	private function is_index(){
+		if(empty($this->url['path'][0])){
+			$this->file_class_method_parameters = [
+				'file'       => 'modulos/index/controller/index.php',
+				'class'      => 'Index',
+				'method'     => 'index',
+				'parameters' => null
+			];
+			$this->url['core_module'] = 'modulos';
+			$this->execute();
+		}
 	}
 
 	private function load_friendly_url(){
@@ -65,21 +68,35 @@ class BigBang{
 		}
 	}
 
-	private function identificar_arquivo_metodo_parametro(){
-		$file_class_method_parameters = $this->url['path'];
+	private function is_core_module(){
+		$this->url['core_module'] = null;
 
-		if(!file_exists("modulos/{$file_class_method_parameters[0]}/controller/{$file_class_method_parameters[0]}.php")){
+		if(file_exists("modulos/{$this->url['path'][0]}/controller/{$this->url['path'][0]}.php")){
+			$this->url['core_module'] = 'modulos';
+			return;
+		}elseif(file_exists("framework/modulos/{$this->url['path'][0]}/controller/{$this->url['path'][0]}.php")){
+			$this->url['core_module'] = 'framework/modulos';
+			return;
+		}
+	}
+
+	private function identificar_arquivo_metodo_parametro(){
+		if(!file_exists("{$this->url['core_module']}/{$this->url['path'][0]}/controller/{$this->url['path'][0]}.php")){
 			$this->error();
 		}
 
-		$this->file_class_method_parameters['file']  = "modulos/{$file_class_method_parameters[0]}/controller/{$file_class_method_parameters[0]}.php";
-		$this->file_class_method_parameters['class'] = implode('_', array_map('ucfirst', explode('_', $file_class_method_parameters[0])));
-		$this->file_class_method_parameters['method'] = isset($file_class_method_parameters[1]) ? $file_class_method_parameters[1] : 'index';
-		unset($file_class_method_parameters[0], $file_class_method_parameters[1]);
+		$this->file_class_method_parameters['file']   = "{$this->url['core_module']}/{$this->url['path'][0]}/controller/{$this->url['path'][0]}.php";
+		$this->file_class_method_parameters['class']  = $this->url['path'][0];
+		$this->file_class_method_parameters['method'] = isset($this->url['path'][1]) ? $this->url['path'][1] : 'index';
+		unset($this->url['path'][0], $this->url['path'][1]);
 		$this->file_class_method_parameters['parameters'] = [];
 
-		if(!empty($file_class_method_parameters)){
-			$this->file_class_method_parameters['parameters'] = array_values($file_class_method_parameters);
+		if(!empty($this->url['path'])){
+			$this->file_class_method_parameters['parameters'] = array_values($this->url['path']);
+		}
+
+		if(isset($this->url['query'])){
+			$this->file_class_method_parameters['parameters']['query'] = $this->url['query'];
 		}
 	}
 
@@ -88,18 +105,18 @@ class BigBang{
 			require_once $this->file_class_method_parameters['file'];
 
 			$controller = '\\Controller\\' . $this->file_class_method_parameters['class'];
-			$controller = new $controller;
+			$controller = new $controller();
+			$controller->set_core_module($this->url['core_module'])
+				->execute();
 
 			if(method_exists($controller, $this->file_class_method_parameters['method'])){
 				$controller->{$this->file_class_method_parameters['method']}($this->file_class_method_parameters['parameters']);
 				exit;
 			}
 
-			if($this->file_class_method_parameters['method'] == 'index'){
-				$controller->index($this->file_class_method_parameters['parameters']);
-				exit;
-			}
-		}catch(\Erro $e) {
+			$controller->index(array_merge([$this->file_class_method_parameters['method']], $this->file_class_method_parameters['parameters']));
+			exit;
+		}catch(\Fail $e) {
 			$e->show_error(true);
 		}
 

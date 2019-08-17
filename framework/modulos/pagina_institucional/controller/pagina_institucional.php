@@ -3,7 +3,7 @@ namespace Controller;
 
 use Libs;
 
-class Pagina_institucional extends \Framework\ControllerCrud {
+class pagina_institucional extends \Framework\ControllerCrud {
 
 	protected $modulo = [
 		'modulo' => 'pagina_institucional',

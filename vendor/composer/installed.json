@@ -42,6 +42,50 @@
         "abandoned": "twig/twig"
     },
     {
+        "name": "felideo/debug2",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/felideo/debug2.git",
+            "reference": "3da1cf9de4400eedc7e58f196ad6ad8df9853a4f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/felideo/debug2/zipball/3da1cf9de4400eedc7e58f196ad6ad8df9853a4f",
+            "reference": "3da1cf9de4400eedc7e58f196ad6ad8df9853a4f",
+            "shasum": ""
+        },
+        "time": "2019-07-20T23:26:44+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "files": [
+                "src/debug2.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Felideo Desittale Paravimnce",
+                "email": "felideo@gmail.com"
+            }
+        ],
+        "description": "Debug2 is a function developed to debug PHP code of form easy, simple, pretty print, fast and safe.",
+        "keywords": [
+            "Pretty print",
+            "dd",
+            "debug",
+            "full backtrace",
+            "print_r",
+            "profiler",
+            "var_dump"
+        ]
+    },
+    {
         "name": "php-curl-class/php-curl-class",
         "version": "8.6.0",
         "version_normalized": "8.6.0.0",
@@ -117,12 +161,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/PHPMailer/PHPMailer.git",
-            "reference": "511413a6eaeb167fa88282d437766d34510548b8"
+            "reference": "b8e6a92d418db01dfef4ef637c5aa9e9b14261f8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/511413a6eaeb167fa88282d437766d34510548b8",
-            "reference": "511413a6eaeb167fa88282d437766d34510548b8",
+            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/b8e6a92d418db01dfef4ef637c5aa9e9b14261f8",
+            "reference": "b8e6a92d418db01dfef4ef637c5aa9e9b14261f8",
             "shasum": ""
         },
         "require": {
@@ -147,7 +191,7 @@
             "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
             "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
         },
-        "time": "2019-06-05T13:16:33+00:00",
+        "time": "2019-08-02T20:30:58+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -161,12 +205,12 @@
         ],
         "authors": [
             {
-                "name": "Jim Jagielski",
-                "email": "jimjag@gmail.com"
-            },
-            {
                 "name": "Marcus Bointon",
                 "email": "phpmailer@synchromedia.co.uk"
+            },
+            {
+                "name": "Jim Jagielski",
+                "email": "jimjag@gmail.com"
             },
             {
                 "name": "Andy Prevost",
