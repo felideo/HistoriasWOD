@@ -33,8 +33,8 @@ class Banner extends \Framework\ControllerCrud {
 	}
 
 	public function delete($id) {
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "deletar");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "deletar");
 
 		$this->check_if_exists($id[0]);
 

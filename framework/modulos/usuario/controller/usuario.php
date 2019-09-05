@@ -17,9 +17,7 @@ class Usuario extends \Framework\ControllerCrud {
 		'ordenacao_desabilitada' => '3, 4'
 	];
 
-
 	public function middle_index() {
-
 		$this->view->assign('hierarquia_list', $this->model->load_active_list('hierarquia'));
 	}
 
@@ -33,7 +31,7 @@ class Usuario extends \Framework\ControllerCrud {
 		}
 
 		$url = URL;
-		$permissao_remover_acesso = \Libs\Permission::check_user_permission($this->modulo['modulo'], 'remover_conceder_acesso');
+		$permissao_remover_acesso = $this->universe->permission->check_user_permission($this->modulo['modulo'], 'remover_conceder_acesso');
 
 		if(empty($query)){
 			$query = [];
@@ -72,8 +70,8 @@ class Usuario extends \Framework\ControllerCrud {
 	}
 
 	public function remover_conceder_acesso($parametros){
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "remover_conceder_acesso");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "remover_conceder_acesso");
 
 		$this->check_if_exists($parametros[0]);
 
@@ -190,7 +188,7 @@ class Usuario extends \Framework\ControllerCrud {
 	}
 
 	public function editar_meu_perfil($id){
-		\Libs\Auth::handLeLoggin();
+		$this->universe->auth->is_logged(true);
 
 		if($_SESSION['usuario']['id'] != $id[0]){
 			header('location: /usuario/editar_meu_perfil/' . $_SESSION['usuario']['id']);
@@ -206,7 +204,7 @@ class Usuario extends \Framework\ControllerCrud {
 	}
 
 	public function update_meus_dados($id){
-		\Libs\Auth::handLeLoggin();
+		$this->universe->auth->is_logged(true);
 
 		if($_SESSION['usuario']['id'] != $id[0]){
 			header('location: /usuario/editar_meu_perfil/' . $_SESSION['usuario']['id']);
@@ -316,58 +314,6 @@ class Usuario extends \Framework\ControllerCrud {
 
 
 
-
-
-
-
-
-
-
-
-
-	private function listagem($dados_linha){
-		debug2($dados_linha);
-		exit;
-
-		if(empty($dados_linha)){
-			return false;
-		}
-
-		foreach ($this->model->load_active_list('hierarquia') as $indice => $hierarquia) {
-			$hierarquias[$hierarquia['id']] = $hierarquia['nome'];
-		};
-
-		foreach ($dados_linha as $indice => $linha) {
-			if($linha['super_admin'] != 1){
-
-				$hierarquia_exibicao = isset($hierarquias[$linha['hierarquia']]) ? $hierarquias[$linha['hierarquia']] : 'Usuario Site' ;
-
-			$botao_permitir_cadastro = $linha['hierarquia'] == 2 ?
-				"<a href='/{$this->modulo['modulo']}/permitir_cadastro/{$linha['id']}' title='Permitir Cadastro'><i class='fa fa-thumbs-up fa-fw'></i></a>" :
-				'';
-
-
-			$botao_proibir_cadastro = $linha['hierarquia'] == 4 ?
-				"<a href='/{$this->modulo['modulo']}/proibir_cadastro/{$linha['id']}' title='Proibir Cadastro'><i class='fa fa-thumbs-down fa-fw'></i></a>" :
-				'';
-
-
-
-				$retorno_linhas[] = [
-					"<td class='sorting_1'>{$linha['id']}</td>",
-	        		"<td>{$linha['email']}</td>",
-	        		"<td>{$hierarquia_exibicao}</td>",
-	        		"<td>" . $this->view->default_buttons_listagem($linha['id']) . $botao_permitir_cadastro . $botao_proibir_cadastro . "</td>"
-				];
-			}
-		}
-
-		if(!isset($retorno_linhas)){
-			return false;
-		}
-
-		$this->view->linhas_datatable = $retorno_linhas;
-	}
 
 
 	public function verificar_duplicidade_ajax(){

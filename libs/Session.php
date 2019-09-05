@@ -2,20 +2,29 @@
 namespace Libs;
 
 class Session {
-	public static function init(){
+	public function init(){
 		@session_start();
 	}
 
-	public static function set($key, $value = false){
+	public function set($key, $value = false){
 		$_SESSION[$key] = $value;
 	}
 
-	public static function get($key){
-		if(isset($_SESSION[$key]))
+	public function get($key){
+		if(isset($_SESSION[$key])){
 			return $_SESSION[$key];
+		}
+
+		return false;
 	}
 
-	public static function destroy(){
+	public function remove($key){
+		if(isset($_SESSION[$key])){
+			unset($_SESSION[$key]);
+		}
+	}
+
+	public function destroy(){
 		unset($_SESSION);
 		session_destroy();
 	}

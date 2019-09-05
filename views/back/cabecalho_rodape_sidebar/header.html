@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>{$app_name}</title>
+        <title>{if isset($titulo_pagina)}{$titulo_pagina}{else}{$app_name}{/if}</title>
 
         <meta charset="utf8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +35,7 @@
         <![endif]-->
 
         <!-- Sweet Alert -->
-        <link rel="stylesheet" type="text/css" href="/public/sweetalert-master/dist/sweetalert.css">
+        <link rel="stylesheet" type="text/css" href="/public/plugins/sweetalert/sweetalert.css">
 
         <!-- Custom CSS  -->
         <link href="/public/css/default.css" rel="stylesheet">
@@ -81,8 +81,8 @@
         <!-- <script src="/public/bootstrap/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script> -->
 
         <!-- Sweet Alert -->
-        <link rel="stylesheet" type="text/css" href="/public/sweetalert-master/dist/sweetalert.css">
-        <script src="/public/sweetalert-master/dist/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/public/plugins/sweetalert/sweetalert.css">
+        <script src="/public/plugins/sweetalert/sweetalert.min.js"></script>
 
         <!-- Autosize -->
         <script type="text/javascript" src="/public/autosize-master/dist/autosize.js"></script>

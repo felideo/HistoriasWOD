@@ -785,7 +785,7 @@ class MultiCurl
                                 curl_multi_remove_handle($this->multiCurl, $curl->curl);
 
                                 $curlm_error_code = curl_multi_add_handle($this->multiCurl, $curl->curl);
-                                if (!($curlm_error_code === CURLM_OK)) {
+                                if ($curlm_error_code !== CURLM_OK) {
                                     throw new \ErrorException(
                                         'cURL multi add handle error: ' . curl_multi_strerror($curlm_error_code)
                                     );
@@ -952,12 +952,12 @@ class MultiCurl
         // Use a random proxy for the curl instance when proxies have been set
         // and the curl instance doesn't already have a proxy set.
         if (is_array($this->proxies) && $curl->getOpt(CURLOPT_PROXY) === null) {
-            $random_proxy = ArrayUtil::array_random($this->proxies);
+            $random_proxy = ArrayUtil::arrayRandom($this->proxies);
             $curl->setProxy($random_proxy);
         }
 
         $curlm_error_code = curl_multi_add_handle($this->multiCurl, $curl->curl);
-        if (!($curlm_error_code === CURLM_OK)) {
+        if ($curlm_error_code !== CURLM_OK) {
             throw new \ErrorException('cURL multi add handle error: ' . curl_multi_strerror($curlm_error_code));
         }
 

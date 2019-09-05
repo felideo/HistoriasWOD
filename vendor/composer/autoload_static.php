@@ -4,10 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit182071bef4ba7abf3f4185ff002f29d1
+class ComposerStaticInit9edf0458bee19a359436f822f8d9850a
 {
     public static $files = array (
+        'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '2c0c79444069dd013c85805496406646' => __DIR__ . '/..' . '/felideo/debug2/src/debug2.php',
+        '44cd05dab15a45d372564384064512c0' => __DIR__ . '/..' . '/felideo/performance-check/src/performance.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -15,17 +17,32 @@ class ComposerStaticInit182071bef4ba7abf3f4185ff002f29d1
         array (
             'Util\\' => 5,
         ),
+        'R' => 
+        array (
+            'React\\Promise\\' => 14,
+        ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'L' => 
         array (
             'Libs\\' => 5,
         ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Stream\\' => 18,
+            'GuzzleHttp\\Ring\\' => 16,
+        ),
         'F' => 
         array (
             'Framework\\' => 10,
+            'Felideo\\Performance\\' => 20,
+        ),
+        'E' => 
+        array (
+            'Elasticsearch\\' => 14,
         ),
         'D' => 
         array (
@@ -42,6 +59,14 @@ class ComposerStaticInit182071bef4ba7abf3f4185ff002f29d1
         array (
             0 => __DIR__ . '/../..' . '/util',
         ),
+        'React\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/promise/src',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
@@ -50,9 +75,25 @@ class ComposerStaticInit182071bef4ba7abf3f4185ff002f29d1
         array (
             0 => __DIR__ . '/../..' . '/libs',
         ),
+        'GuzzleHttp\\Stream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/streams/src',
+        ),
+        'GuzzleHttp\\Ring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/ringphp/src',
+        ),
         'Framework\\' => 
         array (
             0 => __DIR__ . '/../..' . '/framework',
+        ),
+        'Felideo\\Performance\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/felideo/performance-check/src',
+        ),
+        'Elasticsearch\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/elasticsearch/elasticsearch/src/Elasticsearch',
         ),
         'Dwoo\\' => 
         array (
@@ -67,8 +108,8 @@ class ComposerStaticInit182071bef4ba7abf3f4185ff002f29d1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit182071bef4ba7abf3f4185ff002f29d1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit182071bef4ba7abf3f4185ff002f29d1::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9edf0458bee19a359436f822f8d9850a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9edf0458bee19a359436f822f8d9850a::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

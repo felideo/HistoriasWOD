@@ -2,14 +2,14 @@
 namespace Libs;
 
 class Auth {
-	public static function handLeLoggin() {
-		if(!isset($_SESSION) || empty($_SESSION['logado'])){
-			header('location: ' . Redirect::getUrl());
+	public function is_logged($redirect = true){
+		if(empty($redirect)){
+			return isset($_SESSION) && !empty($_SESSION['logado']);
+		}
+
+		if(!isset($_SESSION) || empty($_SESSION['logado']) || empty($_SESSION['usuario']['acesso_admin'])){
+			header('location: /');
 			exit;
 		}
-	}
-
-	public static function esta_logado(){
-		return isset($_SESSION) && !empty($_SESSION['logado']);
 	}
 }

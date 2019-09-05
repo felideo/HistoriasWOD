@@ -19,24 +19,18 @@ class Acesso extends \Framework\Model{
 			return false;
 		}
 
-		$controller_board = $this->controller->get_controller('board');
-		$board = $controller_board->carregar_board($this->usuario['id']);
-
-		\Libs\Session::set('logado', true);
-		\Libs\Session::set('usuario', $this->usuario);
-		\Libs\Session::set('board', $board);
+		$this->universe->session->set('logado', true);
+		$this->universe->session->set('usuario', $this->usuario);
 
 		return true;
 	}
 
 	public function run_back($acesso){
-		$this->acesso = $acesso;
-		// $this->acesso['senha'] = \Libs\Crypto::encode($this->acesso['senha']);
-		$this->acesso['senha'] = $this->acesso['senha'];
-
+		$this->acesso             = $acesso;
+		$this->acesso['senha']    = \Libs\Crypto::encode($this->acesso['senha']);
+		// $this->acesso['senha'] = $this->acesso['senha'];
 
 		$this->verificar_usuario_senha();
-
 
 		if(empty($this->usuario)){
 			return false;
@@ -47,11 +41,11 @@ class Acesso extends \Framework\Model{
 		$this->load_permissions();
 		$this->load_modulos_and_menus();
 
-		\Libs\Session::set('logado', true);
-		\Libs\Session::set('menus', $this->menus);
-		\Libs\Session::set('usuario', $this->usuario);
-		\Libs\Session::set('modulos', $this->modulos);
-		\Libs\Session::set('permissoes', $this->permissoes);
+		$this->universe->session->set('logado', true);
+		$this->universe->session->set('menus', $this->menus);
+		$this->universe->session->set('usuario', $this->usuario);
+		$this->universe->session->set('modulos', $this->modulos);
+		$this->universe->session->set('permissoes', $this->permissoes);
 
 		return true;
 	}

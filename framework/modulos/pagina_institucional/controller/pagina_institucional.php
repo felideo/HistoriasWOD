@@ -12,7 +12,8 @@ class pagina_institucional extends \Framework\ControllerCrud {
 		'url'    => [
 			'url'    => 'titulo',
 			'metodo' => 'visualizar_front'
-		]
+		],
+		'html_cloud_editor_column' => 'conteudo'
 	];
 
 	protected $datatable = [
@@ -42,7 +43,7 @@ class pagina_institucional extends \Framework\ControllerCrud {
 	public function visualizar_front($id){
 		$this->check_if_exists($id[0]);
 
-		$front_controller = $this->get_controller('front');
+		$front_controller = $this->universe->get_controller('front');
 		$front_controller->carregar_cabecalho_rodape();
 
 
@@ -50,8 +51,17 @@ class pagina_institucional extends \Framework\ControllerCrud {
 
 		$this->view->assign('cadastro', $cadastro);
 		// $this->view->render('front/cabecalho_rodape', $this->modulo['modulo'] . '/view/front/front');
-		$this->view->render_plataforma('pagina_institucional');
+		$this->view->render_plataforma('header', 'footer', 'pagina_institucional');
 
+	}
+
+	public function save_source_code_ajax($id){
+		$update_db[$this->modulo['html_cloud_editor_column']] = $_POST['data'];
+
+		$retorno = $this->model->update($this->modulo['modulo'], $update_db, ['id' => $id[0]]);
+
+		echo json_encode(!empty($retorno['status']));
+		exit;
 	}
 }
 

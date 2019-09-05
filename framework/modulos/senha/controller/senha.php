@@ -7,7 +7,7 @@ class Senha extends \Framework\Controller {
 	public function recuperar_senha(){
 		$email = carregar_variavel('email');
 
-		$model_usuario = $this->get_model('usuario');
+		$model_usuario = $this->universe->get_model('usuario');
 		$usuario = $model_usuario->load_user_by_email($email);
 
 		if(isset($usuario[0]) && !empty($usuario[0])){
@@ -52,7 +52,7 @@ class Senha extends \Framework\Controller {
 	}
 
 	public function redefinir_senha($token){
-		$usuario_model = $this->get_model('usuario');
+		$usuario_model = $this->universe->get_model('usuario');
 		$token_verdadeiro = $usuario_model->check_token($token[0]);
 
 		if(!isset($token_verdadeiro[0])){
@@ -68,7 +68,7 @@ class Senha extends \Framework\Controller {
 	public function update($token){
 		$nova_senha = carregar_variavel('senha');
 
-		$model_usuario = $this->get_model('usuario');
+		$model_usuario = $this->universe->get_model('usuario');
 		$token_verdadeiro = $model_usuario->check_token($token[0]);
 
 		$retorno_senha = $model_usuario->update('usuario', $token_verdadeiro[0]['id'], ['senha' => $nova_senha, 'token' => '']);

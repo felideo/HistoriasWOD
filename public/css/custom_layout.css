@@ -208,3 +208,16 @@ table.dataTable thead th.sorting_disabled::after {
 .main-nav-wrapper .main-nav .sub-menu li.sub-sub-menu a{
 	border-left: none;
 }
+
+#fh5co-footer{
+	padding: 1em 0;
+}
+
+.section-heading {
+    padding-bottom: 0px;
+}
+
+.pagina-institucional-image{
+	background-size: 100% !important;
+	background-repeat: no-repeat;
+}

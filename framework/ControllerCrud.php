@@ -5,17 +5,17 @@ class ControllerCrud extends \Framework\Controller {
 	protected $modulo    = [];
 	protected $datatable = [];
 
-	public function __construct($core_module) {
-		parent::__construct($core_module);
-		$this->view->modulo = $this->modulo;
-		$this->view->assign('modulo', $this->modulo);
-	}
+	// public function __construct() {
+	// 	parent::__construct();
+	// 	$this->view->modulo = $this->modulo;
+	// 	$this->view->assign('modulo', $this->modulo);
+	// }
 
 	public function index() {
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "visualizar");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
-		$this->view->assign('permissao_criar', \Libs\Permission::check_user_permission($this->modulo['modulo'], 'criar'));
+		$this->view->assign('permissao_criar', $this->universe->permission->check_user_permission($this->modulo['modulo'], 'criar'));
 
 		if(isset($this->datatable) && !empty($this->datatable)){
 			$this->view->assign('datatable', $this->datatable);
@@ -48,10 +48,11 @@ class ControllerCrud extends \Framework\Controller {
 	}
 
 	public function create(){
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "criar");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "criar");
 
 		$dados   = carregar_variavel($this->modulo['modulo']);
+
 		$retorno = $this->insert_update($dados, []);
 
 		if(isset($this->modulo['url']) && !empty($this->modulo['url']) && !empty($retorno['status'])){
@@ -81,7 +82,7 @@ class ControllerCrud extends \Framework\Controller {
 	}
 
 	private function cadastrar_url($dados){
-		$url          = new URL;
+		$url          = new \Libs\URL;
 		$retorno_url  = $url->setId($dados['id'])
 			->setUrl($dados[$this->modulo['url']['url']])
 			->setMetodo($this->modulo['url']['metodo'])
@@ -90,8 +91,8 @@ class ControllerCrud extends \Framework\Controller {
 	}
 
 	public function editar($id) {
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "editar");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "editar");
 
 		$this->check_if_exists($id[0]);
 
@@ -101,8 +102,8 @@ class ControllerCrud extends \Framework\Controller {
 	}
 
 	public function update($id) {
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "editar");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "editar");
 
 		$this->check_if_exists($id[0]);
 
@@ -125,8 +126,8 @@ class ControllerCrud extends \Framework\Controller {
 	}
 
 	public function visualizar($id){
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "visualizar");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
 		$this->check_if_exists($id[0]);
 
@@ -137,8 +138,8 @@ class ControllerCrud extends \Framework\Controller {
 	}
 
 	public function destroy($id) {
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "deletar");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "deletar");
 
 		$this->check_if_exists($id[0]);
 

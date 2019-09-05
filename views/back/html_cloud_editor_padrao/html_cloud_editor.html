@@ -1,0 +1,37 @@
+<script src="/public/ace/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/ace/src-min-noconflict/ext-language_tools.js"></script>
+
+<style type="text/css" media="screen">
+    #editor {
+        height: 600px;
+    }
+</style>
+
+<div class="contact-form form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="contact-form form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <ul class="list list-custom-style" style="padding-left: 0px;">
+            <li><i class="fa fa-check"></i>Só Ctrl + S Salva.</li>
+            <li><i class="fa fa-check"></i>Para visualizar as teclas de atalho disponiveis pressione Ctrl + Alt + H</li>
+        </ul>
+    </div>
+</div>
+
+<div class="contact-form form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div id="editor" class="contact-form form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    </div>
+</div>
+
+{if isset($cadastro.id) && !empty($cadastro.id)}
+	<div class="module-footer text-center">
+	    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	        <button onclick="save_source_code()" class="btn btn-success botao_enviar pull-right">
+	            {if empty($reativar)}Salvar{else}Reativar Pagina{/if}
+	        </button>
+
+	        <button type="button" onclick="window.history.back();" class="btn btn btn-danger botao_voltar pull-right marginR10">
+	            Sair
+	        </button>
+	    </div>
+	</div>
+{/if}
+{include file='views/back/html_cloud_editor_padrao/html_cloud_editor.js.html'}

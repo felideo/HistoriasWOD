@@ -1,0 +1,228 @@
+#canvas {
+	transform-origin: top left;
+}
+
+.container-fluid {
+	background-image: url(/public/images/layout/board-background.jpg);
+	background-size: 100% 100%;
+	height: 100vh;
+}
+
+.float {
+	display: block;
+	float: left;
+}
+
+.board-container {
+	display: block;
+	position: relative;
+	float: left;
+
+	background-image: url(/public/images/layout/Chalkboard-PSD-MockUp-Novo-Quadro.png);
+	background-size: 100% 100%;
+	width: calc(100% - 365px);
+	margin: 1% 0% 0% -4%;
+	height: 92%;
+}
+
+.buttons-container {
+	display: block;
+	position: relative;
+	float: left;
+
+	width: 45px;
+	height: 25%;
+
+	margin: 15% 40px 0px 25px;
+
+	/*background: #a0a0f0;*/
+}
+
+.adsense-size{
+	display: block;
+	position: relative;
+	float: left;
+
+	width: 300px;
+	height: 600px;
+	margin-top: 2%;
+	background: #000000;
+	right: 0px;
+	top: 0px;
+}
+
+.board-size {
+	height: 82%;
+	background: rgba(0, 0, 0, 0);
+	display: flex;
+	width: 91%;
+	margin: 2% 0% 0% 6%;
+
+	/*background: #ff00ff;*/
+}
+
+.container-terminal {
+	width: 50%;
+	position: absolute;
+	top: 1%;
+	left: 25%;
+	z-index: 666;
+}
+
+#close-terminal {
+	height: 18px;
+	width: 18px;
+	/*background: #0f00ff;*/
+	/*display: inline-block;*/
+	float: left;
+	opacity: 0.5;
+	margin: 6px 0px 0px 7px;
+	cursor: pointer;
+}
+
+
+
+.buttons-center {}
+
+.buttons-container a {
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.aLabel {
+	background-color: white;
+	opacity: 0.7;
+	padding: 1px;
+	border-radius: 100px;
+	border: none;
+	cursor: pointer;
+}
+
+.ep {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	/*border-radius: 100px;*/
+	/*background: rgba(255, 255, 255, 0.5);*/
+	/*color: #c82333;*/
+	top: 10%;
+	background-image: url(/public/images/layout/pin.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	border: none;
+	box-shadow: none;
+	right: -13px;
+	top: -17px;
+
+
+}
+
+.info {
+	width: 33px;
+	height: 33px;
+	line-height: 33px;
+	border-radius: 100px;
+	background: rgba(255, 255, 255, 0.5);
+	color: #c82333;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+	box-shadow: 0 0 2px black;
+	-webkit-transition: -webkit-box-shadow 0.25s ease-in;
+	-moz-transition: -moz-box-shadow 0.25s ease-in;
+	transition: box-shadow 0.25s ease-in;
+}
+
+.info:hover {
+	box-shadow: 0 0 6px black;
+}
+
+.modal-z-index {
+	z-index: 999;
+}
+
+.modal-lg {
+	/*width: 96%;*/
+	/*height: 96%;*/
+	/*margin: 0;*/
+	/*padding: 0;*/
+	/*left: 2%;*/
+	/*top: 3%;*/
+	/*background-image: url(/public/images/finalizadas/book-bg.png);*/
+	/*background-size: 100% 100%;*/
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+	.modal-xs{
+		width: 80%;
+	}
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+	.modal-sm{
+		width: 80%;
+	}
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+	.modal-md{
+		width: 80%;
+	}
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+	.modal-lg{
+		width: 80%;
+	}
+}
+
+.modal-content {
+	height: 97%;
+	/*max-height: 89%;*/
+	/*border-radius: 0;*/
+	/*background-color: transparent;*/
+	/*box-shadow: none;*/
+	/*border: none;*/
+	/*width: 88%;*/
+	/*left: 6%;*/
+	/*top: 3%;*/
+}
+
+.modal-body {
+	/*padding: 10px 15px 15px 15px;*/
+	/*margin: 0px 0px 0px 4px;*/
+	text-indent: 30px;
+}
+
+.modal-header {
+	/*border-bottom: none;*/
+	/*padding: 5px 10px 0px 10px;*/
+}
+
+.pista {
+	min-width: 110px !important;
+	padding: 5px;
+	/*height:    43px;*/
+	background-image: url(/public/images/layout/post-it.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+	z-index: 4;
+	opacity: 0.8;
+	cursor: move;
+	font-size: 11px;
+}
+
+.reset {
+	padding: 0px;
+	margin: 0px;
+}
+
+.see-more {
+	cursor: zoom-in;
+}

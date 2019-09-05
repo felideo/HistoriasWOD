@@ -9,10 +9,10 @@ class Plataforma extends \Framework\ControllerCrud {
 	];
 
 	protected $datatable = [
-		'colunas' => ['ID <i class="fa fa-search"></i>',  'Nome <i class="fa fa-search"></i>',  'Descricao <i class="fa fa-search"></i>',  'Ultima Atualizacao',  'Ultima Publicao', 'Ações'],
-		'select'  => ['id', 'nome', 'descricao', 'identificador', 'ultima_atualizacao', 'ultima_publicacao', ],
-		'from'    => 'plataforma',
-		'search'  => ['id', 'nome', 'descricao'],
+		'colunas'                => ['Identificador <i class="fa fa-search"></i>',  'Nome <i class="fa fa-search"></i>',  'Descricao <i class="fa fa-search"></i>',  'Ultima Atualizacao',  'Ultima Publicao', 'Ações'],
+		'select'                 => ['id', 'identificador', 'nome', 'descricao', 'identificador', 'ultima_atualizacao', 'ultima_publicacao', ],
+		'from'                   => 'plataforma',
+		'search'                 => ['identificador', 'nome', 'descricao'],
 		'ordenacao_desabilitada' => '5'
 	];
 
@@ -22,7 +22,7 @@ class Plataforma extends \Framework\ControllerCrud {
 			$this->view->assign('modulo', $this->modulo);
 		}
 
-		$this->view->assign('permissao_editar', \Libs\Permission::check_user_permission($this->modulo['modulo'], 'editar'));
+		$this->view->assign('permissao_editar', $this->universe->permission->check_user_permission($this->modulo['modulo'], 'editar'));
 	}
 
 	protected function carregar_dados_listagem_ajax($busca){
@@ -33,31 +33,31 @@ class Plataforma extends \Framework\ControllerCrud {
 
 		foreach ($query as $indice => $item) {
 			$botao->setTitle('Visualizar')
-                ->setPermissao(\Libs\Permission::check_user_permission($this->modulo['modulo'], 'visualizar'))
+                ->setPermissao($this->universe->permission->check_user_permission($this->modulo['modulo'], 'visualizar'))
                 ->setHref("/{$this->modulo['modulo']}/editor/{$item['id']}/visualizar")
                 ->setTexto("<i class='botao_listagem fa fa-eye fa-fw'></i>")
                 ->gerarBotao();
 
 			$botao->setTitle('Editar')
-                ->setPermissao(\Libs\Permission::check_user_permission($this->modulo['modulo'], 'editar'))
+                ->setPermissao($this->universe->permission->check_user_permission($this->modulo['modulo'], 'editar'))
                 ->setHref("/{$this->modulo['modulo']}/editor/{$item['id']}")
                 ->setTexto("<i class='botao_listagem fa fa-pencil fa-fw'></i>")
                 ->gerarBotao();
 
 			$botao->setTitle('Historico de Edições')
-                ->setPermissao(\Libs\Permission::check_user_permission($this->modulo['modulo'], 'editar'))
+                ->setPermissao($this->universe->permission->check_user_permission($this->modulo['modulo'], 'editar'))
                 ->setHref("/{$this->modulo['modulo']}/historico/{$item['id']}")
                 ->setTexto("<i class='botao_listagem fa fa-history fa-fw'></i>")
                 ->gerarBotao();
 
             $botao->setTitle('Publicar Última Versão')
-                ->setPermissao(\Libs\Permission::check_user_permission($this->modulo['modulo'], 'editar') && !in_array($item['id'] , [1, 2]))
+                ->setPermissao($this->universe->permission->check_user_permission($this->modulo['modulo'], 'editar') && !in_array($item['id'] , [1, 2]))
                 ->setHref("/{$this->modulo['modulo']}/publicar/{$item['id']}/{$item['identificador']}")
                 ->setTexto("<i class='botao_listagem fa fa-cloud-upload fa-fw'></i>")
                 ->gerarBotao();
 
 			$retorno[] = [
-				$item['id'],
+				$item['identificador'],
 				$item['nome'],
 				$item['descricao'],
 				$item['ultima_atualizacao'],
@@ -70,10 +70,10 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	public function historico($parametros){
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "visualizar");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
-		$this->view->assign('permissao_criar', \Libs\Permission::check_user_permission($this->modulo['modulo'], 'criar'));
+		$this->view->assign('permissao_criar', $this->universe->permission->check_user_permission($this->modulo['modulo'], 'criar'));
 
 		$this->datatable = [
 			'colunas' => ['ID <i class="fa fa-search"></i>',  'Responsavel <i class="fa fa-search"></i>',  'Data', 'Publicado', 'Ações'],
@@ -111,19 +111,19 @@ class Plataforma extends \Framework\ControllerCrud {
 
 		foreach ($query as $indice => $item) {
 			$botao->setTitle('Visualizar')
-                ->setPermissao(\Libs\Permission::check_user_permission($this->modulo['modulo'], 'visualizar'))
+                ->setPermissao($this->universe->permission->check_user_permission($this->modulo['modulo'], 'visualizar'))
                 ->setHref("/{$this->modulo['modulo']}/editor_historico/{$item['id']}/visualizar")
                 ->setTexto("<i class='botao_listagem fa fa-eye fa-fw'></i>")
                 ->gerarBotao();
 
 			// $botao->setTitle('Editar')
-   //              ->setPermissao(\Libs\Permission::check_user_permission($this->modulo['modulo'], 'editar'))
+   //              ->setPermissao($this->universe->permission->check_user_permission($this->modulo['modulo'], 'editar'))
    //              ->setHref("/{$this->modulo['modulo']}/editor/{$item['id']}")
    //              ->setTexto("<i class='botao_listagem fa fa-pencil fa-fw'></i>")
    //              ->gerarBotao();
 
             // $botao->setTitle('Publicar Última Versão')
-            //     ->setPermissao(\Libs\Permission::check_user_permission($this->modulo['modulo'], 'editar') && !in_array($item['id'] , [1, 2]))
+            //     ->setPermissao($this->universe->permission->check_user_permission($this->modulo['modulo'], 'editar') && !in_array($item['id'] , [1, 2]))
             //     ->setHref("/{$this->modulo['modulo']}/publicar/{$item['id']}/{$item['identificador']}")
             //     ->setTexto("<i class='botao_listagem fa fa-cloud-upload fa-fw'></i>")
             //     ->gerarBotao();
@@ -165,7 +165,8 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	public function editor($parametros){
-		\Libs\Auth::handLeLoggin();
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "criar");
 
 		$permissao = 'editar';
 
@@ -173,7 +174,7 @@ class Plataforma extends \Framework\ControllerCrud {
 			$permissao = 'visualizar';
 		}
 
-		\Libs\Permission::check($this->modulo['modulo'], $permissao);
+		$this->universe->permission->check($this->modulo['modulo'], $permissao);
 		// $this->check_if_exists($parametros[0], 'plataforma_pagina');
 
 		if($permissao == 'visualizar'){
@@ -185,12 +186,14 @@ class Plataforma extends \Framework\ControllerCrud {
 		$this->modulo['texto_adicional_cabecalho'] = ' - ' . $cadastro['nome'];
 
 		$this->view->assign('modulo', $this->modulo);
+		$this->view->assign('titulo_pagina', 'HTML ' . $cadastro['nome']);
+
 		$this->view->assign('cadastro', $cadastro);
 		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/editor/editor');
 	}
 
 	public function editor_historico($parametros){
-		\Libs\Auth::handLeLoggin();
+		$this->universe->auth->is_logged(true);
 
 		$permissao = 'editar';
 
@@ -198,7 +201,7 @@ class Plataforma extends \Framework\ControllerCrud {
 			$permissao = 'visualizar';
 		}
 
-		\Libs\Permission::check($this->modulo['modulo'], $permissao);
+		$this->universe->permission->check($this->modulo['modulo'], $permissao);
 		// $this->check_if_exists($parametros[0], 'plataforma_pagina');
 
 		if($permissao == 'visualizar'){
@@ -220,8 +223,8 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	public function load_source_code_ajax($parametros){
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "editar");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "editar");
 		// $this->check_if_exists($parametros[0], 'plataforma_pagina');
 
 		$parametros = carregar_variavel('data');
@@ -260,8 +263,8 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	public function publicar_todas_paginas(){
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], 'editar');
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], 'editar');
 
 		$paginas = $this->model->load_active_list('plataforma', 'id, nome, identificador');
 
@@ -280,8 +283,8 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	public function publicar($parametros){
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], 'editar');
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], 'editar');
 
 		$this->publicar_pagina(1, 'header');
 		$this->publicar_pagina(2, 'footer');

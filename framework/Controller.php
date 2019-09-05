@@ -2,31 +2,33 @@
 namespace Framework;
 
 abstract class Controller {
-	protected $core_module;
-	private $models      = [];
-	private $controllers = [];
+	protected $view;
+	protected $model;
+	protected $universe;
 
-	public function __construct(){
-	}
-
-	public function set_core_module($core_module){
-		$this->core_module = $core_module;
+	public function set_universe($universe){
+		$this->universe = $universe;
 		return $this;
 	}
 
-	public function execute(){
+	public function set_model($model){
+		$this->model = $model;
+		return $this;
+	}
+
+	public function set_view($view){
+		$this->view = $view;
+		return $this;
+	}
+
+	public function form_galaxies(){
 		$this->define_modulo();
 
-		$_SESSION['modulo_ativo'] = $this->modulo['modulo'];
-
-		$model = explode('\\', get_class($this));
-		$this->model = $this->get_model(strtolower(end($model)));
-
-		$_SESSION['configuracoes'] = $this->model->full_load_by_id('configuracao', 1)[0];
-		$this->view = new View($this->core_module);
+		$this->universe->session->set('modulo_ativo',  $this->modulo['modulo']);
+		$this->universe->session->set('configuracoes', $this->model->full_load_by_id('configuracao', 1)[0]);
 
 		$this->view->modulo = $this->modulo;
-
+		$this->view->assign('modulo', $this->modulo);
 		$this->view->assign('url', @defined(URL) ? URL : '');
 	}
 
@@ -62,59 +64,6 @@ abstract class Controller {
 		}
 	}
 
-	public function set_view(&$view){
-		$this->view = $view;
-		return $this;
-	}
-
-	public function get_controller($controller, $subcontroller = null){
-		if(isset($this->controllers[$controller . '_' . $subcontroller]) && !empty($this->controllers[$controller . '_' . $subcontroller]) && is_object($this->controllers[$controller . '_' . $subcontroller])){
-			return $this->controllers[$controller . '_' . $subcontroller];
-		}
-
-		$subcontroller = (!empty($subcontroller) ? $subcontroller : $controller);
-		$file          = "{$this->core_module}/{$controller}/controller/{$subcontroller}.php";
-
-		if(!file_exists($file)){
-			throw new \Erro('Controller Inexistente ' . $controller . ' - ' . $subcontroller);
-		}
-
-		$instancia_controller = '\\Controller\\' . ucfirst($subcontroller);
-		require_once $file;
-		$controller = new $instancia_controller;
-
-		if(isset($this->view) && !empty($this->view)){
-			return $controller->set_view($this->view);
-		}
-
-		$this->controllers[$controller . '_' . $subcontroller] = $controller;
-
-		return $this->controllers[$controller . '_' . $subcontroller];
-	}
-
-	public function get_model($model, $submodel = null){
-		if(isset($this->models[$model . '_' . $submodel]) && !empty($this->models[$model . '_' . $submodel]) && is_object($this->models[$model . '_' . $submodel])){
-			return $this->models[$model . '_' . $submodel];
-		}
-
-		$submodel = (!empty($submodel) ? $submodel : $model);
-		$file          = "{$this->core_module}/{$model}/model/{$submodel}.php";
-
-		if(!file_exists($file)) {
-			// return new GenericModel();
-			throw new \Fail('Model Inexistente ' . $model . ' - ' . $submodel);
-		}
-
-		$instancia_model = '\\Model\\' . ucfirst($submodel);
-
-		require_once $file;
-
-		$this->models[$model . '_' . $submodel] = new $instancia_model;
-		$this->models[$model . '_' . $submodel]->set_controller($this);
-
-		return $this->models[$model . '_' . $submodel];
-	}
-
 	public function check_if_exists($id, $table = null){
 		if(!isset($table) || empty($table)){
 			$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
@@ -125,23 +74,5 @@ abstract class Controller {
 			header('location: /' . $this->modulo['modulo']);
 			exit;
 		}
-	}
-
-	public function set_sessao($parametros){
-		$_SESSION[$parametros[0]] = $parametros[1];
-		debug2('$_SESSION[' . $parametros[0] . '] = ' . $parametros[1]);
-		exit;
-	}
-
-	public function print_sessao(){
-		debug2($_SESSION);
-		exit;
-	}
-
-	public function limpar_sessao(){
-		session_unset();
-		session_destroy();
-		debug2('Sessão limpa! \o/');
-		exit;
 	}
 }

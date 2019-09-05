@@ -1,4 +1,3 @@
-.*
 license
 mvc.sql
 readme.md
@@ -10,3 +9,5 @@ uploads/trabalhos/*
 uploads/banners/*
 views/plataforma/*
 config.php
+vendor/*
+composer.lock

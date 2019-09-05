@@ -42,8 +42,8 @@ class Banner extends \Framework\ControllerCrud {
 	}
 
 	public function visualizar($id){
-		\Libs\Auth::handLeLoggin();
-		\Libs\Permission::check($this->modulo['modulo'], "visualizar");
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
 		$this->check_if_exists($id[0]);
 

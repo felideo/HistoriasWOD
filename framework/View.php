@@ -4,28 +4,32 @@ namespace Framework;
 class View {
 	private $dwoo;
 	private $assign;
-	private $core_modulo;
+	private $universe;
 
-	function __construct($core_modulo = 'modulo'){
-		$this->core_modulo = $core_modulo;
+	public function set_universe($universe){
+		$this->universe = $universe;
+		return $this;
+	}
+
+	public function shine(){
 		$this->dwoo   = new \Dwoo\Core();
 		$this->dwoo->setCompileDir('template_compile');
 		$this->assign = new \Dwoo\Data();
 
 		$this->assign('app_name', @defined(APP_NAME) ? APP_NAME : '');
+		return $this;
 	}
 
 	public function assign($index, $data){
-
 		$this->assign->assign($index, $data);
 	}
 
 	public function getAssign($data){
-
 		return $this->assign->get($data);
 	}
 
-	public function render($header_footer, $body) {
+	public function render($header_footer, $body){
+		$this->assign('core_modulo', $this->universe->get_core_module());
 		$this->set_todo();
 
 		if(strpos($header_footer, 'sidebar')){
@@ -33,13 +37,13 @@ class View {
 		}
 
 		if(!empty($header_footer)){
-			$header = new \Dwoo\Template\File('views/' 		. rtrim($header_footer, '/') 	. '/header.html');
+			$header = new \Dwoo\Template\File('views/' 		. rtrim(strtolower($header_footer), '/') 	. '/header.html');
 		}
 
-		$body   = new \Dwoo\Template\File($this->core_modulo . '/' 	. $body 			         	. '.html');
+		$body   = new \Dwoo\Template\File($this->universe->get_core_module() . '/' . strtolower($body) . '.html');
 
 		if(!empty($header_footer)){
-			$footer = new \Dwoo\Template\File('views/' 		. rtrim($header_footer, '/') 	. '/footer.html');
+			$footer = new \Dwoo\Template\File('views/' 		. rtrim(strtolower($header_footer), '/') 	. '/footer.html');
 		}
 
 		if(isset($this->lazy_view) && !empty($this->lazy_view)){
@@ -78,16 +82,16 @@ class View {
 	}
 
 
-	public function render_plataforma($identificador){
+	public function render_plataforma($header, $footer, $identificador){
 		if(file_exists('views/plataforma/' . $identificador . '.html')){
 			$this->render_plataforma_arquivo($identificador);
 		}
 
 		$this->model = new \Framework\GenericModel();
 
-		$header = $this->carregar_pagina_plataforma('header');
+		$header = $this->carregar_pagina_plataforma($header);
 		$body   = $this->carregar_pagina_plataforma($identificador);
-		$footer = $this->carregar_pagina_plataforma('footer');
+		$footer = $this->carregar_pagina_plataforma($footer);
 
 		$pagina = $header . "\n\n" . $body . "\n\n" . $footer;
 
@@ -393,13 +397,13 @@ class View {
 		$botao_excluir    = '';
 
 		if($visualizar){
-			$botao_visualizar = \Libs\Permission::check_user_permission($this->modulo['modulo'], "visualizar") ?
+			$botao_visualizar = $this->universe->permission->check_user_permission($this->modulo['modulo'], "visualizar") ?
 				"<a href='/{$this->modulo['modulo']}/visualizar/{$id}' title='Visualizar'><i class='botao_listagem fa fa-eye fa-fw'></i></a>" :
 				'';
 			}
 
 		if($editar){
-			$botao_editar = \Libs\Permission::check_user_permission($this->modulo['modulo'], "editar") ?
+			$botao_editar = $this->universe->permission->check_user_permission($this->modulo['modulo'], "editar") ?
 				"<a href='/{$this->modulo['modulo']}/editar/{$id}' title='Editar'><i class='botao_listagem fa fa-pencil fa-fw'></i></a>" :
 				 '';
 		}
@@ -411,7 +415,7 @@ class View {
 		}
 
 		if($excluir){
-			$botao_excluir = \Libs\Permission::check_user_permission($this->modulo['modulo'], "deletar") ?
+			$botao_excluir = $this->universe->permission->check_user_permission($this->modulo['modulo'], "deletar") ?
 				"<a class='validar_deletar' href='javascript:void(0)' data-id_registro='{$id}' data-mensagem='{$delete_message}' data-redirecionamento='{$url}{$this->modulo['modulo']}/destroy/{$id}' title='Deletar'><i class='botao_listagem  fa fa-trash-o fa-fw'></i></a>" :
 				'';
 		}

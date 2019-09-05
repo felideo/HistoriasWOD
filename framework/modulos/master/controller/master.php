@@ -12,8 +12,8 @@ class Master extends \Framework\Controller {
 	}
 
 	function logout() {
-		\Libs\Session::destroy();
-		header('location: /index');
+		$this->universe->session->destroy();
+		header('location: /');
 		exit;
 	}
 

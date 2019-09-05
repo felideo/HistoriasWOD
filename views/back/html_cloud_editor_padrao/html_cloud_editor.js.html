@@ -1,0 +1,139 @@
+<script type="text/javascript">
+    var editor = ace.edit("editor");
+
+    editor.setOptions({
+        theme:                     "ace/theme/monokai",
+        mode:                      "ace/mode/html",
+        minLines:                  50,
+        maxLines:                  500,
+        wrap:                      true,
+        autoScrollEditorIntoView:  true,
+        enableBasicAutocompletion: true,
+        enableSnippets:            true,
+        enableLiveAutocompletion:  true
+    });
+
+    // add command to lazy-load keybinding_menu extension
+    editor.commands.addCommand({
+        name: "showKeyboardShortcuts",
+        bindKey: {
+            win: "Ctrl-Alt-h",
+            mac: "Command-Alt-h"
+        },
+        exec: function(editor) {
+            ace.config.loadModule("ace/ext/keybinding_menu", function(module) {
+                module.init(editor);
+                editor.showKeyboardShortcuts()
+            })
+        }
+    })
+
+    // editor.execCommand("showSettingsMenu");
+
+    editor.commands.addCommands([{
+        name: "showSettingsMenu",
+        bindKey: {
+            win: "Ctrl-s",
+            mac: "Ctrl-s"
+        },
+        exec: function(editor) {
+            console.log('Só Ctrl + S salva!');
+            save_source_code();
+        },
+        // readOnly: true
+    }]);
+
+    $(document).ready(function(){
+    	{if isset($cadastro.id) && !empty($cadastro.id)}
+	        $.ajax({
+	            type: 'POST',
+	            url: "/{$modulo.modulo}/load_source_code_ajax",
+	            data: {
+	                data: {
+	                    'id': {$cadastro.id},
+	                }
+	            },
+	            dataType: 'json',
+	            async: true,
+	            success: function(codigo_fonte) {
+	                editor.session.setValue(codigo_fonte.{$modulo.html_cloud_editor_column});
+	            }
+	        });
+	   	{/if}
+	   	//
+
+	   	$('form').submit(function(){
+	   		var input_html_editor_content = '<textarea name="{$modulo.modulo}[{$modulo.html_cloud_editor_column}]">';
+	   		input_html_editor_content += editor.getValue();
+	   		input_html_editor_content += '</textarea>';
+
+	   		$(this).append(input_html_editor_content);
+	   		return true;
+	   	});
+    });
+
+     function save_source_code(){
+     	var notificacao = 'HTML atualizado com sucesso!';
+
+     	{if !isset($cadastro.id) || empty($cadastro.id)}
+     		notificacao = 'Somente é possivel salvar, após a criação do registro do CRUD!'
+
+     		$.notify(notificacao, {
+                style: 'appkit',
+                className: 'error',
+                hideAnimation: 'fadeOut',
+                showAnimation: 'fadeIn',
+                autoHideDelay: 5000,
+            });
+
+            return false;
+     	{/if}
+        // Retificação de highlight
+
+        $.ajax({
+            type: 'POST',
+            url: "/{$modulo.modulo}/save_source_code_ajax/{if isset($cadastro.id) && !empty($cadastro.id)}{$cadastro.id}{/if}",
+            data: {
+                data: editor.getValue()
+            },
+            dataType: 'json',
+            async: true,
+            success: function(retorno){
+                if(retorno == true){
+                    setTimeout(function(){
+                        $.notify(notificacao, {
+                            style: 'appkit',
+                            className: 'success',
+                            hideAnimation: 'fadeOut',
+                            showAnimation: 'fadeIn',
+                            autoHideDelay: 5000,
+                        })
+                    }, 1000);
+
+                    return true;
+                }
+
+                swal({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao atualizar o HTML. Para sua segurança, copie o codigo fonte e salve em um local seguro. Todas as alterações efetuadas serão perdidas caso a pagina for fechada!',
+                    type: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return false;
+            },
+            error: function(retorno) {
+                swal({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao atualizar o HTML. Para sua segurança, copie o codigo fonte e salve em um local seguro. Todas as alterações efetuadas serão perdidas caso a pagina for fechada!',
+                    type: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return false;
+            }
+        });
+    }
+
+    {if isset($lazy_view) && !empty($lazy_view)}
+        editor.setReadOnly(true);
+    {/if}
+</script>

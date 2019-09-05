@@ -18,14 +18,14 @@ class Hierarquia extends \Framework\ControllerCrud {
 	];
 
 	public function index() {
-		\Libs\Permission::check($this->modulo['modulo'], "visualizar");
-		$this->view->assign('permissao_criar', \Libs\Permission::check_user_permission($this->modulo['modulo'], 'criar'));
+		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
+		$this->view->assign('permissao_criar', $this->universe->permission->check_user_permission($this->modulo['modulo'], 'criar'));
 
 
 		$this->view->set_colunas_datatable(['ID', 'Nome', 'Nivel', 'Ações']);
 		// $this->listagem($this->model->load_active_list($this->modulo['modulo']));
 
-		$this->view->assign('permissoes_list', $this->get_model('permissao')->load_permissions_list());
+		$this->view->assign('permissoes_list', $this->universe->get_model('permissao')->load_permissions_list());
 		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/listagem/listagem');
 
 	}
@@ -48,24 +48,24 @@ class Hierarquia extends \Framework\ControllerCrud {
 	}
 
 	public function editar($id) {
-		\Libs\Permission::check($this->modulo['modulo'], "editar");
+		$this->universe->permission->check($this->modulo['modulo'], "editar");
 
 		$this->view->assign('cadastro', $this->model->load_hierarquia($id[0]));
-		$this->view->assign('permissoes_list', $this->get_model('permissao')->load_permissions_list());
+		$this->view->assign('permissoes_list', $this->universe->get_model('permissao')->load_permissions_list());
 		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/form/form');
 	}
 
 	public function visualizar($id){
-		\Libs\Permission::check($this->modulo['modulo'], "visualizar");
+		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
 		$this->view->assign('cadastro', $this->model->load_hierarquia($id[0]));
-		$this->view->assign('permissoes_list', $this->get_model('permissao')->load_permissions_list());
+		$this->view->assign('permissoes_list', $this->universe->get_model('permissao')->load_permissions_list());
 		$this->view->lazy_view();
 		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/form/form');
 	}
 
 	public function create() {
-		\Libs\Permission::check($this->modulo['modulo'], "criar");
+		$this->universe->permission->check($this->modulo['modulo'], "criar");
 
 		$insert_db = carregar_variavel($this->modulo['modulo']);
 
@@ -99,7 +99,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 	}
 
 	public function update($id) {
-		\Libs\Permission::check($this->modulo['modulo'], "editar");
+		$this->universe->permission->check($this->modulo['modulo'], "editar");
 
 		$update_db = carregar_variavel($this->modulo['modulo']);
 		$retorno = $this->model->update($this->modulo['modulo'], $update_db, ['id' => $id[0]]);
@@ -120,7 +120,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 		if($retorno['status']){
 			$this->view->alert_js('Cadastro editado com sucesso!!!', 'sucesso');
 
-			unset($_SESSION['permissoes']);
+			$this->universe->session->remove('permissoes');
 
 				$hierarquia = empty($_SESSION['usuario']['hierarquia']) ? 'NULL' : $_SESSION['usuario']['hierarquia'];
 
@@ -144,7 +144,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 						$retorno_permissoes[$permissao['modulo']][$permissao['permissao']] = $permissao;
 					}
 
-					\Libs\Session::set('permissoes', $retorno_permissoes);
+					$this->universe->session->set('permissoes', $retorno_permissoes);
 				}
 
 		} else {
@@ -157,7 +157,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 
 	public function delete($id) {
 
-		\Libs\Permission::check($this->modulo['modulo'], "deletar");
+		$this->universe->permission->check($this->modulo['modulo'], "deletar");
 
 		$retorno = $this->model->delete($this->modulo['modulo'], ['id' => $id[0]]);
 		// $retorno = $this->model->delete('permissao', $id[0]);
