@@ -9,6 +9,19 @@ class Universe {
 	public  $permission;
 	private $controllers = [];
 	private $core_module;
+    public  static $universe;
+
+    private function __construct(){
+    	self::$universe = $this;
+    }
+
+    public static function get_universe() {
+        if(self::$universe === null){
+            return new self;
+        }
+
+        return self::$universe;
+    }
 
 	public function get_url(){
 		if(isset($this->url) && !empty($this->url)){
@@ -49,6 +62,10 @@ class Universe {
 			->shine();
 
 		return $this;
+	}
+
+	public function get_view(){
+		return $this->view;
 	}
 
 	public function get_controller($controller, $subcontroller = null){

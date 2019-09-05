@@ -7,7 +7,7 @@ class BigBang{
 	private $first_atoms;
 
 	public function inflate(){
-		$this->universe = new Universe();
+		$this->universe = Universe::get_universe();
 		$this->url      = $this->universe->get_url();
 
 		$this->is_nonexistent_file();
