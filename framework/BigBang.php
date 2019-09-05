@@ -16,7 +16,9 @@ class BigBang{
 			$this->is_index();
 		}
 
-		$this->load_friendly_url();
+		if(defined('DB_NAME') && defined('DB_HOST') && defined('DB_USER')  && defined('DB_PASS')){
+			$this->load_friendly_url();
+		}
 
 		if(!file_exists("{$this->url['core_module']}/{$this->url['path'][0]}/controller/{$this->url['path'][0]}.php")){
 			$this->full_entropy();

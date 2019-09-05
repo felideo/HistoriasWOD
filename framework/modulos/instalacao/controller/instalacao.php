@@ -1,8 +1,6 @@
 <?php
 namespace Controller;
 
-use Libs;
-
 class Instalacao extends \Framework\Controller {
 	protected $modulo = [
 		'modulo' 	=> 'instalacao',
@@ -63,10 +61,9 @@ class Instalacao extends \Framework\Controller {
 			. "define('EMAIL_EMAIL', '');\n"
 			. "define('EMAIL_SENHA', '');\n";
 
-			unlink($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 
-			if(file_exists($_SERVER['DOCUMENT_ROOT'])){
-				debug2($_SERVER['DOCUMENT_ROOT']);
+			if(file_exists($_SERVER['DOCUMENT_ROOT'] . '/config.php')){
+				unlink($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 			}
 
 		$arquivo = fopen($_SERVER['DOCUMENT_ROOT'] . '/config.php', 'w');

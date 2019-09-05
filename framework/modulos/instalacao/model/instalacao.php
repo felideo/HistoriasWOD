@@ -7,11 +7,13 @@ class Instalacao {
 	private $db;
 	private $dados;
 	private $usuario;
+	private $universe;
 
 	public function criar_banco($dados, $usuario){
 		$this->db      = new \PDO("mysql:host=" . $dados['host'], $dados['user'], $dados['password']);
 		$this->dados   = $dados;
 		$this->usuario = $usuario;
+		$this->usuario['senha'] = \Libs\Crypto::encode($this->usuario['senha']);
 
 	    try {
 	        $this->db->exec('DROP database ' . $dados['database']);
@@ -64,6 +66,11 @@ class Instalacao {
         $this->db->exec("INSERT INTO `usuario` VALUES (1,{$this->usuario['usuario']},{$this->usuario['senha']},1,1,1,0,1)");
         $this->db->exec("INSERT INTO `pessoa` VALUES (1,1,NULL,'','',NULL,0,1,1);");
 		$this->db->exec('set foreign_key_checks = 1;');
+	}
+
+	public function set_universe($universe){
+		$this->universe = $universe;
+		return $this;
 	}
 }
 
