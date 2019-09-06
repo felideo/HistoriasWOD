@@ -35,3 +35,60 @@ INSERT INTO `modulo` VALUES (1,'modulo','Modulos',1,0,'fa-check-square-o',0,1300
 INSERT INTO `permissao` VALUES (1,1,'criar',1),(2,1,'visualizar',1),(3,1,'editar',1),(4,1,'deletar',1),(5,2,'criar',1),(6,2,'visualizar',1),(7,2,'editar',1),(8,2,'deletar',1),(10,3,'visualizar',1),(11,3,'editar',1),(13,4,'criar',1),(14,4,'visualizar',1),(15,4,'editar',1),(16,4,'deletar',1),(17,5,'criar',1),(18,5,'visualizar',1),(19,5,'editar',1),(20,5,'deletar',1),(21,6,'criar',1),(22,6,'visualizar',1),(23,6,'editar',1),(24,6,'deletar',1),(25,7,'criar',1),(26,7,'visualizar',1),(27,7,'editar',1),(28,7,'deletar',1),(29,8,'criar',1),(30,8,'visualizar',1),(31,8,'editar',1),(32,8,'deletar',1),(33,9,'criar',1),(34,9,'visualizar',1),(35,9,'editar',1),(36,9,'deletar',1),(37,10,'criar',1),(38,10,'visualizar',1),(39,10,'editar',1),(40,10,'deletar',1),(41,11,'criar',1),(42,11,'visualizar',1),(43,11,'editar',1),(44,11,'deletar',1),(45,12,'criar',1),(46,12,'visualizar',1),(47,12,'editar',1),(48,12,'deletar',1),(49,13,'criar',1),(50,13,'visualizar',1),(51,13,'editar',1),(52,13,'deletar',1),(53,14,'criar',1),(54,14,'visualizar',1),(55,14,'editar',1),(56,14,'deletar',1),(58,10,'aprovar',1),(59,10,'reprovar',1),(60,15,'criar',1),(61,15,'visualizar',1),(62,15,'editar',1),(63,15,'deletar',1),(65,2,'remover_conceder_acesso',1),(67,17,'visualizar',1),(68,17,'editar',1),(70,18,'criar',1),(71,18,'visualizar',1),(72,18,'editar',1),(73,18,'deletar',1),(74,19,'criar',1),(75,19,'visualizar',1),(76,19,'editar',1),(77,19,'deletar',1),(78,20,'criar',1),(79,20,'visualizar',1),(80,20,'editar',1),(81,20,'deletar',1),(82,21,'criar',1),(83,21,'visualizar',1),(84,21,'editar',1),(85,21,'deletar',1);
 INSERT INTO `plataforma` VALUES (1,'header','Header','Cabeçalho Padrão de Todas as Páginas','2019-09-03 22:40:20','2019-09-03 22:42:07',1),(2,'footer','Footer','Rodapé Padrão de Todas as Páginas','2019-09-03 22:40:58','2019-09-03 22:42:07',1),(3,'index','Index','Template da Página Inicial','2019-09-03 22:41:44','2019-09-03 22:42:07',1),(4,'pagina_institucional','Pagina Institucional','Template da Página Institucional','2019-02-25 23:57:56','2019-08-20 20:54:45',1);
 INSERT INTO `submenu` VALUES (1,'desenvolvedor','fa-github',1,'Desenvolvedor');
+
+CREATE TABLE  `poscaster`(
+    `id`                  int(11)       NOT NULL AUTO_INCREMENT,
+    `id_pessoa`           int(11)       NOT NULL,
+    `ativo`               tinyint(1)    NOT NULL DEFAULT '1',
+    PRIMARY               KEY (`id`),
+    FOREIGN               KEY (`id_pessoa`)   REFERENCES `pessoa`   (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+CREATE table podcast(
+	`id`          INT(11)        NOT NULL AUTO_INCREMENT,
+	`nome`        VARCHAR(2048)  NOT NULL,
+	`localizador` VARCHAR(2048)  NOT NULL,
+	`descricao`   TEXT        	 NOT NULL,
+	`link`        VARCHAR(1024)  NOT NULL,
+	`ativo`       TINYINT(1)     NOT NULL DEFAULT '1',
+	PRIMARY       KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+
+
+
+CREATE TABLE `gerenciador_cron` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `modulo` varchar(1024) NOT NULL,
+  `metodo` varchar(1024) NOT NULL,
+  `parametros` varchar(1024) DEFAULT NULL,
+  `horario` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `frequencia` varchar(64) NOT NULL,
+  `email` varchar(1024) DEFAULT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+
+
+
+
+
+CREATE TABLE `idioma` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idioma` varchar(64) NOT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+ALTER TABLE podcast
+ADD COLUMN id_idioma INT(11) NULL AFTER descricao;
+
+
+
+
+
+
+
+
+
