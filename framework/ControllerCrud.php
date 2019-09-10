@@ -73,6 +73,12 @@ class ControllerCrud extends \Framework\Controller {
 	public function insert_update($dados, $where){
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
 
+		if((!isset($where) || empty($where)) && (isset($this->modulo['localizador']) && !empty($this->modulo['localizador']))){
+			$where = [
+				'localizador' => \Libs\Strings::limpezaCompleta($dados[$this->modulo['localizador']])
+			];
+		}
+
 		return $this->model->insert_update(
 			$table,
 			$where,

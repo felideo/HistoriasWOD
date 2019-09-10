@@ -32,6 +32,11 @@ class BigBang{
 	private function is_nonexistent_file(){
 		if(substr_count(end($this->url['path']), '.') > 0){
 			http_response_code (404);
+
+			if(defined('DEVELOPER') && !empty(DEVELOPER)){
+				debug2($this->url);
+			}
+
 			exit;
 		}
 	}
@@ -115,7 +120,14 @@ class BigBang{
 	}
 
 	private function full_entropy() {
-		header('location: /error');
-		exit;
+		$this->first_atoms = [
+			'class'      => 'error',
+			'method'     => 'index',
+			'parameters' => $this->url
+		];
+
+		$this->url['core_module'] = 'framework/modulos';
+		$this->universe->set_core_module('framework/modulos');
+		$this->expand();
 	}
 }

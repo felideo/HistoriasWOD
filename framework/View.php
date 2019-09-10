@@ -89,9 +89,9 @@ class View {
 
 		$this->model = new \Framework\GenericModel();
 
-		$header = $this->carregar_pagina_plataforma($header);
+		$header = !empty($header) ? $this->carregar_pagina_plataforma($header) : '';
 		$body   = $this->carregar_pagina_plataforma($identificador);
-		$footer = $this->carregar_pagina_plataforma($footer);
+		$footer = !empty($footer) ? $this->carregar_pagina_plataforma($footer) : '';
 
 		$pagina = $header . "\n\n" . $body . "\n\n" . $footer;
 

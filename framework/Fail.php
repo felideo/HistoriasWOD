@@ -35,6 +35,8 @@ class Fail extends \Exception{
 	    echo "\n";
 	    echo "</pre>";
 
+	    exit;
+
         if(!empty($exit)){
             exit;
         }

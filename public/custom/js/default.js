@@ -40,7 +40,7 @@ function carregar_loader(tipo) {
             allowEscapeKey: false,
             showConfirmButton: false,
             showCancelButton: false,
-            imageUrl: '/public/images/ajax-loader-2.gif',
+            imageUrl: '/public/custom/images/ajax-loader-2.gif',
             animation: false
         });
     }

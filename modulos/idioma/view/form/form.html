@@ -1,0 +1,6 @@
+{include file='views/back/form_padrao/header.html'}
+<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <label>Idioma</label>
+    <input class="form-control somente_letras remover_caracteres_especiais" name="{$modulo.modulo}[idioma]" value="{if isset($cadastro)}{$cadastro.idioma}{/if}" required>
+</div>
+{include file='views/back/form_padrao/footer.html'}

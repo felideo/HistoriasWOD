@@ -253,11 +253,6 @@ class QueryBuilder{
 		$this->first = $first;
 
 		$retorno =  $this->execute_sql_query($this->getQuery());
-
-		if($first == 'first'){
-			return $this->convert_to_tree($retorno);
-		}
-
 		$return = $this->convert_to_tree($retorno);
 
 		$this->clean_class();
