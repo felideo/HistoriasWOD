@@ -10,10 +10,11 @@ class Instalacao {
 	private $universe;
 
 	public function criar_banco($dados, $usuario){
-		$this->db      = new \PDO("mysql:host=" . $dados['host'], $dados['user'], $dados['password']);
-		$this->dados   = $dados;
-		$this->usuario = $usuario;
+		$this->db               = new \PDO("mysql:host=" . $dados['host'], $dados['user'], $dados['password']);
+		$this->dados            = $dados;
+		$this->usuario          = $usuario;
 		$this->usuario['senha'] = \Libs\Crypto::encode($this->usuario['senha']);
+		$this->db->exec('SET CHARACTER SET utf8');
 
 	    try {
 	        $this->db->exec('DROP database ' . $dados['database']);

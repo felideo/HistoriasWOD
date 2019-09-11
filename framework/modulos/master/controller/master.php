@@ -35,17 +35,7 @@ class Master extends \Framework\Controller {
 			exit;
 		}
 
-		echo shell_exec("sudo sh /www/pieces_of_a_crypto_mystery/automatic_deploy.sh");
-		exit;
-	}
-
-	public function index_es(){
-		$elastic_search = new \Libs\ElasticSearch\ElasticSearch();
-		$elastic_search->criar_intex();
-	}
-
-	public function sudo_service_elastic_search_restart(){
-		echo shell_exec("sudo sh /www/pieces_of_a_crypto_mystery/sudo_service_elastic_search_restart.sh");
+		echo shell_exec("sudo sh /www/podkasto/automatic_deploy.sh");
 		exit;
 	}
 }

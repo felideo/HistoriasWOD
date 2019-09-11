@@ -10,6 +10,7 @@ class Index extends \Framework\Controller {
 	];
 
 	public function index(){
-		$this->view->render_plataforma('header', 'footer', 'index');
+		echo 'Hello World!'
+		exit;
 	}
 }
