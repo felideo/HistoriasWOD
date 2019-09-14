@@ -28,8 +28,8 @@ class Modulo extends \Framework\ControllerCrud {
 
 		$retorno = [];
 
-		foreach ($query as $indice => $item) {
-			$retorno[] = [
+		foreach ($query['dados'] as $indice => $item) {
+			$retorno['dados'][] = [
 				$item['id'],
 				$item['nome'],
 				$item['ordem'],
@@ -40,6 +40,7 @@ class Modulo extends \Framework\ControllerCrud {
 			];
 		}
 
+		$retorno['total'] = $query['total'];
 		return $retorno;
 	}
 

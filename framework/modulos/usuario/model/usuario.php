@@ -51,7 +51,10 @@ class Usuario extends \Framework\Model{
 			}
 		}
 
-		return $this->query->fetchArray();
+		return [
+			'dados' => $this->query->fetchArray(),
+			'total' => $this->query->count()
+		];
 	}
 
 	public function load_user_by_email($email){

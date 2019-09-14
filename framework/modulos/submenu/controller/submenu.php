@@ -21,14 +21,16 @@ class Submenu extends \Framework\ControllerCrud {
 
 		$retorno = [];
 
-		foreach ($query as $indice => $item) {
-			$retorno[] = [
+		foreach ($query['dados'] as $indice => $item) {
+			$retorno['dados'][] = [
 				$item['id'],
 				$item['nome_exibicao'],
 				$item['icone'],
 				$this->view->default_buttons_listagem($item['id'], true, true, true)
 			];
 		}
+
+		$retorno['total'] = $query['total'];
 
 		return $retorno;
 	}

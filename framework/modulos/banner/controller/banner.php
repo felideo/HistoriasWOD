@@ -29,8 +29,8 @@ class Banner extends \Framework\ControllerCrud {
 			return $retorno;
 		}
 
-		foreach ($query as $indice => $item) {
-			$retorno[] = [
+		foreach ($query['dados'] as $indice => $item) {
+			$retorno['dados'][] = [
 				$item['id'],
 				$item['ordem'],
 				$item['arquivo'][0]['nome'],
@@ -38,6 +38,7 @@ class Banner extends \Framework\ControllerCrud {
 			];
 		}
 
+		$retorno['total'] = $query['total'];
 		return $retorno;
 	}
 

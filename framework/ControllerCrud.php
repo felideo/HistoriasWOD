@@ -37,11 +37,15 @@ class ControllerCrud extends \Framework\Controller {
 
 		$retorno = $this->carregar_dados_listagem_ajax($busca);
 
+		if(!isset($retorno['dados'])){
+			$retorno['dados'] = [];
+		}
+
 		echo json_encode([
             "draw"            => intval(carregar_variavel('draw')),
-            "recordsTotal"    => intval(count($retorno)),
-            "recordsFiltered" => intval($this->model->select("SELECT count(id) AS total FROM {$this->datatable['from']} WHERE ativo = 1")[0]['total']),
-            "data"            => $retorno
+            "recordsTotal"    => intval(count($retorno['dados'])),
+            "recordsFiltered" => intval($retorno['total']),
+            "data"            => $retorno['dados']
         ]);
 
 		exit;
@@ -52,7 +56,6 @@ class ControllerCrud extends \Framework\Controller {
 		$this->universe->permission->check($this->modulo['modulo'], "criar");
 
 		$dados   = carregar_variavel($this->modulo['modulo']);
-
 		$retorno = $this->insert_update($dados, []);
 
 		if(isset($this->modulo['url']) && !empty($this->modulo['url']) && !empty($retorno['status'])){

@@ -5,7 +5,7 @@ use Libs;
 class Hierarquia extends \Framework\Model{
 
 	public function carregar_listagem($busca, $datatable = null){
-		$select = "SELECT"
+		$select = "SELECT SQL_CALC_FOUND_ROWS "
 			. " 	hierarquia.id,"
 			. " 	hierarquia.nome,"
 			. " 	hierarquia.nivel"
@@ -32,7 +32,10 @@ class Hierarquia extends \Framework\Model{
 			$select .= " LIMIT {$busca['start']}, {$busca['length']}";
 		}
 
-		return $this->select($select);
+		return [
+			'dados' => $this->select($select),
+			'total' => $this->select('SELECT FOUND_ROWS() AS total')[0]['total']
+		];
 	}
 
 	public function load_hierarquia($id){

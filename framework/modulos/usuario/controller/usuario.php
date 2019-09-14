@@ -37,7 +37,7 @@ class Usuario extends \Framework\ControllerCrud {
 			$query = [];
 		}
 
-		foreach ($query as $indice => $item) {
+		foreach($query['dados'] as $indice => $item) {
 
 			$remover_acesso = '';
 
@@ -57,7 +57,7 @@ class Usuario extends \Framework\ControllerCrud {
 				}
 			}
 
-			$retorno[] = [
+			$retorno['dados'][] = [
 				$item['id'],
 				(isset($item['pessoa'][0]) ? $item['pessoa'][0]['nome'] : '') . ' ' . (isset($item['pessoa'][0]) ? $item['pessoa'][0]['sobrenome'] : ''),
 				$item['email'],
@@ -65,6 +65,8 @@ class Usuario extends \Framework\ControllerCrud {
 				$this->view->default_buttons_listagem($item['id'], true, $_SESSION['usuario']['id'] != $item['id'] ? true : false, $_SESSION['usuario']['id'] != $item['id'] ? true : false) . $remover_acesso
 			];
 		}
+
+		$retorno['total'] = $query['total'];
 
 		return $retorno;
 	}

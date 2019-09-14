@@ -74,7 +74,7 @@ abstract class Model {
 	}
 
 	public function carregar_listagem($busca, $datatable){
-		$select = "SELECT " . implode(', ', $datatable['select'])
+		$select = "SELECT SQL_CALC_FOUND_ROWS " . implode(', ', $datatable['select'])
 			. " FROM " . $datatable['from']
 			. " WHERE ativo = 1";
 
@@ -91,7 +91,6 @@ abstract class Model {
 			}
 
 			$select .= ' ) ';
-
 		}
 
 		if(isset($busca['order'][0])){
@@ -102,7 +101,10 @@ abstract class Model {
 			$select .= " LIMIT {$busca['start']}, {$busca['length']}";
 		}
 
-		return $this->db->select($select);
+		return [
+			'dados' => $this->db->select($select),
+			'total' => $this->db->select('SELECT FOUND_ROWS() AS total')[0]['total']
+		];
 	}
 
 	public function insert_update($from, array $where, array $data, $update = false){

@@ -31,7 +31,7 @@ class Plataforma extends \Framework\ControllerCrud {
 
         $botao = new \Libs\GerarBotoes();
 
-		foreach ($query as $indice => $item) {
+		foreach ($query['dados'] as $indice => $item) {
 			$botao->setTitle('Visualizar')
                 ->setPermissao($this->universe->permission->check_user_permission($this->modulo['modulo'], 'visualizar'))
                 ->setHref("/{$this->modulo['modulo']}/editor/{$item['id']}/visualizar")
@@ -56,7 +56,7 @@ class Plataforma extends \Framework\ControllerCrud {
                 ->setTexto("<i class='botao_listagem fa fa-cloud-upload fa-fw'></i>")
                 ->gerarBotao();
 
-			$retorno[] = [
+			$retorno['dados'][] = [
 				$item['identificador'],
 				$item['nome'],
 				$item['descricao'],
@@ -66,6 +66,7 @@ class Plataforma extends \Framework\ControllerCrud {
 			];
 		}
 
+		$retorno['total'] = $query['total'];
 		return $retorno;
 	}
 

@@ -53,7 +53,7 @@ $(document).ready(function(){
         "serverSide": true,
         "responsive": true,
         "scrollX": false,
-        "bInfo" : false,
+        "bInfo" : true,
         "columnDefs": [
             {"targets": [{/literal}{if isset($datatable.ordenacao_desabilitada) && !empty($datatable.ordenacao_desabilitada)}{$datatable.ordenacao_desabilitada}{else}{/if}{literal}], "orderable": false}
         ],
