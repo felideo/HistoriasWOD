@@ -74,7 +74,7 @@ class Acesso extends \Framework\Controller {
 
 	public function admin($parametros){
 		if($this->universe->auth->is_logged(false)){
-			header('location: /painel_controle');
+			header('location: /painel_controle/listagem');
 			exit;
 		}
 
@@ -84,7 +84,7 @@ class Acesso extends \Framework\Controller {
 
 	public function run_back(){
 		if($this->model->run_back(carregar_variavel('acesso'))){
-			header('location: /painel_controle');
+			header('location: /painel_controle/listagem');
 			exit;
 		}
 

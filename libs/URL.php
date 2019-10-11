@@ -8,6 +8,7 @@ class URL {
 	private $model;
 	private $controller;
 	private $metodo;
+	private $atualizar = false;
 
 	public function __construct(){
 		$this->model = new \Framework\GenericModel();
@@ -15,7 +16,10 @@ class URL {
 
 	public function cadastrarUrlAmigavel(){
 		$this->url = $this->get_url_amigavel($this->url);
-		$this->tratar_preexistencia();
+
+		if(empty($this->atualizar)){
+			$this->tratar_preexistencia();
+		}
 
 		$retorno = $this->cadastrarUrl();
 
@@ -69,6 +73,11 @@ class URL {
 			$insert_db,
 			true
 		);
+	}
+
+	public function atualizar($atualizar){
+		$this->atualizar = $atualizar;
+		return $this;
 	}
 
 	public function setId($id){

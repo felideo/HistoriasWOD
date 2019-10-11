@@ -17,7 +17,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 		'ordenacao_desabilitada' => '2'
 	];
 
-	public function index() {
+	public function listagem() {
 		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 		$this->view->assign('permissao_criar', $this->universe->permission->check_user_permission($this->modulo['modulo'], 'criar'));
 

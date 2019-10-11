@@ -11,9 +11,31 @@ class Front extends \Framework\Controller {
 	];
 
 	public function carregar_cabecalho_rodape(){
+		$this->view->render_include('navbar');
+		// $this->carregar_paginas_institucionais();
+		// $this->carregar_banners();
+	}
 
-		$this->carregar_paginas_institucionais();
-		$this->carregar_banners();
+	public function montar_breadcrumb($breadcrumb){
+		$retorno = '';
+
+		foreach($breadcrumb as $indice => $item){
+			$active = false;
+			$href   = $item[0];
+
+			if(isset($item[2]) && !empty($item[2])){
+				$active = true;
+			}
+
+			if(isset($item[1]) && !empty($item[1])){
+				$href = "<a href='{$item[1]}'>{$item[0]}</a>";
+			}
+
+
+			$retorno .= "\n<li class='breadcrumb-item " . (!empty($active) ? " active " : "") . "'> " . $href . "</li>";
+		}
+
+		return $retorno;
 	}
 
 	private function carregar_paginas_institucionais(){

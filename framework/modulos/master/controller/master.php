@@ -8,9 +8,6 @@ class Master extends \Framework\Controller {
 		'modulo' 	=> 'master'
 	];
 
-	function index(){
-	}
-
 	function logout() {
 		$this->universe->session->destroy();
 		header('location: /');
@@ -35,7 +32,7 @@ class Master extends \Framework\Controller {
 			exit;
 		}
 
-		echo shell_exec("sudo sh /www/podkasto/automatic_deploy.sh");
+		echo shell_exec("sudo sh /www/Podkasto/automatic_deploy.sh");
 		exit;
 	}
 }

@@ -10,21 +10,17 @@ class Modulo extends \Framework\ControllerCrud {
 	];
 
 	protected $datatable = [
-		'colunas' => ['ID<i class="fa fa-search"></i>', 'Modulo<i class="fa fa-search"></i>', 'Ordem', 'Submenu', 'Acesso', 'Icone',  'Ações'],
-		'from'    => 'modulo'
+		'colunas'                => ['ID<i class="fa fa-search"></i>', 'Modulo<i class="fa fa-search"></i>', 'Ordem', 'Submenu', 'Acesso', 'Icone',  'Ações'],
+		'from'                   => 'modulo',
+		'ordenacao_desabilitada' => '3, 4, 5, 6'
 	];
 
-	public function index() {
-		$this->universe->permission->check($this->modulo['modulo'], $this->modulo['modulo'] . "_" . "visualizar");
-
-		$this->view->set_colunas_datatable($this->datatable['colunas']);
-
+	public function middle_index() {
 		$this->view->assign('submenu_list', $this->model->load_active_list('submenu'));
-		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/listagem/listagem');
 	}
 
 	protected function carregar_dados_listagem_ajax($busca){
-		$query = $this->model->load_modulo_list($this->modulo['modulo']);
+		$query = $this->model->carregar_listagem($busca, $this->datatable);
 
 		$retorno = [];
 
@@ -33,7 +29,7 @@ class Modulo extends \Framework\ControllerCrud {
 				$item['id'],
 				$item['nome'],
 				$item['ordem'],
-				$item['submenu_nome_exibicao'],
+				isset($item['submenu'][0]['nome_exibicao']) ? $item['submenu'][0]['nome_exibicao'] : '',
 				empty($item['hierarquia']) ? "Super Admin" : 'Hierarquico',
 				"<i class='fa {$item['icone']} fa-fw'></i> {$item['icone']}",
 				$this->view->default_buttons_listagem($item['id'], true, true, true)
@@ -82,7 +78,7 @@ class Modulo extends \Framework\ControllerCrud {
 			$this->view->alert_js('Ocorreu um erro ao efetuar o cadastro, por favor tente novamente...', 'erro');
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 
@@ -102,7 +98,7 @@ class Modulo extends \Framework\ControllerCrud {
 			$this->view->alert_js('Ocorreu um erro ao efetuar a edição do cadastro, por favor tente novamente...', 'erro');
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 
@@ -117,7 +113,7 @@ class Modulo extends \Framework\ControllerCrud {
 			$this->view->alert_js('Ocorreu um erro ao efetuar a remoção do cadastro, por favor tente novamente...', 'erro');
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 }

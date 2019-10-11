@@ -3,8 +3,13 @@ namespace Framework;
 
 class View {
 	private $dwoo;
+	private $model;
 	private $assign;
 	private $universe;
+
+	public function __construct(){
+		$this->model = new \Framework\GenericModel();
+	}
 
 	public function set_universe($universe){
 		$this->universe = $universe;
@@ -22,6 +27,12 @@ class View {
 
 	public function assign($index, $data){
 		$this->assign->assign($index, $data);
+	}
+
+	public function assign_array($data){
+		foreach($data as $indice => $item){
+			$this->assign->assign($indice, $item);
+		}
 	}
 
 	public function getAssign($data){
@@ -81,13 +92,84 @@ class View {
 		}
 	}
 
+	public function render_include($include){
+		$include = $this->carregar_include([$include]);
 
-	public function render_plataforma($header, $footer, $identificador){
+		if(!isset($include[0])){
+			return false;
+		}
+
+		$include = $include[0];
+
+		if(!file_exists('views/plataforma/' . $include['plataforma'][0]['identificador'] . '.html')){
+			file_put_contents('views/plataforma/' . $include['plataforma'][0]['identificador'] . '.html', $include['html']);
+		}
+
+		$this->assign(strtoupper($include['plataforma'][0]['identificador']), 'views/plataforma/' . $include['plataforma'][0]['identificador'] . '.html');
+		return 'views/plataforma/' . $include['plataforma'][0]['identificador'] . '.html';
+	}
+
+
+	private function processar_includes($includes){
+		$includes = $this->carregar_include($includes);
+
+		foreach($includes as $indice => $include){
+			if(!file_exists('views/plataforma/' . $include['plataforma'][0]['identificador'] . '.html')){
+				file_put_contents('views/plataforma/' . $include['plataforma'][0]['identificador'] . '.html', $include['html']);
+				continue;
+			}
+
+			unset($includes[$indice]);
+			$includes[strtoupper($include['plataforma'][0]['identificador'])] = $this->render_include_arquivo($include['plataforma'][0]['identificador']);
+		}
+
+		$this->assign_array($includes);
+	}
+
+	private function carregar_include($includes){
+		$includes = implode(',', $includes);
+		$includes = str_replace(',', "','", $includes);
+		$includes = str_replace(' ', '', $includes);
+		$includes = "'{$includes}'";
+
+		$this->model->query->select('
+				pagina.html,
+				plataforma.identificador
+			')
+			->from('plataforma_pagina pagina')
+			->leftJoin('plataforma plataforma ON plataforma.id = pagina.id_plataforma')
+			->where("pagina.id_plataforma IN (SELECT id FROM plataforma WHERE identificador IN ({$includes}) AND ativo = 1 AND tipo = 'include')")
+			->andWhere('pagina.ativo = 1')
+			->orderBy('pagina.ultima_atualizacao DESC');
+
+		if(!isset($_SESSION['plataforma']['modo_desenvolvedor']) || empty($_SESSION['plataforma']['modo_desenvolvedor'])){
+			$this->model->query->andWhere('pagina.publicado = 1');
+		}
+
+		return $this->model->query
+			->fetchArray();
+	}
+
+	private function render_include_arquivo($identificador){
+		$pagina = new \Dwoo\Template\File('views/plataforma/' . $identificador . '.html');
+		return $this->dwoo->get($pagina, $this->assign);
+	}
+
+
+	public function render_plataforma($header, $footer, $identificador, $includes = []){
+		if(isset($this->lazy_view) && !empty($this->lazy_view)){
+			$this->assign('lazy_view', true);
+		}
+
+		$this->assign('_SESSION', $_SESSION);
+
+		// if(!empty($includes)){
+		// 	$this->processar_includes($includes);
+		// }
+
 		if(file_exists('views/plataforma/' . $identificador . '.html')){
 			$this->render_plataforma_arquivo($identificador);
 		}
-
-		$this->model = new \Framework\GenericModel();
 
 		$header = !empty($header) ? $this->carregar_pagina_plataforma($header) : '';
 		$body   = $this->carregar_pagina_plataforma($identificador);
@@ -106,12 +188,6 @@ class View {
 
 	public function render_plataforma_arquivo($identificador){
 		$pagina = new \Dwoo\Template\File('views/plataforma/' . $identificador . '.html');
-
-		if(isset($this->lazy_view) && !empty($this->lazy_view)){
-			$this->assign('lazy_view', true);
-		}
-
-		$this->assign('_SESSION', $_SESSION);
 
 		echo $this->dwoo->get($pagina, $this->assign);
 
@@ -138,6 +214,8 @@ class View {
 			->fetchArray()[0]['html'];
 	}
 
+
+
 	private function set_todo(){
 		if((!defined('DEVELOPER') || empty(DEVELOPER)) || (!isset($GLOBALS['todo']) || empty($GLOBALS['todo']))){
 			return false;
@@ -155,7 +233,7 @@ class View {
 		$active = ($_SESSION['modulo_ativo'] == 'painel_controle') ? "active" : " ";
 
 		$array_menu[] = "<li class='{$active}'>\n\t"
-			. "<a href='/painel_controle'>\n\t\t"
+			. "<a href='/painel_controle/listagem'>\n\t\t"
 			. "<span aria-hidden='true' class='fa fa-dashboard fa-fw'></span>\n\t\t"
             . "<span class='nav-label'>Painel de Controle</span>\n\t"
 			. "</a>\n"
@@ -168,7 +246,7 @@ class View {
 						$active = $menu[0]['modulo'] == $_SESSION['modulo_ativo'] ? "active" : " ";
 
 						$string_menu = "<li class=' {$active} '>\n\t"
-							. " <a href='/{$menu[0]['modulo']}'>\n\t\t"
+							. " <a href='/{$menu[0]['modulo']}/listagem'>\n\t\t"
 							. 		"<span aria-hidden='true' class='icon fa {$menu[0]['icone']} fa-fw'></span>\n\t\t";
 
 							$menu_submenu_nome = isset($menu[0]['submenu']) && !empty($menu[0]['submenu']) ? $menu[0]['submenu'] : $menu[0]['nome'];
@@ -223,7 +301,7 @@ class View {
 							$active = $submenu['modulo'] == $_SESSION['modulo_ativo'] ? "active" : " ";
 
  	                        $menu_submenu .= "<li class=' {$active} '>\n\t\t\t"
-                         		. 	" <a href='/{$submenu['modulo']}'>\n\t\t\t\t"
+                         		. 	" <a href='/{$submenu['modulo']}/listagem'>\n\t\t\t\t"
 								. 		"<span aria-hidden='true' class='icon fa glyphicon {$submenu['icone']} fa-fw'></span>\n\t\t\t\t"
  	                            . 		"<span class='nav-label'>{$submenu['nome']}</span>\n\t\t\t"
  	                            . 	" </a>\n\t\t"

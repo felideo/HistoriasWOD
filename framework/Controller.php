@@ -78,4 +78,11 @@ abstract class Controller {
 			exit;
 		}
 	}
+
+	public function carregar_front(){
+		$front_controller = $this->universe->get_controller('front');
+		$front_controller->carregar_cabecalho_rodape();
+
+		return $front_controller;
+	}
 }

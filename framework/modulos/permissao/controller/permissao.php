@@ -18,7 +18,7 @@ class Permissao extends \Framework\ControllerCrud {
 		'search'  => ['id', 'id_modulo', 'permissao']
 	];
 
-	public function index() {
+	public function listagem() {
 		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 

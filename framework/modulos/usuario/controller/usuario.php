@@ -12,8 +12,8 @@ class Usuario extends \Framework\ControllerCrud {
 	];
 
 	protected $datatable = [
-		'colunas' => ['ID  <i class="fa fa-search"></i>', 'Nome  <i class="fa fa-search"></i>', 'Email  <i class="fa fa-search"></i>', 'Hierarquia', 'Ações'],
-		'from'    => 'usuario',
+		'colunas'                => ['ID  <i class="fa fa-search"></i>', 'Nome  <i class="fa fa-search"></i>', 'Email  <i class="fa fa-search"></i>', 'Hierarquia', 'Ações'],
+		'from'                   => 'usuario',
 		'ordenacao_desabilitada' => '3, 4'
 	];
 
@@ -22,7 +22,7 @@ class Usuario extends \Framework\ControllerCrud {
 	}
 
 	protected function carregar_dados_listagem_ajax($busca){
-		$query = $this->model->carregar_listagem($busca);
+		$query = $this->model->carregar_listagem($busca, $this->datatable);
 
 		$retorno = [];
 
@@ -67,7 +67,6 @@ class Usuario extends \Framework\ControllerCrud {
 		}
 
 		$retorno['total'] = $query['total'];
-
 		return $retorno;
 	}
 

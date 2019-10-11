@@ -43,17 +43,23 @@ class pagina_institucional extends \Framework\ControllerCrud {
 
 	public function visualizar_front($id){
 		$this->check_if_exists($id[0]);
-
-		$front_controller = $this->universe->get_controller('front');
-		$front_controller->carregar_cabecalho_rodape();
-
-
+		$front_controller = $this->carregar_front();
 		$cadastro = $this->model->full_load_by_id($this->modulo['modulo'], $id[0])[0];
 
 		$this->view->assign('cadastro', $cadastro);
 		// $this->view->render('front/cabecalho_rodape', $this->modulo['modulo'] . '/view/front/front');
 		$this->view->render_plataforma('header', 'footer', 'pagina_institucional');
 
+	}
+
+	public function load_source_code_ajax(){
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "editar");
+		// $this->check_if_exists($parametros[0], 'plataforma_pagina');
+
+		$parametros = carregar_variavel('data');
+		echo json_encode($this->model->full_load_by_id($this->modulo['modulo'], $parametros['id'])[0]);
+		exit;
 	}
 
 	public function save_source_code_ajax($id){

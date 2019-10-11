@@ -1,5 +1,5 @@
 <?php
 namespace Framework;
 
-class GenericModel extends \Framework\Model{
+class GenericModel extends \Framework\Model {
 }

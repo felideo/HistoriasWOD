@@ -1,18 +1,14 @@
 <?php
 namespace Libs;
 
-/**
-* Classe Image
-*/
 class Image {
 	private $file;
-	private $size = IMG_SIZE;
+	private $size;
 	private $width;
 	private $height;
-	private $folder = IMG_FOLDER;
+	private $folder;
+	private $model;
 	private $extension = array('jpg', 'png', 'gif');
-
-	function __construct() {}
 
 	public function __set($property, $value)
 	{
@@ -73,6 +69,83 @@ class Image {
 		} else {
 			return false;
 		}
+	}
+
+	public function reap($url, $name, $folder){
+		$folder = (new Folder())->check_folder($folder);
+
+		if(empty(strpos('http', $url))){
+			$url = 'http://' . ltrim($url, '//');
+
+			if(empty($this->file_exists($url))){
+				$url = str_replace('http://', 'https://', $url);
+			}
+		}
+
+		if(empty($this->file_exists($url))){
+			return [
+			    'operacao'   => false,
+			    'status'     => false,
+			    'id'         => null,
+			    'error_code' => null,
+			    'erros_info' => 'Arquivo não existe e não pode ser baixado',
+			];
+		}
+
+	    $file_info = new \finfo(FILEINFO_MIME_TYPE);
+	    $mime_type = $file_info->buffer(file_get_contents($url));
+	    $file_type = explode('/', $mime_type);
+		$file_type = end($file_type);
+		$name     .= ".{$file_type}";
+		$image     = file_get_contents($url);
+
+		file_put_contents($folder . '/' . $name, $image);
+
+		if(filesize($folder . '/' . $name) == 0){
+			unlink($folder . '/' . $name);
+			return [
+			    'operacao'   => false,
+			    'status'     => false,
+			    'id'         => null,
+			    'error_code' => null,
+			    'erros_info' => 'Arquivo não foi salvo no diretorio',
+			];
+		}
+
+		$pathinfo   = pathinfo($folder . '/' . $name);
+		$filename   = $pathinfo['filename'];
+		$ext        = @$pathinfo['extension'];
+		$ext        = ($ext == '') ? $ext : '.' . $ext;
+		$hash       = Hash::get_unic_hash();
+		$uploadname = $hash . $ext;
+		$size       = number_format((float) filesize($folder . '/' . $name) / 1000000, '3', '.', '');
+
+		$insert_db = [
+			'hash'     => $hash,
+			'nome'     => $filename,
+			'endereco' => $folder . '/' . $name,
+			'tamanho'  => $size * 1,
+			'extensao' => $ext
+		];
+
+		$this->model = new \Framework\GenericModel();
+
+		return $this->model->insert_update(
+			'arquivo',
+			['endereco' => $insert_db['endereco']],
+			$insert_db,
+			true
+		);
+	}
+
+	public function file_exists($url) {
+	    $ch = curl_init($url);
+	    curl_setopt($ch, CURLOPT_NOBODY, true);
+	    curl_exec($ch);
+	    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	    curl_close($ch);
+
+	    return $code == 200 || $code == 301;
 	}
 
 	/**

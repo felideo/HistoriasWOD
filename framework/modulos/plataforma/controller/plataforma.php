@@ -10,7 +10,7 @@ class Plataforma extends \Framework\ControllerCrud {
 
 	protected $datatable = [
 		'colunas'                => ['Identificador <i class="fa fa-search"></i>',  'Nome <i class="fa fa-search"></i>',  'Descricao <i class="fa fa-search"></i>',  'Ultima Atualizacao',  'Ultima Publicao', 'Ações'],
-		'select'                 => ['id', 'identificador', 'nome', 'descricao', 'identificador', 'ultima_atualizacao', 'ultima_publicacao', ],
+		'select'                 => ['id', 'identificador', 'nome', 'descricao', 'identificador', 'tipo', 'ultima_atualizacao', 'ultima_publicacao', ],
 		'from'                   => 'plataforma',
 		'search'                 => ['identificador', 'nome', 'descricao'],
 		'ordenacao_desabilitada' => '5'
@@ -279,7 +279,7 @@ class Plataforma extends \Framework\ControllerCrud {
 			}
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 
@@ -297,7 +297,7 @@ class Plataforma extends \Framework\ControllerCrud {
 			$this->view->warn_js("Ocorreu um erro ao publicar a página!", 'erro');
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 
@@ -347,7 +347,7 @@ class Plataforma extends \Framework\ControllerCrud {
 
 		$_SESSION['plataforma']['modo_desenvolvedor'] = $parametros[0];
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 }

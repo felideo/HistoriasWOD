@@ -11,7 +11,7 @@ class Configuracao extends \Framework\ControllerCrud {
 		'send'		=> 'Configurações de Sistema'
 	];
 
-	public function index(){
+	public function listagem(){
 		header('location: /' . $this->modulo['modulo'] . '/editar/1');
 		exit;
 	}

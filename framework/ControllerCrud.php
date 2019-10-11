@@ -11,7 +11,7 @@ class ControllerCrud extends \Framework\Controller {
 	// 	$this->view->assign('modulo', $this->modulo);
 	// }
 
-	public function index() {
+	public function listagem() {
 		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
@@ -69,7 +69,7 @@ class ControllerCrud extends \Framework\Controller {
 			$this->view->alert_js('Ocorreu um erro ao efetuar o cadastro do ' . strtolower($this->modulo['send']) . ', por favor tente novamente...', 'erro');
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 
@@ -121,10 +121,10 @@ class ControllerCrud extends \Framework\Controller {
 		$dados   = carregar_variavel($this->modulo['modulo']);
 		$retorno = $this->insert_update($dados, ['id' => $id[0]]);
 
-		if(isset($this->modulo['url']) && !empty($this->modulo['url']) && !empty($retorno['status'])){
-			$dados['id'] = $id[0];
-			$this->cadastrar_url($dados);
-		}
+		// if(isset($this->modulo['url']) && !empty($this->modulo['url']) && !empty($retorno['status'])){
+		// 	$dados['id'] = $id[0];
+		// 	$this->cadastrar_url($dados);
+		// }
 
 		if(isset($retorno['status']) && !empty($retorno['status'])){
 			$this->view->alert_js(ucfirst($this->modulo['send']) . ' editado com sucesso!!!', 'sucesso');
@@ -132,7 +132,7 @@ class ControllerCrud extends \Framework\Controller {
 			$this->view->alert_js('Ocorreu um erro ao efetuar a edição do ' . strtolower($this->modulo['send']) . ', por favor tente novamente...', 'erro');
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 
@@ -162,7 +162,7 @@ class ControllerCrud extends \Framework\Controller {
 			$this->view->alert_js('Ocorreu um erro ao efetuar a remoção do ' . strtolower($this->modulo['send']) . ', por favor tente novamente...', 'erro');
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 
