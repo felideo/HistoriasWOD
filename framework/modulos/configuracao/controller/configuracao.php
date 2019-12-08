@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace ControllerCore;
 
 use Libs;
 
@@ -14,6 +14,11 @@ class Configuracao extends \Framework\ControllerCrud {
 	public function listagem(){
 		header('location: /' . $this->modulo['modulo'] . '/editar/1');
 		exit;
+	}
+
+	public function middle_editar($id) {
+		parent::middle_editar($id);
+		$this->view->assign('hierarquia_list', $this->model->load_active_list('hierarquia'));
 	}
 
 }

@@ -92,12 +92,13 @@ class ControllerCrud extends \Framework\Controller {
 		);
 	}
 
-	private function cadastrar_url($dados){
+	protected function cadastrar_url($dados){
 		$url          = new \Libs\URL;
 		$retorno_url  = $url->setId($dados['id'])
 			->setUrl($dados[$this->modulo['url']['url']])
 			->setMetodo($this->modulo['url']['metodo'])
 			->setController($this->modulo['modulo'])
+			->atualizar(isset($this->modulo['url']['atualizar']) && !empty($this->modulo['url']['atualizar']))
 			->cadastrarUrlAmigavel();
 	}
 

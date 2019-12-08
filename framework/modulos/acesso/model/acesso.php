@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace ModelCore;
 
 class Acesso extends \Framework\Model{
 	private $menus;

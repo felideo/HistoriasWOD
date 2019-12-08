@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace ModelCore;
 
 class Pagina_Institucional extends \Framework\Model{
 }

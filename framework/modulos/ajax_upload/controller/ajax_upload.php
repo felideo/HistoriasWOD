@@ -1,16 +1,13 @@
 <?php
-namespace Controller;
+namespace ControllerCore;
 
 use Libs;
 
 class ajax_upload extends \Framework\Controller {
 	public function upload($parametros = null) {
+		debug2($_POST);
 		// else do regular POST upload (i.e. for old non-HTML5 browsers)
 		$size = $_FILES['qqfile']['size'];
-
-
-
-
 
 		// if ($size == 0) {
 		// 	return array('error' => 'File is empty.');
@@ -20,11 +17,16 @@ class ajax_upload extends \Framework\Controller {
 		$filename   = $pathinfo['filename'];
 		$ext        = @$pathinfo['extension'];
 		$ext        = ($ext == '') ? $ext : '.' . $ext;
-		$hash       = \Libs\Hash::get_unic_hash();
+		$hash       = !isset($_POST['nome']) || empty($_POST['nome']) ? \Libs\Hash::get_unic_hash() : $_POST['nome'];
 		$uploadname = $hash . $ext;
+		$update     = !isset($_POST['update']) || empty($_POST['update']) ? false : true;
+
+		if(!is_dir('uploads/' . $_POST['local'])){
+   			mkdir('uploads/' . $_POST['local']);
+		}
 
 		if (!move_uploaded_file($_FILES['qqfile']['tmp_name'], 'uploads/' . $_POST['local'] . '/' . $uploadname)) {
-			$results = array('error' => 'Could not save upload file.');
+			$results = ['error' => 'Could not save upload file.'];
 		} else {
 			@chmod($tempfilepath, 0644);
 
@@ -37,7 +39,16 @@ class ajax_upload extends \Framework\Controller {
 
 			];
 
-			$retorno_arquivo = $this->model->insert('arquivo', $insert_db);
+			if(empty($update)){
+				$retorno_arquivo = $this->model->insert('arquivo', $insert_db);
+			}else{
+				$retorno_arquivo = $this->model->insert_update(
+					'arquivo',
+					['endereco' => $insert_db['endereco']],
+					$insert_db,
+					true
+				);
+			}
 
 			$results = array('success' => true);
 			$results = array_merge($results, array_merge($insert_db, $retorno_arquivo));

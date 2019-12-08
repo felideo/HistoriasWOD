@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace ControllerCore;
 
 class Painel_Controle extends \Framework\ControllerCrud {
 

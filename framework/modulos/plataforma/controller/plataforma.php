@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace ControllerCore;
 
 class Plataforma extends \Framework\ControllerCrud {
 

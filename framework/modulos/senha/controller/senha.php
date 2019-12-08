@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace ControllerCore;
 
 use Libs;
 

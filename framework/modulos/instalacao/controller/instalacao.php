@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace ControllerCore;
 
 class Instalacao extends \Framework\Controller {
 	protected $modulo = [

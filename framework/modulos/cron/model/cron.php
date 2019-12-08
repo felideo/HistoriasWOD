@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace ModelCore;
 
 class Cron extends \Framework\Model{
 	public function get_crons(){

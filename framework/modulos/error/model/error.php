@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace ModelCore;
 
 class Error extends \Framework\Model{
 }

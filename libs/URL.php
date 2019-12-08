@@ -71,7 +71,7 @@ class URL {
 			'url',
 			['id_controller' => $this->id, 'controller' => $this->controller],
 			$insert_db,
-			true
+			$this->atualizar
 		);
 	}
 

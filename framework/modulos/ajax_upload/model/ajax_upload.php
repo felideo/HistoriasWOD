@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace ModelCore;
 use Libs;
 
 class Ajax_Upload extends \Framework\Model{

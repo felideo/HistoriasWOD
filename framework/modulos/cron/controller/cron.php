@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace ControllerCore;
 
 class Cron extends \Framework\Controller {
 	public function index(){

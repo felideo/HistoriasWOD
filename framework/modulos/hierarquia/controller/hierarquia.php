@@ -1,7 +1,5 @@
 <?php
-namespace Controller;
-
-use Libs;
+namespace ControllerCore;
 
 class Hierarquia extends \Framework\ControllerCrud {
 
@@ -95,7 +93,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 			$this->view->alert_js('Ocorreu um erro ao efetuar o cadastro, por favor tente novamente...', 'erro');
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 
@@ -152,7 +150,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 			$this->view->alert_js('Ocorreu um erro ao efetuar a edição do cadastro, por favor tente novamente...', 'erro');
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 
@@ -171,7 +169,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 			$this->view->alert_js('Ocorreu um erro ao efetuar a remoção do cadastro, por favor tente novamente...', 'erro');
 		}
 
-		header('location: /' . $this->modulo['modulo']);
+		header('location: /' . $this->modulo['modulo'] . '/listagem');
 		exit;
 	}
 }

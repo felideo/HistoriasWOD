@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace ModelCore;
 
 class Plataforma extends \Framework\Model {
 	public function carregar_plataforma_pagina($id_plataforma, $publicado = null){

@@ -51,7 +51,7 @@ class View {
 			$header = new \Dwoo\Template\File('views/' 		. rtrim(strtolower($header_footer), '/') 	. '/header.html');
 		}
 
-		$body   = new \Dwoo\Template\File($this->universe->get_core_module() . '/' . strtolower($body) . '.html');
+		$body = new \Dwoo\Template\File($this->definir_arquivo_body($body));
 
 		if(!empty($header_footer)){
 			$footer = new \Dwoo\Template\File('views/' 		. rtrim(strtolower($header_footer), '/') 	. '/footer.html');
@@ -82,6 +82,24 @@ class View {
 		exit;
 	}
 
+	private function definir_arquivo_body($body){
+		if(file_exists($this->universe->get_core_module() . '/' . strtolower($body) . '.html')){
+			return $this->universe->get_core_module() . '/' . strtolower($body) . '.html';
+		}
+
+		$caminho_cruzado = [
+			'framework/modulos' => 'modulos',
+			'modulos'           => 'framework/modulos'
+		];
+
+		if(file_exists($caminho_cruzado[$this->universe->get_core_module()] . '/' . strtolower($body) . '.html')){
+			$this->assign('core_modulo', $caminho_cruzado[$this->universe->get_core_module()]);
+			return $caminho_cruzado[$this->universe->get_core_module()] . '/' . strtolower($body) . '.html';
+		}
+
+		throw new \Fail('View Inexistente $core_modulo/' . $body);
+	}
+
 	private function clear_template_compile_folder(){
 		$folder = 'template_compile';
 		$files = glob($folder . '/*');
@@ -110,7 +128,7 @@ class View {
 	}
 
 
-	private function processar_includes($includes){
+	public function processar_includes($includes){
 		$includes = $this->carregar_include($includes);
 
 		foreach($includes as $indice => $include){
@@ -120,10 +138,10 @@ class View {
 			}
 
 			unset($includes[$indice]);
-			$includes[strtoupper($include['plataforma'][0]['identificador'])] = $this->render_include_arquivo($include['plataforma'][0]['identificador']);
+			$this->assign(strtoupper($include['plataforma'][0]['identificador']), 'views/plataforma/' . $include['plataforma'][0]['identificador'] . '.html');
 		}
 
-		$this->assign_array($includes);
+		// $this->assign_array($includes);
 	}
 
 	private function carregar_include($includes){
@@ -167,7 +185,7 @@ class View {
 		// 	$this->processar_includes($includes);
 		// }
 
-		if(file_exists('views/plataforma/' . $identificador . '.html')){
+		if(file_exists('views/plataforma/' . $identificador . '.html') && (!isset($_SESSION['plataforma']['modo_desenvolvedor']) || empty($_SESSION['plataforma']['modo_desenvolvedor']))){
 			$this->render_plataforma_arquivo($identificador);
 		}
 

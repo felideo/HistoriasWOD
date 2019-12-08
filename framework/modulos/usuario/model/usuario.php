@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace ModelCore;
 
 use Libs;
 use \Libs\QueryBuilder\QueryBuilder;
@@ -80,9 +80,13 @@ class Usuario extends \Framework\Model{
 		return $this->query->select('
 				usuario.*,
 				pessoa.*,
+				rel_arquivo.id,
+				arquivo.endereco,
 			')
 			->from('usuario usuario')
 			->leftJoin('pessoa pessoa ON pessoa.id_usuario = usuario.id AND pessoa.ativo = 1')
+			->leftJoin('usuario_relaciona_arquivo rel_arquivo ON rel_arquivo.id_usuario = usuario.id AND rel_arquivo.ativo = 1')
+			->leftJoin('arquivo arquivo ON arquivo.id = rel_arquivo.id_arquivo AND arquivo.ativo = 1')
 			->where("usuario.ativo = 1 AND usuario.id = {$id}")
 			->fetchArray();
 	}

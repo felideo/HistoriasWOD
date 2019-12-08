@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace ControllerCore;
 
 use Libs;
 
@@ -323,20 +323,6 @@ class Usuario extends \Framework\ControllerCrud {
 	}
 
 
-
-
-
-
-
-
-
-
-
-	public function perfil(){
-		$cadastro = $this->model->carregar_usuario_por_id($_SESSION['usuario']['id']);
-		$this->view->cadastro = $cadastro[0];
-		$this->view->render('front/cabecalho_rodape', 'front/usuario/perfil');
-	}
 
 	public function update_perfil($id){
 		$usuario = carregar_variavel('usuario');

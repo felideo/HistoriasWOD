@@ -7,6 +7,8 @@ class Universe {
 	private $view;
 	public 	$session;
 	public  $permission;
+	private $models      = [];
+	private $namespaces  = [];
 	private $controllers = [];
 	private $core_module;
     public  static $universe;
@@ -83,8 +85,7 @@ class Universe {
 			throw new \Fail('Controller Inexistente ' . $controller . ' - ' . $subcontroller);
 		}
 
-		$instancia_controller = '\\Controller\\' . ucfirst($subcontroller);
-
+		$instancia_controller = '\\Controller' . $this->namespace[$controller . '_' . $subcontroller] . '\\' . ucfirst($subcontroller);
 		require_once $file;
 
 		$instancia_controller = new $instancia_controller;
@@ -113,8 +114,7 @@ class Universe {
 			throw new \Fail('Model Inexistente ' . $model . ' - ' . $submodel);
 		}
 
-		$instancia_model = '\\Model\\' . ucfirst($submodel);
-
+		$instancia_model = '\\Model' . $this->namespace[$model . '_' . $submodel] . '\\' . ucfirst($submodel);
 		require_once $file;
 
 		$instancia_model = new $instancia_model;
@@ -127,20 +127,27 @@ class Universe {
 	}
 
 	public function is_core_module($modulo, $submodulo){
+		$this->namespace[$modulo . '_' . $submodulo] = '';
+
 		if(file_exists("modulos/{$modulo}/controller/{$submodulo}.php")){
+			if(file_exists("framework/modulos/{$modulo}/controller/{$submodulo}.php")){
+				require_once "framework/modulos/{$modulo}/controller/{$submodulo}.php";
+			}
+
+			if(file_exists("framework/modulos/{$modulo}/controller/{$submodulo}.php")){
+				require_once "framework/modulos/{$modulo}/model/{$submodulo}.php";
+			}
+
 			return 'modulos';
-		}elseif(file_exists("framework/modulos/{$modulo}/controller/{$submodulo}.php")){
+		}
+
+		if(file_exists("framework/modulos/{$modulo}/controller/{$submodulo}.php")){
+			$this->namespace[$modulo . '_' . $submodulo] = 'Core';
 			return 'framework/modulos';
 		}
 
 		return null;
 	}
-
-
-
-
-
-
 
 	public function set_core_module($core_module){
 		$this->core_module        = $core_module;
