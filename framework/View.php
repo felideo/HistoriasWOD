@@ -8,11 +8,19 @@ class View {
 	private $universe;
 
 	public function __construct(){
-		$this->model = new \Framework\GenericModel();
 	}
 
 	public function set_universe($universe){
 		$this->universe = $universe;
+		return $this;
+	}
+
+	public function set_model(){
+		if(isset($this->model) && !empty($this->model)){
+			return $this;
+		}
+
+		$this->model = new \Framework\GenericModel();
 		return $this;
 	}
 
@@ -150,6 +158,8 @@ class View {
 		$includes = str_replace(' ', '', $includes);
 		$includes = "'{$includes}'";
 
+		$this->set_model();
+
 		$this->model->query->select('
 				pagina.html,
 				plataforma.identificador
@@ -218,6 +228,8 @@ class View {
 	}
 
 	private function carregar_pagina_plataforma($identificador){
+		$this->set_model();
+
 		$this->model->query->select('pagina.html')
 			->from('plataforma_pagina pagina')
 			->where("pagina.id_plataforma = (SELECT id FROM plataforma WHERE identificador = '{$identificador}'  AND ativo = 1)")

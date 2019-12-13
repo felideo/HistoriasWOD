@@ -9,7 +9,12 @@ class Index extends \Framework\Controller {
 		'send'		=> 'Index'
 	];
 
-	public function index(){
+	public function index($parametros){
+		$this->view->assign('campeao', $parametros[0]);
+		$this->view->render('', $this->modulo['modulo'] . '/view/index');
+	}
+
+	public function index_fernanda(){
 		$folder = '/uploads/MR CONTADOR -- 12_-be27cf5e';
 		// $url = 'http://teste.dv/monta_imagens_lado_a_lado_para_impressao/' . $folder . '/';
 

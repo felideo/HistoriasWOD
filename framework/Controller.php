@@ -26,9 +26,9 @@ abstract class Controller {
 
 		$this->universe->session->set('modulo_ativo',  $this->modulo['modulo']);
 
-		if(defined('DB_NAME') && defined('DB_HOST') && defined('DB_USER')  && defined('DB_PASS')){
-			$this->universe->session->set('configuracoes', $this->model->full_load_by_id('configuracao', 1)[0]);
-		}
+		// if(defined('DB_NAME') && defined('DB_HOST') && defined('DB_USER')  && defined('DB_PASS')){
+		// 	$this->universe->session->set('configuracoes', $this->model->full_load_by_id('configuracao', 1)[0]);
+		// }
 
 		$this->view->modulo = $this->modulo;
 		$this->view->assign('modulo', $this->modulo);

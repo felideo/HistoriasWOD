@@ -11,17 +11,20 @@ class URL{
 			return $this->url;
 		}
 
-		$this->url = strtolower(filter_var($this->get_scheme() . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL));
-		return filter_var($this->get_scheme() . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
+		$this->url = filter_var($this->get_scheme() . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
+
+		return $this->url;
 	}
 
 	public function get_parsed(){
-		if(!empty($this->url)){
-			$this->parsed = parse_url($this->url);
+		if(!empty($this->parsed)){
 			return $this->parsed;
 		}
 
-		$this->get_url();
+		if(empty($this->url)){
+			$this->get_url();
+		}
+
 		$this->parsed = parse_url($this->url);
 		return $this->parsed;
 	}

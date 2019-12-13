@@ -73,6 +73,21 @@ function carregar_variavel($nome, $padrao = '') {
     return $padrao;
 }
 
+function lower($variavel){
+    if(!is_array($variavel)){
+        $variavel = strtolower($variavel);
+        return $variavel;
+    }
+
+    foreach($variavel as $chave => $cada){
+        if (is_array($cada)) {
+            $variavel[$chave] = lower($cada);
+        }
+    }
+
+    return $variavel;
+}
+
 function transformar_array($variavel) {
 
     if (!is_array($variavel)) {

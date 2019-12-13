@@ -20,7 +20,7 @@ class BigBang{
 			$this->load_friendly_url();
 		}
 
-		if(!file_exists("{$this->url['core_module']}/{$this->url['path'][0]}/controller/{$this->url['path'][0]}.php")){
+		if(!file_exists(strtolower("{$this->url['core_module']}/{$this->url['path'][0]}/controller/{$this->url['path'][0]}.php"))){
 			$this->full_entropy();
 		}
 
@@ -56,10 +56,10 @@ class BigBang{
 
 	private function load_friendly_url(){
 	    $pdo    = new \PDO('mysql:dbname=' . DB_NAME . ";host=" . DB_HOST, DB_USER, DB_PASS);
-	    $select = "SELECT controller, metodo, id_controller FROM `url` WHERE url = '{$this->url['path'][0]}' AND ativo = 1 LIMIT 1";
+	    $select = "SELECT controller, metodo, id_controller FROM `url` WHERE url = LOWER('{$this->url['path'][0]}') AND ativo = 1 LIMIT 1";
 
 	    if(isset($this->url['path'][1])){
-	    	$select = "SELECT controller, metodo, id_controller FROM `url` WHERE controller = '{$this->url['path'][0]}' AND url = '{$this->url['path'][1]}' AND ativo = 1 LIMIT 1";
+	    	$select = "SELECT controller, metodo, id_controller FROM `url` WHERE controller = LOWER('{$this->url['path'][0]}') AND url = LOWER('{$this->url['path'][1]}') AND ativo = 1 LIMIT 1";
 	    }
 
 	    $sql = $pdo->prepare($select);
@@ -81,18 +81,19 @@ class BigBang{
 	}
 
 	private function form_first_atoms(){
-		$this->first_atoms['file']   = "{$this->url['core_module']}/{$this->url['path'][0]}/controller/{$this->url['path'][0]}.php";
-		$this->first_atoms['class']  = $this->url['path'][0];
-		$this->first_atoms['method'] = isset($this->url['path'][1]) ? $this->url['path'][1] : 'index';
-		unset($this->url['path'][0], $this->url['path'][1]);
+		$this->first_atoms['file']       = strtolower("{$this->url['core_module']}/{$this->url['path'][0]}/controller/{$this->url['path'][0]}.php");
+		$this->first_atoms['class']      = $this->url['path'][0];
+		$this->first_atoms['method']     = isset($this->url['path'][1]) ? $this->url['path'][1] : 'index';
 		$this->first_atoms['parameters'] = [];
+
+		unset($this->url['path'][0], $this->url['path'][1]);
 
 		if(!empty($this->url['path'])){
 			$this->first_atoms['parameters'] = array_values($this->url['path']);
 		}
 
 		if(isset($this->url['query'])){
-			$this->first_atoms['parameters']['query'] = $this->url['query'];
+			$this->first_atoms['query'] = $this->url['query'];
 		}
 	}
 
@@ -105,13 +106,17 @@ class BigBang{
 
 			$controller->form_galaxies();
 
-			if(method_exists($controller, $this->first_atoms['method'])){
-				$controller->{$this->first_atoms['method']}($this->first_atoms['parameters']);
+			$method = strtolower($this->first_atoms['method']);
+
+			if(method_exists($controller, $method)){
+				$controller->{$method}($this->first_atoms['parameters']);
 				exit;
 			}
 
-			$controller->index(array_merge([$this->first_atoms['method']], $this->first_atoms['parameters']));
-			exit;
+			if(method_exists($controller, 'index')){
+				$controller->index(array_merge([$this->first_atoms['method']], $this->first_atoms['parameters']));
+				exit;
+			}
 		}catch(\Fail $e) {
 			$e->show_error(true);
 		}

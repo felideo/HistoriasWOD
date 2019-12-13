@@ -50,7 +50,6 @@ class Universe {
 		$this->permission = new \Libs\Permission();
 		$this->session    = new \Libs\Session();
 
-
 		return $this;
 	}
 
@@ -127,6 +126,9 @@ class Universe {
 	}
 
 	public function is_core_module($modulo, $submodulo){
+		$modulo    = strtolower($modulo);
+		$submodulo = strtolower($submodulo);
+
 		$this->namespace[$modulo . '_' . $submodulo] = '';
 
 		if(file_exists("modulos/{$modulo}/controller/{$submodulo}.php")){
@@ -150,8 +152,8 @@ class Universe {
 	}
 
 	public function set_core_module($core_module){
-		$this->core_module        = $core_module;
-		$this->url['core_module'] = $core_module;
+		$this->core_module        = strtolower($core_module);
+		$this->url['core_module'] = strtolower($core_module);
 		return $this;
 	}
 

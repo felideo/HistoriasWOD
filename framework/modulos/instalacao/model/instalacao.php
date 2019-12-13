@@ -43,7 +43,7 @@ class Instalacao {
 		$this->db->exec('set foreign_key_checks = 0;');
         $this->db->exec('USE ' . $this->dados['database']);
 
-		$arquivo = fopen($_SERVER['DOCUMENT_ROOT'] . '/SQL.sql', "r");
+		$arquivo = fopen($_SERVER['DOCUMENT_ROOT'] . '/FelideoMVC.sql', "r");
 
 		if($arquivo){
 		    while (($linha = fgets($arquivo)) !== false) {
@@ -63,6 +63,7 @@ class Instalacao {
 	}
 
 	private function criar_usuario(){
+		$this->usuario['senha'] = \Libs\Crypto::encode($this->usuario['senha']);
 		$this->db->exec('set foreign_key_checks = 0;');
         $this->db->exec("INSERT INTO `usuario` VALUES (1,{$this->usuario['usuario']},{$this->usuario['senha']},1,1,1,0,1)");
         $this->db->exec("INSERT INTO `pessoa` VALUES (1,1,NULL,'','',NULL,0,1,1);");
