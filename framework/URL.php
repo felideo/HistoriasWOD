@@ -13,6 +13,10 @@ class URL{
 
 		$this->url = filter_var($this->get_scheme() . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
 
+		if(defined('URL_SENSITIVE') && empty(URL_SENSITIVE)){
+			$this->url = strtolower($this->url);
+		}
+
 		return $this->url;
 	}
 

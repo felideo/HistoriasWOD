@@ -105,7 +105,7 @@ class View {
 			return $caminho_cruzado[$this->universe->get_core_module()] . '/' . strtolower($body) . '.html';
 		}
 
-		throw new \Fail('View Inexistente $core_modulo/' . $body);
+		throw new \Fail("View Inexistente {$core_modulo}/$body");
 	}
 
 	private function clear_template_compile_folder(){

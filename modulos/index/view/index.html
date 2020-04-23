@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+        <link rel="stylesheet" href="/public/back/css/bootstrap.css">
+
+		<script src="/public/back/js/jquery.js"></script>
+		<script src="/public/plugins/whendefined/whendefined.min.js"></script>
+
+        <link rel="stylesheet" href="/public/back/css/jquery-data-tables.css" rel="stylesheet">
+        <link rel="stylesheet" href="/public/back/css/jquery-data-tables-bs3.css" rel="stylesheet">
+
+
+        <script src="/public/back/js/jquery-data-tables.js"></script>
+        <script src="/public/back/js/jquery-data-tables-bs3.js"></script>
+
+</head>
+<body>
+	<script type="text/javascript">
+
+	window.LOL = {
+		language: 'pt_BR',
+	    version:    '9.24.1',
+	    asset_item: '//ddragon.leagueoflegends.com/cdn/9.24.1/img/item/',
+	    get_items: function(){
+			$.get('//ddragon.leagueoflegends.com/cdn/' + LOL.version + '/data/' + LOL.language + '/item.json', function(retorno){
+				LOL.items = retorno;
+			});
+	    },
+	    get_champions: function(){
+			$.get('//ddragon.leagueoflegends.com/cdn/' + LOL.version + '/data/' + LOL.language + '/champion.json', function(retorno){
+				LOL.champions = retorno;
+				// console.log(retorno);
+			});
+	    },
+	    get_champion: function(){
+	    	// http://ddragon.leagueoflegends.com/cdn/9.24.1/data/en_US/champion/Yuumi.json
+	    	$.get('//ddragon.leagueoflegends.com/cdn/' + LOL.version + '/data/' + LOL.language + '/champion/{$campeao}.json', function(retorno){
+				LOL.champion = retorno;
+				console.log('OK');
+			});
+	    },
+	    populate_items: function(){
+	    	whenDefined(LOL, 'items', function() {
+	    		console.log(LOL.items)
+		    	$.each(LOL.items.data, function (index, item){
+		    		if(item.maps[11] === false || item.hideFromAll === true){
+		    			return;
+		    		}
+
+		    		var append = '<img src="' + LOL.asset_item + item.image.full + '"  title="' + item.name + '">';
+		    		$('#items').append(append);
+		    	});
+			});
+	    },
+	    populate_champion: function(){
+	    	whenDefined(LOL, 'champion', function() {
+	    		var champion = LOL.champion.data.{$campeao};
+	    		console.log(champion);
+
+				$('#name').html(champion.name);
+				$('#title').html(champion.title);
+				$('#image').attr('src', '//ddragon.leagueoflegends.com/cdn/9.24.2/img/champion/' + champion.image.full);
+				$('#lore').html(champion.lore);
+
+		    	$.each(champion.tags, function (index, item){
+					$('#tag-' + index).html(item);
+				});
+
+
+
+				$('#attack').html('Attack = ' + champion.info.attack);
+				$('#defense').html('Defense = ' + champion.info.defense);
+				$('#magic').html('Magic = ' + champion.info.magic);
+				$('#difficulty').html('Difficulty = ' + champion.info.difficulty);
+
+				$('#armor').html('armor = ' + champion.stats.armor);
+				$('#armorperlevel').html('armorperlevel = ' + champion.stats.armorperlevel);
+				$('#attackdamage').html('attackdamage = ' + champion.stats.attackdamage);
+				$('#attackdamageperlevel').html('attackdamageperlevel = ' + champion.stats.attackdamageperlevel);
+				$('#attackrange').html('attackrange = ' + champion.stats.attackrange);
+				$('#attackspeed').html('attackspeed = ' + champion.stats.attackspeed);
+				$('#attackspeedperlevel').html('attackspeedperlevel = ' + champion.stats.attackspeedperlevel);
+				$('#critperlevel').html('critperlevel = ' + champion.stats.critperlevel);
+				$('#hp').html('hp = ' + champion.stats.hp);
+				$('#hpperlevel').html('hpperlevel = ' + champion.stats.hpperlevel);
+				$('#hpregen').html('hpregen = ' + champion.stats.hpregen);
+				$('#hpregenperlevel').html('hpregenperlevel = ' + champion.stats.hpregenperlevel);
+				$('#movespeed').html('movespeed = ' + champion.stats.movespeed);
+				$('#mp').html('mp = ' + champion.stats.mp);
+				$('#mpperlevel').html('mpperlevel = ' + champion.stats.mpperlevel);
+				$('#mpregen').html('mpregen = ' + champion.stats.mpregen);
+				$('#mpregenperlevel').html('mpregenperlevel = ' + champion.stats.mpregenperlevel);
+				$('#spellblock').html('spellblock = ' + champion.stats.spellblock);
+				$('#spellblockperlevel').html('spellblockperlevel = ' + champion.stats.spellblockperlevel);
+
+			});
+	    }
+	}
+
+	whenDefined(window, 'LOL', function() {
+		// LOL.get_items();
+		// LOL.get_champions();
+		LOL.get_champion();
+		LOL.populate_champion();
+		// LOL.populate_items();
+	});
+</script>
+
+<div class="container-fluid">
+	<div><img id="image" src=""></div>
+	<div id="name"></div>
+	<div id="title"></div>
+	<div id="lore"></div>
+	<div id="tag-0"></div>
+	<div id="tag-1"></div>
+	<div id="tag-2"></div>
+	<div id="tag-3"></div>
+
+	<div id="attack"></div>
+	<div id="defense"></div>
+	<div id="magic"></div>
+	<div id="difficulty"></div>
+
+
+	<div id="armor"></div>
+	<div id="armorperlevel"></div>
+	<div id="attackdamage"></div>
+	<div id="attackdamageperlevel"></div>
+	<div id="attackrange"></div>
+	<div id="attackspeed"></div>
+	<div id="attackspeedperlevel"></div>
+​​	<div id="critperlevel"></div>
+​​	<div id="hp"></div>
+​​	<div id="hpperlevel"></div>
+​​	<div id="hpregen"></div>
+​​	<div id="hpregenperlevel"></div>
+​​	<div id="movespeed"></div>
+​​	<div id="mp"></div>
+​​	<div id="mpperlevel"></div>
+​​	<div id="mpregen"></div>
+​​	<div id="mpregenperlevel"></div>
+​​	<div id="spellblock"></div>
+​​	<div id="spellblockperlevel"></div>
+
+
+	<div class="row">
+		<div id="items" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background: #000;">
+		</div>
+	</div>
+</div>
+
+
+<div class="row" style="display: block; clear: both;">
+<div class="module-wrapper masonry-item col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <section class="module">
+        <div class="module-inner">
+<!--             <div class="module-heading">
+                <h3 class="module-title">Listagem </h3>
+            </div>
+ -->
+        </div>
+    </section>
+</div>
+</div>
+
+
+</body>
+</html>
+
+
