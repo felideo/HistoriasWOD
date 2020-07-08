@@ -1,8 +1,6 @@
 <?php
 namespace ControllerCore;
 
-use Libs;
-
 class Permissao extends \Framework\ControllerCrud {
 
 	protected $modulo = [
@@ -20,6 +18,7 @@ class Permissao extends \Framework\ControllerCrud {
 
 	public function listagem() {
 		$this->universe->auth->is_logged(true);
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
 		$this->view->assign('permissao_criar', $this->universe->permission->check_user_permission($this->modulo['modulo'], 'criar'));
@@ -34,6 +33,7 @@ class Permissao extends \Framework\ControllerCrud {
 
 	public function editar($id) {
 		$this->universe->auth->is_logged(true);
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "editar");
 
 		$this->check_if_exists($id[0]);
@@ -44,6 +44,7 @@ class Permissao extends \Framework\ControllerCrud {
 	}
 
 	public function visualizar($id){
+		$this->universe->auth->is_logged(true);
 		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
@@ -57,6 +58,7 @@ class Permissao extends \Framework\ControllerCrud {
 	}
 
 	protected function carregar_dados_listagem_ajax($busca){
+		$this->universe->auth->is_logged(true);
 		$query = $this->model->carregar_listagem($busca, $this->datatable);
 
 		$retorno = [];

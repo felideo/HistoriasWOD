@@ -1,8 +1,6 @@
 <?php
 namespace ControllerCore;
 
-use Libs;
-
 class ajax_upload extends \Framework\Controller {
 	public function upload($parametros = null) {
 		debug2($_POST);

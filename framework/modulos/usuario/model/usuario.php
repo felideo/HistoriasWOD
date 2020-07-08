@@ -6,6 +6,7 @@ use \Libs\QueryBuilder\QueryBuilder;
 
 class Usuario extends \Framework\Model{
 	public function carregar_listagem($busca, $datatable = null){
+		$this->universe->auth->is_logged(true);
 		$this->query->select('
 				usuario.id,
 				usuario.email,
@@ -77,6 +78,7 @@ class Usuario extends \Framework\Model{
 	}
 
 	public function load_cadastro($id){
+		$this->universe->auth->is_logged(true);
 		return $this->query->select('
 				usuario.*,
 				pessoa.*,

@@ -18,10 +18,12 @@ class Usuario extends \Framework\ControllerCrud {
 	];
 
 	public function middle_index() {
+		$this->universe->auth->is_logged(true);
 		$this->view->assign('hierarquia_list', $this->model->load_active_list('hierarquia'));
 	}
 
 	protected function carregar_dados_listagem_ajax($busca){
+		$this->universe->auth->is_logged(true);
 		$query = $this->model->carregar_listagem($busca, $this->datatable);
 
 		$retorno = [];
@@ -165,6 +167,7 @@ class Usuario extends \Framework\ControllerCrud {
 	}
 
 	public function middle_editar($id) {
+		$this->universe->auth->is_logged(true);
 		$cadastro = $this->model->load_cadastro($id)[0];
 		$cadastro['hierarquia_nivel'] = $this->model->query
 			->select('hierarquia.*')
@@ -177,6 +180,7 @@ class Usuario extends \Framework\ControllerCrud {
 	}
 
 	public function middle_visualizar($id){
+		$this->universe->auth->is_logged(true);
 		$cadastro = $this->model->load_cadastro($id)[0];
 		$cadastro['hierarquia_nivel'] = $this->model->query
 			->select('hierarquia.*')
@@ -274,6 +278,7 @@ class Usuario extends \Framework\ControllerCrud {
 	}
 
 	public function salvar_ordem_preferencial_menu_ajax(){
+		$this->universe->auth->is_logged(true);
 		$nova_ordem = carregar_variavel('data');
 
 		foreach($nova_ordem as $indice => $item){

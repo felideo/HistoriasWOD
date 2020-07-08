@@ -12,7 +12,10 @@ class Acesso extends \Framework\Controller{
 	}
 
 	public function entrar(){
-		$this->run_front(carregar_variavel('acesso'));
+		$acesso = carregar_variavel('acesso');
+		$acesso['usuario']['email'] = $this->tratar_email($acesso['email']);
+		$this->validar_email($acesso['email'], '/acesso');
+		$this->run_front($acesso);
 	}
 
 	public function logout() {
@@ -22,6 +25,9 @@ class Acesso extends \Framework\Controller{
 	}
 
 	private function run_front($acesso){
+		$acesso['usuario']['email'] = $this->tratar_email($acesso['email']);
+		$this->validar_email($acesso['email'], '/acesso');
+
 		if($this->model->run_front($acesso)){
 			$this->view->alert_js('Seja bem vindo!', 'sucesso');
 			header('location: /');
@@ -35,6 +41,8 @@ class Acesso extends \Framework\Controller{
 
 	public function cadastrar(){
 		$acesso = carregar_variavel('acesso');
+		$acesso['usuario']['email'] = $this->tratar_email($acesso['usuario']['email']);
+		$this->validar_email($acesso['usuario']['email'], '/acesso');
 		$bkp_acesso = $acesso;
 
 		$usuario = $this->model->query
@@ -81,7 +89,11 @@ class Acesso extends \Framework\Controller{
 	}
 
 	public function run_back(){
-		if($this->model->run_back(carregar_variavel('acesso'))){
+		$acesso = carregar_variavel('acesso');
+		$acesso['email'] = $this->tratar_email($acesso['email']);
+		$this->validar_email($acesso['email'], '/acesso');
+
+		if($this->model->run_back($acesso)){
 			header('location: /painel_controle/listagem');
 			exit;
 		}
@@ -89,6 +101,22 @@ class Acesso extends \Framework\Controller{
 		$this->view->alert_js('Usúario ou Senha inválido...', 'erro');
 		header('location: ' . \Libs\Redirect::getUrl());
 		exit;
+	}
+
+	private function tratar_email($email){
+		return trim(str_replace(' ', '', str_replace('"', '', str_replace("'", '', $email))));
+	}
+
+	private function validar_email($email, $redirect){
+		$validacao = filter_var($email, FILTER_VALIDATE_EMAIL);
+
+		if(!empty($redirect) && empty($validacao)){
+			$this->view->alert_js('Email inválido...', 'erro');
+			header("location: {$redirect}");
+			exit;
+		}
+
+		return $validacao;
 	}
 }
 

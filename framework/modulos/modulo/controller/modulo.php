@@ -1,8 +1,6 @@
 <?php
 namespace ControllerCore;
 
-use Libs;
-
 class Modulo extends \Framework\ControllerCrud {
 
 	protected $modulo = [
@@ -16,10 +14,12 @@ class Modulo extends \Framework\ControllerCrud {
 	];
 
 	public function middle_index() {
+		$this->universe->auth->is_logged(true);
 		$this->view->assign('submenu_list', $this->model->load_active_list('submenu'));
 	}
 
 	protected function carregar_dados_listagem_ajax($busca){
+		$this->universe->auth->is_logged(true);
 		$query = $this->model->carregar_listagem($busca, $this->datatable);
 
 		$retorno = [];
@@ -41,6 +41,7 @@ class Modulo extends \Framework\ControllerCrud {
 	}
 
 	public function editar($id) {
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], $this->modulo['modulo'] . "_" . "editar");
 
 		$this->view->assign('cadastro', $this->model->full_load_by_id('modulo', $id[0])[0]);
@@ -49,6 +50,7 @@ class Modulo extends \Framework\ControllerCrud {
 	}
 
 	public function visualizar($id){
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], $this->modulo['modulo'] . "_" . "visualizar");
 
 		$this->view->assign('cadastro', $this->model->full_load_by_id('modulo', $id[0])[0]);
@@ -59,6 +61,7 @@ class Modulo extends \Framework\ControllerCrud {
 	}
 
 	public function create() {
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], $this->modulo['modulo'] . "_" . "criar");
 		$insert_db = carregar_variavel($this->modulo['modulo']);
 
@@ -83,6 +86,7 @@ class Modulo extends \Framework\ControllerCrud {
 	}
 
 	public function update($id) {
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], $this->modulo['modulo'] . "_" . "editar");
 		$update_db = carregar_variavel($this->modulo['modulo']);
 
@@ -103,6 +107,7 @@ class Modulo extends \Framework\ControllerCrud {
 	}
 
 	public function delete($id) {
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], $this->modulo['modulo'] . "_" . "deletar");
 
 		$retorno = $this->model->delete($this->modulo['modulo'], ['id' => $id[0]]);

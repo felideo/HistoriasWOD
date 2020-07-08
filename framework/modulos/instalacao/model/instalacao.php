@@ -1,8 +1,6 @@
 <?php
 namespace ModelCore;
 
-use Libs;
-
 class Instalacao {
 	private $db;
 	private $dados;

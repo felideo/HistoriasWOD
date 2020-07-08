@@ -158,6 +158,24 @@ function transformar_numero($numero, $forcar_verificacao = false) {
     return $var;
 }
 
+function show_error($e){
+	$backtrace = $e->getTrace();
+
+	$error = [
+        'exception_msg' => $e->getMessage(),
+        'code'          => $e->getCode(),
+        'localizador'   => "Class => " . $backtrace[0]['class']  . " - Function => " . $backtrace[0]['function'] . "() - Line => " . $e->getLine(),
+        'file'          => $e->getFile(),
+        'class'         => $backtrace[0]['class'],
+        'function'      => $backtrace[0]['function'],
+        'line'          => $e->getLine(),
+        'backtrace'     => $e->getTraceAsString(),
+    ];
+
+    debug2($error);
+    exit;
+}
+
 function show_errors($show_erros = false){
 	if(!empty($show_erros)){
 		error_reporting(E_ALL);

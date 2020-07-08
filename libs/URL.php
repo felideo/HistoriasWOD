@@ -9,6 +9,7 @@ class URL {
 	private $controller;
 	private $metodo;
 	private $atualizar = false;
+	private $case_sensitive = false;
 
 	public function __construct(){
 		$this->model = new \Framework\GenericModel();
@@ -59,8 +60,12 @@ class URL {
 	}
 
 	private function cadastrarUrl(){
+		if(empty($this->case_sensitive)){
+			$this->url = strtolower($this->url);
+		}
+
 		$insert_db = [
-			'url'           => strtolower($this->url),
+			'url'           => $this->url,
 			'controller'    => $this->controller,
 			'metodo'        => $this->metodo,
 			'id_controller' => $this->id,
@@ -77,6 +82,11 @@ class URL {
 
 	public function atualizar($atualizar){
 		$this->atualizar = $atualizar;
+		return $this;
+	}
+
+	public function caseSensitive($case_sensitive){
+		$this->case_sensitive = $case_sensitive;
 		return $this;
 	}
 

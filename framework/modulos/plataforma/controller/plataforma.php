@@ -17,6 +17,7 @@ class Plataforma extends \Framework\ControllerCrud {
 	];
 
 	public function middle_index(){
+		$this->universe->auth->is_logged(true);
 		if(isset($_SESSION['plataforma']['modo_desenvolvedor']) && !empty($_SESSION['plataforma']['modo_desenvolvedor'])){
 			$this->modulo['texto_adicional_cabecalho'] = ' - Modo Desenvolvedor Ativo';
 			$this->view->assign('modulo', $this->modulo);
@@ -26,6 +27,7 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	protected function carregar_dados_listagem_ajax($busca){
+		$this->universe->auth->is_logged(true);
 		$query   = $this->model->carregar_listagem($busca, $this->datatable);
 		$retorno = [];
 
@@ -51,7 +53,7 @@ class Plataforma extends \Framework\ControllerCrud {
                 ->gerarBotao();
 
             $botao->setTitle('Publicar Última Versão')
-                ->setPermissao($this->universe->permission->check_user_permission($this->modulo['modulo'], 'editar') && !in_array($item['id'] , [1, 2]))
+                ->setPermissao($this->universe->permission->check_user_permission($this->modulo['modulo'], 'editar'))
                 ->setHref("/{$this->modulo['modulo']}/publicar/{$item['id']}/{$item['identificador']}")
                 ->setTexto("<i class='botao_listagem fa fa-cloud-upload fa-fw'></i>")
                 ->gerarBotao();
@@ -71,6 +73,7 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	public function historico($parametros){
+		$this->universe->auth->is_logged(true);
 		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
@@ -98,6 +101,7 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	public function carregar_dados_listagem_historico_ajax($parametros){
+		$this->universe->auth->is_logged(true);
 		$busca = [
 			'order'  => carregar_variavel('order'),
 			'search' => carregar_variavel('search'),
@@ -195,6 +199,7 @@ class Plataforma extends \Framework\ControllerCrud {
 
 	public function editor_historico($parametros){
 		$this->universe->auth->is_logged(true);
+		$this->universe->auth->is_logged(true);
 
 		$permissao = 'editar';
 
@@ -235,15 +240,28 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	public function save_source_code_ajax($parametros){
+		$this->universe->auth->is_logged(true);
 		$codigo_fonte['codigo_fonte'] = $_POST['data'];
 
 		$insert_db = [
 			'id_plataforma'      => $parametros[0],
 			'id_usuario'         => $_SESSION['usuario']['id'],
-			'html'               => $codigo_fonte['codigo_fonte'],
+			'html'               => trim($codigo_fonte['codigo_fonte']),
 			'publicado'          => 0,
 			'ativo'              => 1,
 		];
+
+		$html_atual = $this->model->carregar_plataforma_pagina($parametros[0])[0]['html'];
+		$html_atual = trim(preg_replace('/\s+/', '', $html_atual));
+
+		if(isset($html) && !empty($html)){
+			$html_novo = trim(preg_replace('/\s+/', '', $insert_db['html']));
+
+			if($html_atual == $html_novo){
+				echo json_encode(true);
+				exit;
+			}
+		}
 
 		$codigo_fonte['retorno'] = $this->model->insert('plataforma_pagina', $insert_db);
 
@@ -302,6 +320,7 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	public function publicar_pagina($id_plataforma, $identificador){
+		$this->universe->auth->is_logged(true);
 		$this->model->execute("UPDATE plataforma_pagina SET `publicado` = 2 WHERE `id_plataforma` = {$id_plataforma} AND`publicado` = 1;");
 
 		usleep(100);
@@ -343,6 +362,7 @@ class Plataforma extends \Framework\ControllerCrud {
 	}
 
 	public function ativar_modo_desenvolvedor($parametros){
+		$this->universe->auth->is_logged(true);
 		$parametros[0] = $parametros[0] == 1 ? true : false;
 
 		$_SESSION['plataforma']['modo_desenvolvedor'] = $parametros[0];

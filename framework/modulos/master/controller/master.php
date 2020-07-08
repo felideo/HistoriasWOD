@@ -1,18 +1,10 @@
 <?php
 namespace ControllerCore;
 
-use Libs;
-
 class Master extends \Framework\Controller {
 	protected $modulo = [
 		'modulo' 	=> 'master'
 	];
-
-	function logout() {
-		$this->universe->session->destroy();
-		header('location: /');
-		exit;
-	}
 
 	function limpar_alertas_ajax(){
 		unset($_SESSION['alertas']);
@@ -32,7 +24,7 @@ class Master extends \Framework\Controller {
 			exit;
 		}
 
-		echo shell_exec("sudo sh /www/Podkasto/automatic_deploy.sh");
+		echo shell_exec("sh " . DEPLOY_FOLDER . "automatic_deploy.sh");
 		exit;
 	}
 }

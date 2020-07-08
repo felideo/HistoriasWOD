@@ -7,7 +7,7 @@ class Auth {
 			return isset($_SESSION) && !empty($_SESSION['logado']);
 		}
 
-		if(!isset($_SESSION) || empty($_SESSION['logado']) || empty($_SESSION['usuario']['acesso_admin'])){
+		if(!isset($_SESSION) || empty($_SESSION['logado']) || empty($_SESSION['usuario']['super_admin'])){
 			header('location: /');
 			exit;
 		}

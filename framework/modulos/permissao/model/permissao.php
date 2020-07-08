@@ -1,10 +1,9 @@
 <?php
 namespace ModelCore;
 
-use Libs;
-
 class Permissao extends \Framework\Model{
 	public function carregar_listagem($busca, $datatable){
+		$this->universe->auth->is_logged(true);
 		$query = $this->query;
 
 		$query->select('

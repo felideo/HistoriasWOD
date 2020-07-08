@@ -16,6 +16,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 	];
 
 	public function listagem() {
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 		$this->view->assign('permissao_criar', $this->universe->permission->check_user_permission($this->modulo['modulo'], 'criar'));
 
@@ -29,6 +30,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 	}
 
 	protected function carregar_dados_listagem_ajax($busca){
+		$this->universe->auth->is_logged(true);
 		$query = $this->model->carregar_listagem($busca);
 
 		$retorno = [];
@@ -47,6 +49,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 	}
 
 	public function editar($id) {
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "editar");
 
 		$this->view->assign('cadastro', $this->model->load_hierarquia($id[0]));
@@ -55,6 +58,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 	}
 
 	public function visualizar($id){
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
 		$this->view->assign('cadastro', $this->model->load_hierarquia($id[0]));
@@ -64,6 +68,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 	}
 
 	public function create() {
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "criar");
 
 		$insert_db = carregar_variavel($this->modulo['modulo']);
@@ -98,6 +103,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 	}
 
 	public function update($id) {
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "editar");
 
 		$update_db = carregar_variavel($this->modulo['modulo']);
@@ -155,7 +161,7 @@ class Hierarquia extends \Framework\ControllerCrud {
 	}
 
 	public function delete($id) {
-
+		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "deletar");
 
 		$retorno = $this->model->delete($this->modulo['modulo'], ['id' => $id[0]]);

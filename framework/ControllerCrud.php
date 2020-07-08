@@ -28,6 +28,7 @@ class ControllerCrud extends \Framework\Controller {
 	}
 
 	public function carregar_listagem_ajax(){
+		$this->universe->auth->is_logged(true);
 		$busca = [
 			'order'  => carregar_variavel('order'),
 			'search' => carregar_variavel('search'),
@@ -93,6 +94,7 @@ class ControllerCrud extends \Framework\Controller {
 	}
 
 	protected function cadastrar_url($dados){
+		$this->universe->auth->is_logged(true);
 		$url          = new \Libs\URL;
 		$retorno_url  = $url->setId($dados['id'])
 			->setUrl($dados[$this->modulo['url']['url']])
@@ -174,16 +176,19 @@ class ControllerCrud extends \Framework\Controller {
 	}
 
 	public function middle_editar($id){
+		$this->universe->auth->is_logged(true);
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
 		$this->view->assign('cadastro', $this->model->full_load_by_id($table, $id)[0]);
 	}
 
 	public function middle_visualizar($id){
+		$this->universe->auth->is_logged(true);
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
 		$this->view->assign('cadastro', $this->model->full_load_by_id($table, $id)[0]);
 	}
 
 	public function middle_delete($id){
+		$this->universe->auth->is_logged(true);
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
 		return $this->model->delete($table, ['id' => $id]);
 	}

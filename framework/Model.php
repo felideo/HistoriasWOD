@@ -67,9 +67,7 @@ abstract class Model {
 	}
 
 	public function full_load_by_id($table, $id){
-		$query = 'SELECT * FROM ' . $table
-			. ' WHERE ID = ' . $id
-			. ' AND ativo = 1';
+		$query = "SELECT * FROM {$table} WHERE id = {$id} AND ativo = 1";
 		return $this->db->select($query);
 	}
 

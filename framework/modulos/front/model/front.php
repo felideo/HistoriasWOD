@@ -1,8 +1,6 @@
 <?php
 namespace ModelCore;
 
-use Libs;
-
 class Front extends \Framework\Model{
 	public function carregar_paginas_institucionais(){
 		return $this->query

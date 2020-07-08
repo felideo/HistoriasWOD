@@ -1,17 +1,16 @@
 <?php
 namespace ModelCore;
 
-use Libs;
-
 class Modulo extends \Framework\Model{
 	public function carregar_listagem($busca, $datatable = null){
+		$this->universe->auth->is_logged(true);
 		$this->query->select('
 				modulo.id,
 				modulo.nome,
 				modulo.ordem,
 				modulo.hierarquia,
 				modulo.icone,
-				submenu.nome_exibicao
+				submenu.*
 			')
 			->from('modulo modulo')
 			->leftJoin('submenu submenu ON submenu.id = modulo.id_submenu AND submenu.ativo = 1')
@@ -52,6 +51,7 @@ class Modulo extends \Framework\Model{
 	}
 
 	public function permissoes_basicas($modulo, $id_modulo){
+		$this->universe->auth->is_logged(true);
 		$permissoes_basicas = [
 			'criar' => [
 				'id_modulo' => $id_modulo,

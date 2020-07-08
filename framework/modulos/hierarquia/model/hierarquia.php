@@ -1,10 +1,11 @@
 <?php
 namespace ModelCore;
-use Libs;
 
 class Hierarquia extends \Framework\Model{
 
 	public function carregar_listagem($busca, $datatable = null){
+		$this->universe->auth->is_logged(true);
+
 		$select = "SELECT SQL_CALC_FOUND_ROWS "
 			. " 	hierarquia.id,"
 			. " 	hierarquia.nome,"

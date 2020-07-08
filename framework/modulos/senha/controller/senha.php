@@ -66,6 +66,7 @@ class Senha extends \Framework\Controller {
 	}
 
 	public function update($token){
+		$this->universe->auth->is_logged(true);
 		$nova_senha = carregar_variavel('senha');
 
 		$model_usuario = $this->universe->get_model('usuario');

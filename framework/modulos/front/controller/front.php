@@ -1,8 +1,6 @@
 <?php
 namespace ControllerCore;
 
-use Libs;
-
 class Front extends \Framework\Controller {
 	protected $modulo = [
 		'modulo' 	=> 'front',
@@ -12,8 +10,8 @@ class Front extends \Framework\Controller {
 
 	public function carregar_cabecalho_rodape(){
 		$this->view->processar_includes(['cabecalho', 'navbar', 'rodape']);
-		// $this->carregar_paginas_institucionais();
-		// $this->carregar_banners();
+		$this->carregar_paginas_institucionais();
+		$this->carregar_banners();
 	}
 
 	public function montar_breadcrumb($breadcrumb){

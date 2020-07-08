@@ -1,8 +1,6 @@
 <?php
 namespace ControllerCore;
 
-use Libs;
-
 class pagina_institucional extends \Framework\ControllerCrud {
 
 	protected $modulo = [
@@ -25,6 +23,7 @@ class pagina_institucional extends \Framework\ControllerCrud {
 	];
 
 	protected function carregar_dados_listagem_ajax($busca){
+		$this->universe->auth->is_logged(true);
 		$query = $this->model->carregar_listagem($busca, $this->datatable);
 
 		$retorno = [];
@@ -41,15 +40,18 @@ class pagina_institucional extends \Framework\ControllerCrud {
 		return $retorno;
 	}
 
-	public function visualizar_front($id){
-		$this->check_if_exists($id[0]);
-		$front_controller = $this->carregar_front();
-		$cadastro = $this->model->full_load_by_id($this->modulo['modulo'], $id[0])[0];
+	public function carregar_conteudo($id){
+		$this->check_if_exists($id);
+		$this->view->assign('cadastro', $this->model->full_load_by_id($this->modulo['modulo'], $id[0])[0]);
+	}
 
-		$this->view->assign('cadastro', $cadastro);
+	public function visualizar_front($id){
+		$this->universe->auth->is_logged(true);
+		$cadastro         = $this->carregar_conteudo($id[0]);
+		$front_controller = $this->carregar_front();
+
 		// $this->view->render('front/cabecalho_rodape', $this->modulo['modulo'] . '/view/front/front');
 		$this->view->render_plataforma('header', 'footer', 'pagina_institucional');
-
 	}
 
 	public function load_source_code_ajax(){
@@ -63,6 +65,7 @@ class pagina_institucional extends \Framework\ControllerCrud {
 	}
 
 	public function save_source_code_ajax($id){
+		$this->universe->auth->is_logged(true);
 		$update_db[$this->modulo['html_cloud_editor_column']] = $_POST['data'];
 
 		$retorno = $this->model->update($this->modulo['modulo'], $update_db, ['id' => $id[0]]);

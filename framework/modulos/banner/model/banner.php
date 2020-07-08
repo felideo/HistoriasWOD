@@ -1,9 +1,9 @@
 <?php
 namespace ModelCore;
-use Libs;
 
 class Banner extends \Framework\Model{
 	public function carregar_listagem($busca, $datatable = null){
+		$this->universe->auth->is_logged(true);
 		$query = $this->query;
 		$query->select('
 			banner.ordem,

@@ -26,7 +26,7 @@ class View {
 
 	public function shine(){
 		$this->dwoo   = new \Dwoo\Core();
-		$this->dwoo->setCompileDir('template_compile');
+		$this->dwoo->setCompileDir('views/template_compile');
 		$this->assign = new \Dwoo\Data();
 
 		$this->assign('app_name', @defined(APP_NAME) ? APP_NAME : '');
@@ -109,7 +109,7 @@ class View {
 	}
 
 	private function clear_template_compile_folder(){
-		$folder = 'template_compile';
+		$folder = 'views/template_compile';
 		$files = glob($folder . '/*');
 		foreach($files as $file){
 		    if(is_file($file)){
@@ -191,9 +191,9 @@ class View {
 
 		$this->assign('_SESSION', $_SESSION);
 
-		// if(!empty($includes)){
-		// 	$this->processar_includes($includes);
-		// }
+		if(!empty($includes)){
+			$this->processar_includes($includes);
+		}
 
 		if(file_exists('views/plataforma/' . $identificador . '.html') && (!isset($_SESSION['plataforma']['modo_desenvolvedor']) || empty($_SESSION['plataforma']['modo_desenvolvedor']))){
 			$this->render_plataforma_arquivo($identificador);
@@ -209,7 +209,10 @@ class View {
 			mkdir('views/plataforma');
 		}
 
+
+
 		file_put_contents('views/plataforma/' . $identificador . '.html', $pagina);
+
 
 		$this->render_plataforma_arquivo($identificador);
 	}

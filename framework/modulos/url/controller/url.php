@@ -21,6 +21,7 @@ class Url extends \Framework\ControllerCrud {
 	];
 
 	protected function carregar_dados_listagem_ajax($busca){
+		$this->universe->auth->is_logged(true);
 		$query = $this->model->carregar_listagem($busca, $this->datatable);
 
 		$retorno = [];

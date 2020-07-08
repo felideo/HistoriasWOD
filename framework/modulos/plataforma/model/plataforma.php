@@ -26,6 +26,7 @@ class Plataforma extends \Framework\Model {
 	}
 
 	public function carregar_listagem_historico($id_plataforma, $busca, $datatable = null){
+		$this->universe->auth->is_logged(true);
 		$this->query->select('
 				pagina.id,
 				pagina.id_usuario,

@@ -277,7 +277,7 @@ class QueryBuilder{
 		unset($this->parametros);
 	}
 
-	private function execute_sql_query($sql) {
+	private function execute_sql_query($sql, $fetch_type = 'FETCH_ASSOC') {
 		$sth = $this->db->prepare($sql);
 
 		$retorno = [
@@ -290,7 +290,7 @@ class QueryBuilder{
 			throw new \Fail($retorno[2][2], $retorno[2][1]);
 		}
 
-		return $sth->fetchAll(\PDO::FETCH_ASSOC);
+		return $sth->fetchAll(constant("\PDO::" . $fetch_type));
 	}
 
 
@@ -671,7 +671,7 @@ class QueryBuilder{
 			$retorno = [];
 
 			foreach ($columns as $column) {
-				$retorno[] = $column['column_name'];
+				$retorno[] = $column[0];
 			}
 
 			return $retorno;
@@ -680,7 +680,7 @@ class QueryBuilder{
 	}
 
 	private function get_columns_name($table){
-		return $this->execute_sql_query("SELECT column_name FROM information_schema.columns WHERE table_name = '{$table}' AND TABLE_SCHEMA = '" . DB_NAME . "'");
+		return $this->execute_sql_query("SELECT column_name FROM information_schema.columns WHERE table_name = '{$table}' AND TABLE_SCHEMA = '" . DB_NAME . "'", 'FETCH_NUM');
 	}
 
 	private function process_select_all($table, &$selects){

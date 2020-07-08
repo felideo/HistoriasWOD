@@ -124,7 +124,11 @@ class BigBang{
 		$this->full_entropy();
 	}
 
-	private function full_entropy() {
+	private function full_entropy(){
+		header('Location: /error');
+		exit;
+
+		// Metodo anterior. Tava dnado problema se tivece um modulo customizado
 		$this->first_atoms = [
 			'class'      => 'error',
 			'method'     => 'index',
