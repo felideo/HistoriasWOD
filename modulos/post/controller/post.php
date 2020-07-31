@@ -1,0 +1,83 @@
+<?php
+namespace Controller;
+
+use Libs;
+
+class Post extends \Framework\ControllerCrud {
+
+	protected $modulo = [
+		'modulo' 	=> 'post',
+	];
+
+	protected $datatable = [
+		'colunas'                => ['ID', 'Titulo', 'Ações'],
+		'select'                 => ['id', 'titulo'],
+		'from'                   => 'post',
+		'search'                 => ['id', 'titulo'],
+		'ordenacao_desabilitada' => ''
+	];
+
+	protected function carregar_dados_listagem_ajax($busca){
+		$busca['length'] = 1000;
+		$busca['limit']  = 100;
+		$query           = $this->model->carregar_listagem($busca, $this->datatable);
+		$retorno         = [
+			'dados' => [],
+			'total' => $query['total']
+		];
+
+		foreach ($query['dados'] as $indice => $item) {
+			$retorno['dados'][] = [
+				$item['id'],
+				$item['titulo'],
+				$this->view->default_buttons_listagem($item['id'], true, true, true)
+			];
+		}
+
+		return $retorno;
+	}
+
+	public function middle_index(){
+		$series = $this->model->load_active_list('serie', 'id, serie');
+		$this->view->assign('series', $this->model->load_active_list('serie', 'id, serie'));
+		$this->view->assign('livros', $this->model->load_active_list('livro', 'id, titulo, titulo_original'));
+	}
+
+	public function middle_editar($id){
+		parent::middle_editar($id);
+
+		$this->view->assign('series', $this->model->load_active_list('serie', 'id, serie'));
+		$this->view->assign('livros', $this->model->load_active_list('livro', 'id, titulo, titulo_original'));
+	}
+
+	public function insert_update($dados, $where){
+		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
+		$retorno = $this->model->insert_update(
+			$table,
+			$where,
+			$dados,
+			true
+		);
+
+		if(!empty($retorno['id'])){
+			$retorno_url = (new Libs\URL)->setId($retorno['id'])
+				->setUrl($dados['titulo'])
+				->setController($this->modulo['modulo'])
+				->setMetodo('exibir_post')
+				->atualizar(true)
+				->caseSensitive(false)
+				->cadastrarUrlAmigavel();
+		}
+
+		return $retorno;
+	}
+
+	public function exibir_post($parametros){
+		$post  = $this->model->carregar_post($parametros[0]);
+		$posts = $this->model->carregar_post(null, ["post.id_livro = '{$post[0]['livro'][0]['id']}'"]);
+
+		$this->view->assign('post', $post[0]);
+		$this->view->assign('posts', $posts);
+		$this->view->render_plataforma('', '', 'post', ['site_cabecalho', 'site_rodape']);
+	}
+}

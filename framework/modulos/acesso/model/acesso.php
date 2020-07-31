@@ -36,6 +36,12 @@ class Acesso extends \Framework\Model{
 			return false;
 		}
 
+		$this->carregar_dados_backend();
+
+		return true;
+	}
+
+	public function carregar_dados_backend(){
 		$this->carregar_hierarquia();
 		$this->montar_sessao();
 		$this->load_permissions();
@@ -46,8 +52,6 @@ class Acesso extends \Framework\Model{
 		$this->universe->session->set('usuario', $this->usuario);
 		$this->universe->session->set('modulos', $this->modulos);
 		$this->universe->session->set('permissoes', $this->permissoes);
-
-		return true;
 	}
 
 	private function verificar_usuario_senha(){
@@ -161,5 +165,10 @@ class Acesso extends \Framework\Model{
 
 
 		$this->permissoes = $retorno_permissoes;
+	}
+
+	public function set_usuario($usuario){
+		$this->usuario = $usuario;
+		return $this;
 	}
 }

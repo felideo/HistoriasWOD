@@ -15,7 +15,6 @@
     },
     "require": {
         "php-curl-class/php-curl-class": "^8.0",
-        "phpmailer/phpmailer": "dev-master",
         "elasticsearch/elasticsearch": "^5.4",
         "felideo/debug2": "^1.0",
         "felideo/performance-check": "dev-master"
@@ -24,7 +23,6 @@
         "psr-4": {
           "Framework\\": "framework/",
           "Libs\\": "libs/",
-          "Util\\": "util/",
           "Dwoo\\": "libs/dwoo/lib/Dwoo/"
         }
     },

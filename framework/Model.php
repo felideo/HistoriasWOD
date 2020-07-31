@@ -106,7 +106,7 @@ abstract class Model {
 	}
 
 	public function insert_update($from, array $where, array $data, $update = false){
-		if(isset($where) && !empty($where)){
+		if(!empty($where)){
 			$this->query->select("{$from}.id")
 				->from("{$from} {$from}");
 
@@ -117,20 +117,19 @@ abstract class Model {
 			$registro_existe = $this->query->fetchArray();
 		}
 
-		if(!isset($registro_existe[0]['id']) || empty($registro_existe[0]['id'])){
+		if(empty($registro_existe[0]['id'])){
 			$retorno['operacao'] = 'insert';
 			$retorno            += $this->insert($from, $data);
-
 			return $retorno;
 		}
 
-		if(empty($update) && isset($registro_existe[0]['id']) && !empty($registro_existe[0]['id'])){
+		if(empty($update) && !empty($registro_existe[0]['id'])){
 			$retorno = [
-				'operacao'      => 'get',
-				'id'            => $registro_existe[0]['id'],
-				'status'       	=> true,
-				'error_code'    => null,
-    			'erros_info' 	=> null,
+				'operacao'   => 'get',
+				'id'         => $registro_existe[0]['id'],
+				'status'     => true,
+				'error_code' => null,
+				'erros_info' => null,
 			];
 
 			return $retorno;
@@ -138,7 +137,7 @@ abstract class Model {
 
 		$retorno['operacao'] = 'update';
 		$retorno            += $this->update($from, $data, ['id' => $registro_existe[0]['id']]);
-		$retorno['id'] 		= $registro_existe[0]['id'];
+		$retorno['id']       = $registro_existe[0]['id'];
 
 		return $retorno;
 	}

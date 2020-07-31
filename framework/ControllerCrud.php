@@ -5,25 +5,18 @@ class ControllerCrud extends \Framework\Controller {
 	protected $modulo    = [];
 	protected $datatable = [];
 
-	// public function __construct() {
-	// 	parent::__construct();
-	// 	$this->view->modulo = $this->modulo;
-	// 	$this->view->assign('modulo', $this->modulo);
-	// }
-
 	public function listagem() {
 		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
 
 		$this->view->assign('permissao_criar', $this->universe->permission->check_user_permission($this->modulo['modulo'], 'criar'));
 
-		if(isset($this->datatable) && !empty($this->datatable)){
+		if(!empty($this->datatable)){
 			$this->view->assign('datatable', $this->datatable);
 			$this->view->set_colunas_datatable($this->datatable['colunas']);
 		}
 
 		$this->middle_index();
-
 		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/listagem/listagem');
 	}
 
@@ -43,11 +36,11 @@ class ControllerCrud extends \Framework\Controller {
 		}
 
 		echo json_encode([
-            "draw"            => intval(carregar_variavel('draw')),
-            "recordsTotal"    => intval(count($retorno['dados'])),
-            "recordsFiltered" => intval($retorno['total']),
-            "data"            => $retorno['dados']
-        ]);
+			"draw"            => intval(carregar_variavel('draw')),
+			"recordsTotal"    => intval(count($retorno['dados'])),
+			"recordsFiltered" => intval($retorno['total']),
+			"data"            => $retorno['dados']
+		]);
 
 		exit;
 	}
@@ -59,60 +52,24 @@ class ControllerCrud extends \Framework\Controller {
 		$dados   = carregar_variavel($this->modulo['modulo']);
 		$retorno = $this->insert_update($dados, []);
 
-		if(isset($this->modulo['url']) && !empty($this->modulo['url']) && !empty($retorno['status'])){
-			$dados['id'] = $retorno['id'];
-			$this->cadastrar_url($dados);
-		}
+		$msg = [
+			'msg'    => ucfirst($this->modulo['send']) . ' cadastrado com sucesso!!!',
+			'status' => 'sucesso'
+		];
 
-		if(isset($retorno['status']) && !empty($retorno['status'])){
-			$this->view->alert_js(ucfirst($this->modulo['send']) . ' cadastrado com sucesso!!!', 'sucesso');
-		} else {
-			$this->view->alert_js('Ocorreu um erro ao efetuar o cadastro do ' . strtolower($this->modulo['send']) . ', por favor tente novamente...', 'erro');
-		}
+		if(empty($retorno['status'])){
+			$msg = [
+				'msg'    => 'Ocorreu um erro ao cadastrar ' . strtolower($this->modulo['send']) . ', por favor tente novamente...',
+				'status' => 'erro'
+			];
 
-		header('location: /' . $this->modulo['modulo'] . '/listagem');
-		exit;
-	}
-
-	public function insert_update($dados, $where){
-		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
-
-		if(isset($this->modulo['localizador']) && !empty($this->modulo['localizador'])){
-			$dados['localizador'] = \Libs\Strings::limpezaCompleta($dados[$this->modulo['localizador']]);
-
-			if(!isset($where) || empty($where)){
-				$where['localizador'] = \Libs\Strings::limpezaCompleta($dados[$this->modulo['localizador']]);
+			if(DEVELOPER){
+				$msg['msg'] .= "<br><br> {$retorno['erros_info']}";
 			}
 		}
 
-		return $this->model->insert_update(
-			$table,
-			$where,
-			$dados,
-			true
-		);
-	}
-
-	protected function cadastrar_url($dados){
-		$this->universe->auth->is_logged(true);
-		$url          = new \Libs\URL;
-		$retorno_url  = $url->setId($dados['id'])
-			->setUrl($dados[$this->modulo['url']['url']])
-			->setMetodo($this->modulo['url']['metodo'])
-			->setController($this->modulo['modulo'])
-			->atualizar(isset($this->modulo['url']['atualizar']) && !empty($this->modulo['url']['atualizar']))
-			->cadastrarUrlAmigavel();
-	}
-
-	public function editar($id) {
-		$this->universe->auth->is_logged(true);
-		$this->universe->permission->check($this->modulo['modulo'], "editar");
-
-		$this->check_if_exists($id[0]);
-
-		$this->middle_editar($id[0]);
-
-		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/form/form');
+		$this->view->alert_js($msg['msg'], $msg['status']);
+		$this->redirect("/{$this->modulo['modulo']}/listagem");
 	}
 
 	public function update($id) {
@@ -124,31 +81,24 @@ class ControllerCrud extends \Framework\Controller {
 		$dados   = carregar_variavel($this->modulo['modulo']);
 		$retorno = $this->insert_update($dados, ['id' => $id[0]]);
 
-		// if(isset($this->modulo['url']) && !empty($this->modulo['url']) && !empty($retorno['status'])){
-		// 	$dados['id'] = $id[0];
-		// 	$this->cadastrar_url($dados);
-		// }
+		$msg = [
+			'msg'    => ucfirst($this->modulo['send']) . ' editado com sucesso!!!',
+			'status' => 'sucesso'
+		];
 
-		if(isset($retorno['status']) && !empty($retorno['status'])){
-			$this->view->alert_js(ucfirst($this->modulo['send']) . ' editado com sucesso!!!', 'sucesso');
-		} else {
-			$this->view->alert_js('Ocorreu um erro ao efetuar a edição do ' . strtolower($this->modulo['send']) . ', por favor tente novamente...', 'erro');
+		if(empty($retorno['status'])){
+			$msg = [
+				'msg'    => 'Ocorreu um erro ao editar ' . strtolower($this->modulo['send']) . ', por favor tente novamente...',
+				'status' => 'erro'
+			];
+
+			if(DEVELOPER){
+				$msg['msg'] .= "<br><br> {$retorno['erros_info']}";
+			}
 		}
 
-		header('location: /' . $this->modulo['modulo'] . '/listagem');
-		exit;
-	}
-
-	public function visualizar($id){
-		$this->universe->auth->is_logged(true);
-		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
-
-		$this->check_if_exists($id[0]);
-
-		$this->middle_visualizar($id[0]);
-
-		$this->view->lazy_view();
-		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/form/form');
+		$this->view->alert_js($msg['msg'], $msg['status']);
+		$this->redirect("/{$this->modulo['modulo']}/listagem");
 	}
 
 	public function destroy($id) {
@@ -159,36 +109,105 @@ class ControllerCrud extends \Framework\Controller {
 
 		$retorno = $this->middle_delete($id[0]);
 
-		if(isset($retorno['status']) && !empty($retorno['status'])){
-			$this->view->alert_js(ucfirst($this->modulo['send']) . ' removido com sucesso!!!', 'sucesso');
-		} else {
-			$this->view->alert_js('Ocorreu um erro ao efetuar a remoção do ' . strtolower($this->modulo['send']) . ', por favor tente novamente...', 'erro');
+		$msg = [
+			'msg'    => ucfirst($this->modulo['send']) . ' removido com sucesso!!!',
+			'status' => 'sucesso'
+		];
+
+		if(empty($retorno['status'])){
+			$msg = [
+				'msg'    => 'Ocorreu um erro ao remover ' . strtolower($this->modulo['send']) . ', por favor tente novamente...',
+				'status' => 'erro'
+			];
+
+			if(DEVELOPER){
+				$msg['msg'] .= "<br><br> {$retorno['erros_info']}";
+			}
 		}
 
-		header('location: /' . $this->modulo['modulo'] . '/listagem');
-		exit;
+		$this->view->alert_js($msg['msg'], $msg['status']);
+		$this->redirect("/{$this->modulo['modulo']}/listagem");
 	}
 
-	public function middle_index(){
+	protected function insert_update($dados, $where){
+		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
+
+		if(!empty($this->modulo['localizador'])){
+			$this->criar_localizador_unico();
+		}
+
+		$retorno = $this->model
+			->insert_update(
+				$table,
+				$where,
+				$dados,
+				true
+			);
+
+		if(!empty($this->modulo['url']['coluna']) && !empty($retorno['status'])){
+			$dados['id'] = $id[0];
+			$this->cadastrar_url($dados);
+		}
+
+		return $retorno;
 	}
 
-	public function middle_adicionar(){
+	protected function criar_localizador_unico(&$dados, &$where){
+		$dados['localizador'] = \Libs\Strings::limpezaCompleta($dados[$this->modulo['localizador']]);
+
+		if(empty($where)){
+			$where['localizador'] = \Libs\Strings::limpezaCompleta($dados[$this->modulo['localizador']]);
+		}
 	}
 
-	public function middle_editar($id){
+	protected function cadastrar_url($dados){
 		$this->universe->auth->is_logged(true);
+
+		$url = new \Libs\URL;
+
+		$retorno_url = $url->setId($dados['id'])
+			->setUrl($dados[$this->modulo['url']['url']])
+			->setMetodo($this->modulo['url']['metodo'])
+			->setController($this->modulo['modulo'])
+			->atualizar(!empty($this->modulo['url']['atualizar']))
+			->cadastrarUrlAmigavel();
+	}
+
+	public function editar($id) {
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "editar");
+
+		$this->check_if_exists($id[0]);
+		$this->middle_editar($id[0]);
+
+		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/form/form');
+	}
+
+	public function visualizar($id){
+		$this->universe->auth->is_logged(true);
+		$this->universe->permission->check($this->modulo['modulo'], "visualizar");
+
+		$this->check_if_exists($id[0]);
+		$this->middle_visualizar($id[0]);
+
+		$this->view->lazy_view();
+		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/form/form');
+	}
+
+	protected function middle_index(){
+	}
+
+	protected function middle_editar($id){
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
 		$this->view->assign('cadastro', $this->model->full_load_by_id($table, $id)[0]);
 	}
 
-	public function middle_visualizar($id){
-		$this->universe->auth->is_logged(true);
+	protected function middle_visualizar($id){
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
 		$this->view->assign('cadastro', $this->model->full_load_by_id($table, $id)[0]);
 	}
 
-	public function middle_delete($id){
-		$this->universe->auth->is_logged(true);
+	protected function middle_delete($id){
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
 		return $this->model->delete($table, ['id' => $id]);
 	}

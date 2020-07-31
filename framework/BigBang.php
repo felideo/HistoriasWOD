@@ -125,8 +125,10 @@ class BigBang{
 	}
 
 	private function full_entropy(){
-		header('Location: /error');
-		exit;
+		if(empty(DEVELOPER)){
+			header('Location: /error');
+			exit;
+		}
 
 		// Metodo anterior. Tava dnado problema se tivece um modulo customizado
 		$this->first_atoms = [

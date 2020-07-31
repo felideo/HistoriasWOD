@@ -3,7 +3,7 @@ namespace ControllerCore;
 
 class ajax_upload extends \Framework\Controller {
 	public function upload($parametros = null) {
-		debug2($_POST);
+		// debug2($_POST);
 		// else do regular POST upload (i.e. for old non-HTML5 browsers)
 		$size = $_FILES['qqfile']['size'];
 
@@ -20,7 +20,7 @@ class ajax_upload extends \Framework\Controller {
 		$update     = !isset($_POST['update']) || empty($_POST['update']) ? false : true;
 
 		if(!is_dir('uploads/' . $_POST['local'])){
-   			mkdir('uploads/' . $_POST['local']);
+   			mkdir('uploads/' . $_POST['local'], 0777, true);
 		}
 
 		if (!move_uploaded_file($_FILES['qqfile']['tmp_name'], 'uploads/' . $_POST['local'] . '/' . $uploadname)) {
@@ -31,7 +31,7 @@ class ajax_upload extends \Framework\Controller {
 			$insert_db = [
 				'hash'     => $hash,
 				'nome'     => $filename,
-				'endereco' => 'uploads/' . $_POST['local'] . '/' . $hash . $ext,
+				'endereco' => '/uploads/' . $_POST['local'] . '/' . $hash . $ext,
 				'tamanho'  => (float) $size / 1000000,
 				'extensao' => $ext
 
@@ -52,8 +52,10 @@ class ajax_upload extends \Framework\Controller {
 			$results = array_merge($results, array_merge($insert_db, $retorno_arquivo));
 		}
 
+		$parametros[0] = $parametros[0] === 'true'? true: false;
+
 		if(!empty($parametros[0]) && isset($results['success']) && !empty($results['success'])){
-			$thumb = Libs\PDFThumbnail::creatThumbnail($insert_db['endereco']);
+			$thumb = \Libs\PDFThumbnail::creatThumbnail($insert_db['endereco']);
 
 			$explode = explode('/', $thumb);
 

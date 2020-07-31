@@ -73,7 +73,24 @@ class Modulo extends \Framework\ControllerCrud {
 
 		if($retorno['status']){
 			$retorno_permissoes = $this->model->permissoes_basicas($insert_db['modulo'], $retorno['id']);
+
+			$path = "modulos/{$insert_db['modulo']}/";
+
+			@mkdir($path . 'controller/', 0777, true );
+			@mkdir($path . 'model/', 0777, true );
+			@mkdir($path . 'view/form/', 0777, true );
+			@mkdir($path . 'view/listagem/', 0777, true );
+
+			file_put_contents("{$path}/controller/{$insert_db['modulo']}.php", '');
+			file_put_contents("{$path}/model/{$insert_db['modulo']}.php", '');
+			file_put_contents("{$path}/view/form/form.html", '');
+			file_put_contents("{$path}/view/listagem/listagem.html", '');
+
+			$this->universe->get_model('acesso')
+				->set_usuario($_SESSION['usuario'])
+				->carregar_dados_backend();
 		}
+
 
 		if($retorno['status'] && $retorno_permissoes[count($retorno_permissoes)]['erros'] == 0){
 			$this->view->alert_js('Cadastro efetuado com sucesso!!!', 'sucesso');
@@ -97,6 +114,11 @@ class Modulo extends \Framework\ControllerCrud {
 		$retorno = $this->model->update($this->modulo['modulo'], $update_db, ['id' => $id[0]]);
 
 		if($retorno['status']){
+
+			$this->universe->get_model('acesso')
+				->set_usuario($_SESSION['usuario'])
+				->carregar_dados_backend();
+
 			$this->view->alert_js('Cadastro editado com sucesso!!!', 'sucesso');
 		} else {
 			$this->view->alert_js('Ocorreu um erro ao efetuar a edição do cadastro, por favor tente novamente...', 'erro');
@@ -113,6 +135,11 @@ class Modulo extends \Framework\ControllerCrud {
 		$retorno = $this->model->delete($this->modulo['modulo'], ['id' => $id[0]]);
 
 		if($retorno['status']){
+
+			$this->universe->get_model('acesso')
+				->set_usuario($_SESSION['usuario'])
+				->carregar_dados_backend();
+
 			$this->view->alert_js('Remoção efetuada com sucesso!!!', 'sucesso');
 		} else {
 			$this->view->alert_js('Ocorreu um erro ao efetuar a remoção do cadastro, por favor tente novamente...', 'erro');

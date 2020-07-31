@@ -164,9 +164,9 @@ function show_error($e){
 	$error = [
         'exception_msg' => $e->getMessage(),
         'code'          => $e->getCode(),
-        'localizador'   => "Class => " . $backtrace[0]['class']  . " - Function => " . $backtrace[0]['function'] . "() - Line => " . $e->getLine(),
+        'localizador'   => "Class => " . @$backtrace[0]['class']  . " - Function => " . $backtrace[0]['function'] . "() - Line => " . $e->getLine(),
         'file'          => $e->getFile(),
-        'class'         => $backtrace[0]['class'],
+        'class'         => @$backtrace[0]['class'],
         'function'      => $backtrace[0]['function'],
         'line'          => $e->getLine(),
         'backtrace'     => $e->getTraceAsString(),

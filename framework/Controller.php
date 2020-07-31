@@ -39,39 +39,46 @@ abstract class Controller {
 	}
 
 	public function define_modulo(){
-		if(!isset($this->modulo['modulo']) || empty($this->modulo['modulo'])){
+		if(empty($this->modulo['modulo'])){
 			$this->modulo = [
 				'modulo' 	=> 'generic'
 			];
 		}
 
-		if(!isset($this->modulo['name']) || empty($this->modulo['name']) || !isset($this->modulo['send']) || empty($this->modulo['send'])){
+		if(empty($this->modulo['name']) || empty($this->modulo['send'])){
 			$pretty_name = explode('_', $this->modulo['modulo']);
 
-			foreach($pretty_name as $indice => $item){
+			foreach($pretty_name as &$item){
 				if(strlen($item) > 2){
-					$pretty_name[$indice] = ucfirst($item);
+					$item = ucfirst($item);
 				}
 			}
 
 			$pretty_name = implode(' ', $pretty_name);
 		}
 
-		if(!isset($this->modulo['name']) || empty($this->modulo['name'])){
+		if(empty($this->modulo['name'])){
 			$this->modulo['name'] = $pretty_name . 's';
 		}
 
-		if(!isset($this->modulo['send']) || empty($this->modulo['send'])){
+		if(empty($this->modulo['send'])){
 			$this->modulo['send'] = $pretty_name;
 		}
 
-		if(!isset($this->modulo['table']) || empty($this->modulo['table'])){
+		if(empty($this->modulo['table'])){
 			$this->modulo['table'] = $this->modulo['modulo'];
 		}
 	}
 
-	public function check_if_exists($id, $table = null){
-		if(!isset($table) || empty($table)){
+	public function carregar_front(){
+		$front_controller = $this->universe->get_controller('front');
+		$front_controller->carregar_cabecalho_rodape();
+
+		return $front_controller;
+	}
+
+	protected function check_if_exists($id, $table = null){
+		if(empty($table)){
 			$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
 		}
 
@@ -81,15 +88,12 @@ abstract class Controller {
 
 		if(empty($this->model->select("SELECT id FROM {$table} WHERE id = {$id} AND ativo = 1"))){
 			$this->view->alert_js(ucfirst($this->modulo['send']) . ' não existe...', 'erro');
-			header('location: /' . $this->modulo['modulo']);
-			exit;
+			$this->redirect("/{$this->modulo['modulo']}");
 		}
 	}
 
-	public function carregar_front(){
-		$front_controller = $this->universe->get_controller('front');
-		$front_controller->carregar_cabecalho_rodape();
-
-		return $front_controller;
+	protected function redirect($url){
+		header('location: ' . $url);
+		exit;
 	}
 }

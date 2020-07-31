@@ -8,7 +8,7 @@ class URL {
 	private $model;
 	private $controller;
 	private $metodo;
-	private $atualizar = false;
+	private $atualizar      = false;
 	private $case_sensitive = false;
 
 	public function __construct(){
