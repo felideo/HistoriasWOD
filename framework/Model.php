@@ -74,6 +74,7 @@ abstract class Model {
 				seo.revise,
 				seo.title,
 				seo.description,
+				seo.keywords,
 			")
 			->from("{$table} $table")
 			->leftJoin("seo seo ON seo.id_controller = {$table}.id AND controller = '{$seo}'")
