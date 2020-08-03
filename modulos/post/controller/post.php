@@ -13,9 +13,9 @@ class Post extends \Framework\ControllerCrud {
 		'localizador' => null,
 		'seo'         => true,
 		'url'         => [
-			'coluna'    => null,
-			'metodo'    => null,
-			'atualizar' => false
+			'coluna'    => 'titulo',
+			'metodo'    => 'exibir_post',
+			'atualizar' => true
 		],
 	];
 
