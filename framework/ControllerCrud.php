@@ -217,15 +217,17 @@ class ControllerCrud extends \Framework\Controller {
 
 	protected function after_insert($retorno){
 		if(!empty($this->modulo['url']['coluna']) && !empty($retorno['status'])){
-			$dados['id'] = $id[0];
-			$this->cadastrar_url($dados);
+			$this->cadastrar_url($retorno['dados']);
+		}
+
+		if(!empty($this->modulo['seo']) && !empty($retorno['status'])){
+			$this->cadastrar_seo($retorno);
 		}
 	}
 
 	protected function after_update($retorno){
 		if(!empty($this->modulo['url']['coluna']) && !empty($retorno['status'])){
-			$dados['id'] = $id[0];
-			$this->cadastrar_url($dados);
+			$this->cadastrar_url($retorno['dados']);
 		}
 
 		if(!empty($this->modulo['seo']) && !empty($retorno['status'])){
