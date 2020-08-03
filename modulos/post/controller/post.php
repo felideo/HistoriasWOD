@@ -11,7 +11,12 @@ class Post extends \Framework\ControllerCrud {
 		'table'       => 'post',
 		'send'        => null,
 		'localizador' => null,
-		'seo'         => true,
+		'seo'         => [
+			'habilitado'    => true,
+			'coluna'        => 'titulo',
+			'robots_padrao' => 'index, follow',
+			'revise_padrao' => '2 days',
+		],
 		'url'         => [
 			'coluna'    => 'titulo',
 			'metodo'    => 'exibir_post',

@@ -169,7 +169,7 @@ class ControllerCrud extends \Framework\Controller {
 		$url = new \Libs\URL;
 
 		$retorno_url = $url->setId($dados['id'])
-			->setUrl($dados[$this->modulo['url']['url']])
+			->setUrl($dados[$this->modulo['url']['coluna']])
 			->setMetodo($this->modulo['url']['metodo'])
 			->setController($this->modulo['modulo'])
 			->atualizar(!empty($this->modulo['url']['atualizar']))
@@ -220,7 +220,7 @@ class ControllerCrud extends \Framework\Controller {
 			$this->cadastrar_url($retorno['dados']);
 		}
 
-		if(!empty($this->modulo['seo']) && !empty($retorno['status'])){
+		if(!empty($this->modulo['seo']['habilitado']) && !empty($retorno['status'])){
 			$this->cadastrar_seo($retorno);
 		}
 	}
@@ -230,13 +230,25 @@ class ControllerCrud extends \Framework\Controller {
 			$this->cadastrar_url($retorno['dados']);
 		}
 
-		if(!empty($this->modulo['seo']) && !empty($retorno['status'])){
+		if(!empty($this->modulo['seo']['habilitado']) && !empty($retorno['status'])){
 			$this->cadastrar_seo($retorno);
 		}
 	}
 
 	protected function cadastrar_seo($retorno){
 		$seo = carregar_variavel('seo');
+
+		if(empty($seo['title']) && !empty($this->modulo['seo']['coluna'])){
+			$seo['title'] = $retorno['dados'][$this->modulo['seo']['coluna']];
+		}
+
+		if(empty($seo['robots']) && !empty($this->modulo['seo']['robots_padrao'])){
+			$seo['robots'] = $this->modulo['seo']['robots_padrao'];
+		}
+
+		if(empty($seo['revise']) && !empty($this->modulo['seo']['revise_padrao'])){
+			$seo['revise'] = $this->modulo['seo']['revise_padrao'];
+		}
 
 		$seo['id_controller'] = $retorno['id'];
 		$seo['controller']    = $this->modulo['modulo'];
