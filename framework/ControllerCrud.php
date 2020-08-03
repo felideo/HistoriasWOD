@@ -229,7 +229,7 @@ class ControllerCrud extends \Framework\Controller {
 		}
 
 		if(!empty($this->modulo['seo']) && !empty($retorno['status'])){
-			$seo = carregar_variavel('SEO');
+			$seo = carregar_variavel('seo');
 
 			$seo['id_controller'] = $retorno['id'];
 			$seo['controller']    = $this->modulo['modulo'];
