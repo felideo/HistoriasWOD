@@ -1,0 +1,34 @@
+<div class="module-wrapper col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<section class="module">
+		<div class="module-inner">
+			<div class="module-heading">
+				<h3 class="module-title">SEO</h3>
+				<ul class="actions list-inline">
+					<li><a class="collapse-module" data-toggle="collapse" href="#content-1" aria-expanded="false" aria-controls="content-1"><span aria-hidden="true" class="icon arrow_carrot-up"></span></a></li>
+				</ul>
+			</div>
+			<div class="module-content collapse in" id="content-1">
+				<div class="module-content-inner no-padding-bottom">
+					<div class="row">
+						<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+							<label for="autor">Robots: </label>
+							<input class="form-control" type="text" name="seo[robots]"  value="{if isset($cadastro.seo)}{$cadastro.seo.0.robots}{/if}" required>
+						</div>
+						<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+							<label for="autor">Revise: </label>
+							<input class="form-control" type="text" name="seo[revise]"  value="{if isset($cadastro.seo)}{$cadastro.seo.0.revise}{/if}" required>
+						</div>
+						<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<label for="autor">Title: </label>
+							<input class="form-control" type="text" name="seo[title]"  value="{if isset($cadastro.seo)}{$cadastro.seo.0.title}{/if}" required>
+						</div>
+						<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<label for="autor">Descriptions: </label>
+							<input class="form-control" type="text" name="seo[description]"  value="{if isset($cadastro.seo)}{$cadastro.seo.0.description}{/if}" required>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

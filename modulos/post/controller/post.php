@@ -6,7 +6,17 @@ use Libs;
 class Post extends \Framework\ControllerCrud {
 
 	protected $modulo = [
-		'modulo' 	=> 'post',
+		'modulo'      => 'post',
+		'name'        => 'Post',
+		'table'       => 'post',
+		'send'        => null,
+		'localizador' => null,
+		'seo'         => true,
+		'url'         => [
+			'coluna'    => null,
+			'metodo'    => null,
+			'atualizar' => false
+		],
 	];
 
 	protected $datatable = [

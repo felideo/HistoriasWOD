@@ -81,13 +81,7 @@ class Database extends \PDO {
 				$sth->errorInfo(),
 			];
 
-			return [
-				"status"     => $retorno[0] == true ? true : false,
-				"id"         => $retorno[1] != 0 ? $retorno[1] : false,
-				"error_code" => $retorno[2] != '00000' ? $retorno[2] : false,
-				"erros_info" => !is_null($retorno[3][2]) ? $retorno[3][2] : false,
-				'dados'      => $data,
-			];
+			return $this->tratar_retorno($retorno, $data);
 		} catch (\Fail $e) {
 			$e->show_error(true);
 		}
@@ -130,16 +124,24 @@ class Database extends \PDO {
 				$sth->errorInfo(),
 			];
 
-			return [
-				"status"     => $retorno[0] == true ? true : false,
-				"id"         => $retorno[1] != 0 ? $retorno[1] : false,
-				"error_code" => $retorno[2] != '00000' ? $retorno[2] : false,
-				"erros_info" => !is_null($retorno[3][2]) ? $retorno[3][2] : false,
-				'dados'      => $data,
-			];
+			return $this->tratar_retorno($retorno, $data);
 		} catch (\Fail $e) {
 			$e->show_error(true);
 		}
+	}
+
+	private function tratar_retorno($retorno, $data){
+		$retorno_tratado = [
+			"status"     => $retorno[0] == true ? true : false,
+			"id"         => $retorno[1] != 0 ? $retorno[1] : false,
+			"error_code" => $retorno[2] != '00000' ? $retorno[2] : false,
+			"erros_info" => !is_null($retorno[3][2]) ? $retorno[3][2] : false,
+			'dados'      => $data,
+		];
+
+		$retorno_tratado['dados']['id'] = $retorno[1] != 0 ? $retorno[1] : false;
+
+		return $retorno_tratado;
 	}
 
 	public function delete($table, $where, $limit = null) {

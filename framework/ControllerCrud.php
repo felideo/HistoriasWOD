@@ -52,6 +52,10 @@ class ControllerCrud extends \Framework\Controller {
 		$dados   = carregar_variavel($this->modulo['modulo']);
 		$retorno = $this->insert_update($dados, []);
 
+		if(!empty($retorno)){
+			$this->after_insert($retorno);
+		}
+
 		$msg = [
 			'msg'    => ucfirst($this->modulo['send']) . ' cadastrado com sucesso!!!',
 			'status' => 'sucesso'
@@ -80,6 +84,10 @@ class ControllerCrud extends \Framework\Controller {
 
 		$dados   = carregar_variavel($this->modulo['modulo']);
 		$retorno = $this->insert_update($dados, ['id' => $id[0]]);
+
+		if(!empty($retorno['status'])){
+			$this->after_update($retorno);
+		}
 
 		$msg = [
 			'msg'    => ucfirst($this->modulo['send']) . ' editado com sucesso!!!',
@@ -144,11 +152,6 @@ class ControllerCrud extends \Framework\Controller {
 				true
 			);
 
-		if(!empty($this->modulo['url']['coluna']) && !empty($retorno['status'])){
-			$dados['id'] = $id[0];
-			$this->cadastrar_url($dados);
-		}
-
 		return $retorno;
 	}
 
@@ -199,16 +202,46 @@ class ControllerCrud extends \Framework\Controller {
 
 	protected function middle_editar($id){
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
-		$this->view->assign('cadastro', $this->model->full_load_by_id($table, $id)[0]);
+		$this->view->assign('cadastro', $this->model->full_load_by_id($table, $id, $this->modulo['modulo']));
 	}
 
 	protected function middle_visualizar($id){
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
-		$this->view->assign('cadastro', $this->model->full_load_by_id($table, $id)[0]);
+		$this->view->assign('cadastro', $this->model->full_load_by_id($table, $id, $this->modulo['modulo']));
 	}
 
 	protected function middle_delete($id){
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
 		return $this->model->delete($table, ['id' => $id]);
+	}
+
+	protected function after_insert($retorno){
+		if(!empty($this->modulo['url']['coluna']) && !empty($retorno['status'])){
+			$dados['id'] = $id[0];
+			$this->cadastrar_url($dados);
+		}
+	}
+
+	protected function after_update($retorno){
+		if(!empty($this->modulo['url']['coluna']) && !empty($retorno['status'])){
+			$dados['id'] = $id[0];
+			$this->cadastrar_url($dados);
+		}
+
+		if(!empty($this->modulo['seo']) && !empty($retorno['status'])){
+			$seo = carregar_variavel('SEO');
+
+			$seo['id_controller'] = $retorno['id'];
+			$seo['controller']    = $this->modulo['modulo'];
+			$seo['ativo']         = 1;
+
+			$retorno = $this->model
+				->insert_update(
+					'seo',
+					['id_controller' => $retorno['id'], 'controller' => $this->modulo['modulo']],
+					$seo,
+					true
+				);
+		}
 	}
 }

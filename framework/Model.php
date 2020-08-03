@@ -66,9 +66,19 @@ abstract class Model {
 		return $this->db->select('SELECT ' . $select . ' FROM ' . $table . ' WHERE ativo = 1');
 	}
 
-	public function full_load_by_id($table, $id){
-		$query = "SELECT * FROM {$table} WHERE id = {$id} AND ativo = 1";
-		return $this->db->select($query);
+	public function full_load_by_id($table, $id, $seo = 'nao_retornar_seo'){
+		return $this->query
+			->select("
+				{$table}.*,
+				seo.robots,
+				seo.revise,
+				seo.title,
+				seo.description,
+			")
+			->from("{$table} $table")
+			->leftJoin("seo seo ON seo.id_controller = {$table}.id AND controller = '{$seo}'")
+			->where("{$table}.id = {$id}")
+			->fetchArray('first');
 	}
 
 	public function carregar_listagem($busca, $datatable){
@@ -135,9 +145,11 @@ abstract class Model {
 			return $retorno;
 		}
 
-		$retorno['operacao'] = 'update';
-		$retorno            += $this->update($from, $data, ['id' => $registro_existe[0]['id']]);
-		$retorno['id']       = $registro_existe[0]['id'];
+		$retorno['operacao']    = 'update';
+		$retorno               += $this->update($from, $data, ['id' => $registro_existe[0]['id']]);
+		$retorno['id']          = $registro_existe[0]['id'];
+		$retorno['dados']['id'] = $registro_existe[0]['id'];
+
 
 		return $retorno;
 	}

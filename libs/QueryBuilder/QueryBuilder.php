@@ -276,6 +276,10 @@ class QueryBuilder{
 		$this->total = $this->execute_sql_query("SELECT FOUND_ROWS() AS total")[0]['total'];
 		$return      = $this->convert_to_tree($retorno);
 
+		if(!empty($this->first) && !empty($return[0])){
+			$return = $return[0];
+		}
+
 		$this->clean_class();
 
 		return $return;

@@ -85,10 +85,17 @@ ALTER TABLE podcast
 ADD COLUMN id_idioma INT(11) NULL AFTER descricao;
 
 
-
-
-
-
+CREATE TABLE `seo` (
+  	`id` 			INT(11) 		NOT NULL AUTO_INCREMENT,
+	`robots`        VARCHAR(64) 	NULL,
+	`revise`        VARCHAR(128) 	NULL,
+	`title`         VARCHAR(256) 	NULL,
+	`description`   VARCHAR(1024) 	NULL,
+	`id_controller` INT(11) 		NULL,
+	`controller`    VARCHAR(256) 	NULL,
+  	`ativo`  		TINYINT(1) 		NOT NULL DEFAULT '1',
+PRIMARY  KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 
 
