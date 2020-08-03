@@ -90,7 +90,7 @@ class Plataforma extends \Framework\ControllerCrud {
 			$this->view->set_colunas_datatable($this->datatable['colunas']);
 		}
 
-		$cadastro = $this->model->full_load_by_id('plataforma', $parametros[0])[0];
+		$cadastro = $this->model->full_load_by_id('plataforma', $parametros[0]);
 
 		$this->modulo['texto_adicional_cabecalho'] = ' - Historico de edição - ' . $cadastro['nome'];
 		$this->view->assign('modulo', $this->modulo);
@@ -186,7 +186,7 @@ class Plataforma extends \Framework\ControllerCrud {
 			$this->view->assign('read_only', true);
 		}
 
-		$cadastro = $this->model->full_load_by_id('plataforma', $parametros[0])[0];
+		$cadastro = $this->model->full_load_by_id('plataforma', $parametros[0]);
 
 		$this->modulo['texto_adicional_cabecalho'] = ' - ' . $cadastro['nome'];
 
@@ -214,8 +214,8 @@ class Plataforma extends \Framework\ControllerCrud {
 			$this->view->assign('read_only', true);
 		}
 
-		$pagina = $this->model->full_load_by_id('plataforma_pagina', $parametros[0])[0];
-		$cadastro = $this->model->full_load_by_id('plataforma', $pagina['id_plataforma'])[0];
+		$pagina = $this->model->full_load_by_id('plataforma_pagina', $parametros[0]);
+		$cadastro = $this->model->full_load_by_id('plataforma', $pagina['id_plataforma']);
 		$cadastro['id_plataforma_pagina'] = $pagina['id'];
 
 		$this->view->assign('cadastro', $cadastro);

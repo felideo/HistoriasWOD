@@ -42,7 +42,7 @@ class pagina_institucional extends \Framework\ControllerCrud {
 
 	public function carregar_conteudo($id){
 		$this->check_if_exists($id);
-		$this->view->assign('cadastro', $this->model->full_load_by_id($this->modulo['modulo'], $id[0])[0]);
+		$this->view->assign('cadastro', $this->model->full_load_by_id($this->modulo['modulo'], $id[0]));
 	}
 
 	public function visualizar_front($id){
@@ -60,7 +60,7 @@ class pagina_institucional extends \Framework\ControllerCrud {
 		// $this->check_if_exists($parametros[0], 'plataforma_pagina');
 
 		$parametros = carregar_variavel('data');
-		echo json_encode($this->model->full_load_by_id($this->modulo['modulo'], $parametros['id'])[0]);
+		echo json_encode($this->model->full_load_by_id($this->modulo['modulo'], $parametros['id']));
 		exit;
 	}
 

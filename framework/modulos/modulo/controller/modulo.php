@@ -44,7 +44,7 @@ class Modulo extends \Framework\ControllerCrud {
 		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], $this->modulo['modulo'] . "_" . "editar");
 
-		$this->view->assign('cadastro', $this->model->full_load_by_id('modulo', $id[0])[0]);
+		$this->view->assign('cadastro', $this->model->full_load_by_id('modulo', $id[0]));
 		$this->view->assign('submenu_list', $this->model->load_active_list('submenu'));
 		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/form/form');
 	}
@@ -53,7 +53,7 @@ class Modulo extends \Framework\ControllerCrud {
 		$this->universe->auth->is_logged(true);
 		$this->universe->permission->check($this->modulo['modulo'], $this->modulo['modulo'] . "_" . "visualizar");
 
-		$this->view->assign('cadastro', $this->model->full_load_by_id('modulo', $id[0])[0]);
+		$this->view->assign('cadastro', $this->model->full_load_by_id('modulo', $id[0]));
 		$this->view->assign('submenu_list', $this->model->load_active_list('submenu'));
 
 		$this->view->lazy_view();

@@ -39,7 +39,7 @@ class Permissao extends \Framework\ControllerCrud {
 		$this->check_if_exists($id[0]);
 
 		$this->view->assign('modulos', $this->model->load_active_list('modulo'));
-		$this->view->assign('cadastro', $this->model->full_load_by_id($this->modulo['modulo'], $id[0])[0]);
+		$this->view->assign('cadastro', $this->model->full_load_by_id($this->modulo['modulo'], $id[0]));
 		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/form/form');
 	}
 
@@ -51,7 +51,7 @@ class Permissao extends \Framework\ControllerCrud {
 		$this->check_if_exists($id[0]);
 
 		$this->view->assign('modulos', $this->model->load_active_list('modulo'));
-		$this->view->assign('cadastro', $this->model->full_load_by_id($this->modulo['modulo'], $id[0])[0]);
+		$this->view->assign('cadastro', $this->model->full_load_by_id($this->modulo['modulo'], $id[0]));
 
 		$this->view->lazy_view();
 		$this->view->render('back/cabecalho_rodape_sidebar', $this->modulo['modulo'] . '/view/form/form');
