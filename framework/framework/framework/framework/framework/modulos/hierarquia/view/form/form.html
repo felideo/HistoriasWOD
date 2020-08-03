@@ -1,0 +1,45 @@
+{include file='views/back/form_padrao/header.html'}
+<div class="row-fluid">
+    <div class="form-group col-xs-12 col-sm-12 col-md-10 col-lg-10">
+        <label>Nome</label>
+        <input class="form-control somente_letras remover_caracteres_especiais embelezar_string" name="{$modulo.modulo}[nome]" value="{if isset($cadastro)}{$cadastro.nome}{/if}" required>
+    </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
+        <label>Nivel</label>
+        <input class="form-control somente_numeros" name="{$modulo.modulo}[nivel]" value="{if isset($cadastro)}{$cadastro.nivel}{/if}" required>
+    </div>
+</div>
+
+<div class="row">
+    {foreach from=$permissoes_list item=modulo_permissao}
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><i class="fa {$modulo_permissao.modulo.icone} fa-fw"></i>{$modulo_permissao.modulo.nome}</h4>
+                </div>
+                <div class="panel-body">
+
+                    {foreach from=$modulo_permissao.permissoes item=permissao}
+                        <div class="checkbox">
+                            <label>
+                                <input
+                                    class="permissao_hierarquia"
+                                    id="{$modulo_permissao.modulo.modulo}_{$permissao.permissao}"
+                                    value="{$permissao.id}"
+                                    name="hierarquia_relaciona_permissao[]"
+                                    type="checkbox"
+                                    data-permissao="{$permissao.permissao}"
+                                    data-modulo="{$modulo_permissao.modulo.modulo}"
+                                    {if isset($cadastro.hierarquia_relaciona_permissao.[$permissao.id]) && $permissao.id == $cadastro.hierarquia_relaciona_permissao.[$permissao.id].permissao.0.id} checked {/if}
+                                >
+                                    {ucwords($permissao.nome)}
+                            </label>
+                        </div>
+
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+    {/foreach}
+</div>
+{include file='views/back/form_padrao/footer.html'}

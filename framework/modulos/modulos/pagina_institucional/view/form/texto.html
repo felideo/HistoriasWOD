@@ -1,0 +1,16 @@
+{if isset($cadastro) && $lazy_view}
+	<div class="module-content collapse in" id="content-1">
+		<div class="module-content-inner no-padding-bottom">
+			<label for="autor">Conteúdo *:</label>
+			<br>
+			{$cadastro.conteudo}
+		</div>
+	</div>
+{else}
+	<div class="module-content collapse in" id="content-1">
+		<div class="module-content-inner no-padding-bottom">
+			<label for="autor">Conteúdo *:</label>
+			<textarea name="{$modulo.modulo}[conteudo]" id="wysihtml5-editor" rows="20" class="form-control">{if isset($cadastro)}{$cadastro.conteudo}{/if}</textarea>
+		</div>
+	</div>
+{/if}

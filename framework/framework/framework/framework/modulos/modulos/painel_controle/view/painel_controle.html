@@ -1,0 +1,131 @@
+<!-- concertar o caralho do nome da coluna da entidade campus!!!!!!!
+
+
+<div class="module-content collapse in" id="content-0">
+	<div class="module-content-inner no-padding-bottom">
+		<p class="intro margin-bottom-md">Notify.js is a jQuery plugin to provide simple yet fully customisable notifications. <a href="https://notifyjs.com/" target="_blank">Learn more</a></p>
+		<h4 class="has-divider">Global Styles</h4>
+		<ul class="list list-inline">
+			<li><button type="button" class="btn btn-primary" id="notify-default-trigger">Base</button></li>
+			<li><button type="button" class="btn btn-success" id="notify-success-trigger">Success</button></li>
+			<li><button type="button" class="btn btn-info" id="notify-info-trigger">Info</button></li>
+			<li><button type="button" class="btn btn-warning" id="notify-warn-trigger">Warn</button></li>
+			<li><button type="button" class="btn btn-danger" id="notify-error-trigger">Error</button></li>
+		</ul>
+	</div>
+</div> -->
+{if !empty($trabalhos_pendentes)}
+<div class="module-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<section class="module module-has-footer module-tickets">
+		<div class="module-inner">
+			<div class="module-heading">
+				<h3 class="module-title">Trabalhos - Aprovações Pendentes</h3>
+				<ul class="actions list-inline">
+					<li><a class="collapse-module" data-toggle="collapse" href="#box_trabalhos_pendentes" aria-expanded="false" aria-controls="box_trabalhos_pendentes"><span aria-hidden="true" class="icon arrow_carrot-up"></span></a></li>
+				</ul>
+			</div>
+
+			<div class="module-content collapse in" id="box_trabalhos_pendentes">
+				<div class="module-content-inner">
+					<div class="table-responsive">
+						<table class="table table-simple">
+							<thead>
+								<tr>
+									<th style="width: 5%;" class="number">ID</th>
+									<th style="width: 90%;" class="truncate">Titulo</th>
+									<th style="width: 5%;" > </th>
+								</tr>
+							</thead>
+							<tbody>
+								{foreach from=$trabalhos_pendentes key=indice item=trabalho}
+									<tr>
+										<td><span class="label label-number">{$trabalho.id}</span></td>
+										<td class="truncate"><a href="javascript:void(0)">{$trabalho.titulo}</a></td>
+										<td><a href="/trabalho/visualizar/{$trabalho.id}" target="_blank"><span class="label label-success">Avaliar Trabalho</span></a></td>
+									</tr>
+								{/foreach}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+{/if}
+
+{if !empty($blame)}
+<div class="module-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<section class="module module-has-footer module-tickets">
+		<div class="module-inner">
+			<div class="module-heading">
+				<h3 class="module-title">Trabalhos - Ultimas Alterações</h3>
+				<ul class="actions list-inline">
+					<li><a class="collapse-module" data-toggle="collapse" href="#box_ultimas_alteracoes" aria-expanded="false" aria-controls="box_ultimas_alteracoes"><span aria-hidden="true" class="icon arrow_carrot-up"></span></a></li>
+				</ul>
+			</div>
+
+			<div class="module-content collapse in" id="box_ultimas_alteracoes">
+				<div class="module-content-inner">
+					<div class="table-responsive">
+						<table class="table table-simple">
+							<thead>
+								<tr>
+									<th style="width: 5%;" class="number">ID</th>
+									<th style="width: 60%;" class="truncate">Titulo</th>
+									<th style="width: 30%;" class="truncate">Usuario</th>
+									<th style="width: 5%;" >Operação</th>
+								</tr>
+							</thead>
+							<tbody>
+								{foreach from=$blame key=indice item=trabalho}
+									<tr>
+										<td><span class="label label-number">{$trabalho.trabalho.0.id}</span></td>
+										<td class="truncate"><a href="/trabalho/visualizar/{$trabalho.trabalho.0.id}">{$trabalho.trabalho.0.titulo}</a></td>
+										<td>
+											<span class="truncate">
+												{if !empty($trabalho.usuario.0.pessoa)}
+													{$trabalho.usuario.0.pessoa.0.nome} {$trabalho.usuario.0.pessoa.0.sobrenome}
+												{else}
+													{$trabalho.usuario.0.email}
+												{/if}
+											</span>
+										</td>
+										<td><span class="{$trabalho.cor_tag}">{$trabalho.operacao}</span></td>
+									</tr>
+								{/foreach}
+								<!-- <tr>
+									<td><span class="label label-number">#212</span></td>
+									<td class="truncate"><a href="javascript:void(0)">Refactor fringilla mauris code</a></td>
+									<td><span class="label label-normal">Low</span></td>
+								</tr>
+								<tr>
+									<td><span class="label label-number">#212</span></td>
+									<td class="truncate"><a href="javascript:void(0)">Refactor fringilla mauris code</a></td>
+									<td><span class="label label-low">Low</span></td>
+								</tr>
+								<tr>
+									<td><span class="label label-number">#36</span></td>
+									<td class="truncate"><a href="javascript:void(0)">UX workshop for sodales sagittis</a></td>
+									<td><span class="label label-high">High</span></td>
+								</tr>
+								<tr>
+									<td><span class="label label-number">#16</span></td>
+									<td class="truncate"><a href="javascript:void(0)">Build form modules</a></td>
+									<td><span class="label label-critical">Critical</span></td>
+								</tr>
+								<tr>
+									<td><span class="label label-number">#23</span></td>
+									<td class="truncate"><a href="javascript:void(0)">Lorem ipsum dolor sit amet adipiscing elit</a></td>
+									<td><span class="label label-success">In Progress</span></td>
+								</tr> -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+{/if}
+

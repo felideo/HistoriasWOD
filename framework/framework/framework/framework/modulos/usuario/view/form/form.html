@@ -1,0 +1,91 @@
+{include file='views/back/form_padrao/header.html'}
+<div class="contact-form form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="contact-form form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <label>Email * :</label>
+        <input class="form-control validar_email email_unico letras_e_numeros remover_caracteres_especiais" {if isset($cadastro)} disabled {/if} name="{$modulo.modulo}[{$modulo.modulo}][email]" value="{if isset($cadastro)}{$cadastro['email']}{/if}" required>
+    </div>
+    {if $_SESSION.usuario.hierarquia_nivel <= $cadastro.hierarquia_nivel || !empty($lazy_view) || !isset($cadastro) || $_SESSION.usuario.super_admin}
+        <div class="contact-form form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <label>Hierarquia</label>
+             <br>
+             <select class="form-group span12" name="{$modulo.modulo}[{$modulo.modulo}][hierarquia]" >
+                <option disabled>Selecnione</option>
+                {foreach from=$hierarquia_list item=hierarquia}
+                    {if !empty($lazy_view)}
+                        <option value="{$hierarquia.id}" {if $hierarquia['id'] == $cadastro['hierarquia']} selected {/if}>
+                            {$hierarquia.nome}
+                        </option>
+                    {elseif $_SESSION.usuario.hierarquia_nivel <= $hierarquia.nivel || $_SESSION.usuario.super_admin}
+                        <option value="{$hierarquia.id}" {if $hierarquia['id'] == $cadastro['hierarquia']} selected {/if}>
+                            {$hierarquia.nome}
+                        </option>
+                    {/if}
+                {/foreach}
+             </select>
+        </div>
+    {else}
+        <div class="contact-form form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <label>Hierarquia</label>
+             <br>
+             <p>Somente é possível editar a hierarquia de usuários com permissões menores ou igual ao usuário logado!</p>
+
+             <select class="form-group span12" name="{$modulo.modulo}[{$modulo.modulo}][hierarquia]" style="display: none;" >
+                <option disabled>Selecnione</option>
+                {foreach from=$hierarquia_list item=hierarquia}
+                    <option value="{$hierarquia.id}" {if $hierarquia['id'] == $cadastro['hierarquia']} selected {/if}>
+                            {$hierarquia.nome}
+                        </option>
+                {/foreach}
+             </select>
+        </div>
+    {/if}
+</div>
+
+<div class="contact-form form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row-fluid">
+        <div class="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <label>Nome * :</label>
+            <input class="form-control embelezar_string somente_letras" name="{$modulo.modulo}[pessoa][nome]" value="{if isset($cadastro.pessoa.0)}{$cadastro.pessoa.0.nome}{/if}" type="text" required >
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <label>Sobrenome * :</label>
+            <input class="form-control embelezar_string somente_letras" name="{$modulo.modulo}[pessoa][sobrenome]" value="{if isset($cadastro.pessoa.0)}{$cadastro.pessoa.0.sobrenome}{/if}" type="text" required >
+        </div>
+
+    </div>
+</div>
+
+{if isset($cadastro) && $_SESSION.usuario.id == $cadastro.id}
+    <div class="contact-form form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row-fluid">
+            <div class="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <label>Senha * :</label>
+                <input id="senha_1" type="password" class="form-control" name="{$modulo.modulo}[{$modulo.modulo}][senha]" value="">
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <label>Confirmação de Senha * :</label>
+                <input id="senha_2" type="password" class="form-control">
+            </div>
+
+        </div>
+    </div>
+{/if}
+
+<script type="text/javascript">
+    $('#senha_2').on('change', function(){
+        if($('#senha_2').val() == '' && $('#senha_1').val() == ''){
+            return false;
+        }
+
+        if($('#senha_2').val() != $('#senha_1').val()){
+            swal("Erro", "As senha são diferentes uma da outra. Corrija! O botão de envio ficará desabilitado até que a correção seja efetuada.", "error");
+            $('.botao_enviar').attr('disabled', true);
+        }else{
+            $('.botao_enviar').attr('disabled', false);
+        }
+
+    });
+</script>
+{include file='views/back/form_padrao/footer.html'}

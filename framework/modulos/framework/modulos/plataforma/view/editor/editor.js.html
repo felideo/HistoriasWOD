@@ -1,0 +1,132 @@
+<script type="text/javascript">
+    var editor = ace.edit("editor");
+
+    editor.setOptions({
+        theme:                     "ace/theme/monokai",
+        mode:                      "ace/mode/html",
+        minLines:                  50,
+        maxLines:                  500,
+        wrap:                      true,
+        autoScrollEditorIntoView:  true,
+        enableBasicAutocompletion: true,
+        enableSnippets:            true,
+        enableLiveAutocompletion:  true
+    });
+
+    // add command to lazy-load keybinding_menu extension
+    editor.commands.addCommand({
+        name: "showKeyboardShortcuts",
+        bindKey: {
+            win: "Ctrl-Alt-h",
+            mac: "Command-Alt-h"
+        },
+        exec: function(editor) {
+            ace.config.loadModule("ace/ext/keybinding_menu", function(module) {
+                module.init(editor);
+                editor.showKeyboardShortcuts()
+            })
+        }
+    })
+
+    // editor.execCommand("showSettingsMenu");
+
+    editor.commands.addCommands([{
+        name: "showSettingsMenu",
+        bindKey: {
+            win: "Ctrl-s",
+            mac: "Ctrl-s"
+        },
+        exec: function(editor) {
+            console.log('Só Ctrl + S salva!');
+            save_source_code();
+        },
+        // readOnly: true
+    }]);
+
+    $(document).ready(function(){
+        $.ajax({
+            type: 'POST',
+            url: "/plataforma/load_source_code_ajax",
+            data: {
+                data: {
+                    'id_plataforma': {$cadastro.id},
+                    'id_plataforma_pagina': {if !empty($reativar)}{$cadastro.id_plataforma_pagina}{else}null{/if}
+                }
+            },
+            dataType: 'json',
+            async: true,
+            success: function(codigo_fonte) {
+                editor.session.setValue(codigo_fonte.html);
+            }
+        });
+    });
+
+    function save_source_code(){
+        var notificacao = 'HTML atualizado com sucesso!';
+
+        {if !empty($reativar)}
+            notificacao = 'HTML reativado com sucesso!';
+        {/if}
+
+
+        // Retificação de highlight
+
+        $.ajax({
+            type: 'POST',
+            url: "/plataforma/save_source_code_ajax/{$cadastro.id}",
+            data: {
+                data: editor.getValue()
+            },
+            dataType: 'json',
+            async: true,
+            success: function(retorno){
+                if(retorno == true){
+                    setTimeout(function(){
+                        $.notify(notificacao, {
+                            style: 'appkit',
+                            className: 'success',
+                            hideAnimation: 'fadeOut',
+                            showAnimation: 'fadeIn',
+                            autoHideDelay: 5000,
+                        })
+                    }, 1000);
+
+                    {if !empty($reativar)}
+                        window.location = '/plataforma/historico/{$cadastro.id}';
+                    {/if}
+                    // Retificação de highlight
+
+                    return true;
+                }
+
+                swal({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao atualizar o HTML. Para sua segurança, copie o codigo fonte e salve em um local seguro. Todas as alterações efetuadas serão perdidas caso a pagina for fechada!',
+                    type: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return false;
+            },
+            error: function(retorno) {
+                swal({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao atualizar o HTML. Para sua segurança, copie o codigo fonte e salve em um local seguro. Todas as alterações efetuadas serão perdidas caso a pagina for fechada!',
+                    type: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return false;
+            }
+        });
+    }
+
+    {if !empty($read_only)}
+        editor.setReadOnly(true);
+    {/if}
+</script>
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+{include file='views/back/form_padrao/header.html'}
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <label>Modulo</label>
+    <input class="form-control" name={$modulo.modulo}[modulo]" value="{if isset($cadastro)}{$cadastro.modulo}{/if}" required>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <label>Nome de Exibição</label>
+    <input class="form-control" name={$modulo.modulo}[nome]" value="{if isset($cadastro)}{$cadastro.nome}{/if}" required>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+     <label>Submenu</label>
+     <br>
+     <select class="form-group span12"name={$modulo.modulo}[id_submenu]" style="width: 100%;">
+        <option></option>
+
+        {foreach (from=$submenu_list item=submenu)}
+            <option value="{$submenu.id}" {if isset($cadastro) && $cadastro.id_submenu == $submenu.id} selected {/if} >
+                {$submenu.nome_exibicao}
+            </option>
+        {/foreach}
+     </select>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4" style="min-height: 68px;">
+    <label>Acesso</label>
+    <br>
+    <label class="radio-inline">
+        <input name={$modulo.modulo}[hierarquia]" value="0" type="radio" {if isset($cadastro.hierarquia) && $cadastro.hierarquia == 0}  checked {/if} >Super Admin
+    </label>
+    <label class="radio-inline">
+        <input name={$modulo.modulo}[hierarquia]" value="1" type="radio" {if isset($cadastro.hierarquia) && $cadastro.hierarquia == 1}  checked {/if} >Hierarquico
+    </label>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <label>Icone</label>
+    <input class="form-control" name={$modulo.modulo}[icone]" value="{if isset($cadastro)}{$cadastro.icone}{/if}" required>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <label>Ordem</label>
+    <input class="form-control" name={$modulo.modulo}[ordem]" value="{if isset($cadastro)}{$cadastro.ordem}{/if}" required>
+</div>
+{include file='views/back/form_padrao/footer.html'}

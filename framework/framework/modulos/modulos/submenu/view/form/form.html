@@ -1,0 +1,14 @@
+{include file='views/back/form_padrao/header.html'}
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <label>Nome</label>
+    <input class="form-control" name={$modulo.modulo}[nome]" value="{if isset($cadastro)}{$cadastro.nome}{/if}" required>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <label>Nome de Exibição</label>
+    <input class="form-control" name={$modulo.modulo}[nome_exibicao]" value="{if isset($cadastro)}{$cadastro.nome_exibicao}{/if}" required>
+</div>
+<div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <label>Icone</label>
+    <input class="form-control" name={$modulo.modulo}[icone]" value="{if isset($cadastro)}{$cadastro.icone}{/if}" required>
+</div>
+{include file='views/back/form_padrao/footer.html'}
