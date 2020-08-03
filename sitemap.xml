@@ -1,208 +1,282 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://historiaswod.felideo.com.br/">
-	<url>
-		<loc>https://historiaswod.felideo.com.br/</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>1.00</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/vento-infortuno</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/e-culpa-da-weaver</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/introducao-escolhidos-de-cain-a-mao-negra</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/movimentos-de-uma-mao-invisivel</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-tribo-perdida</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/ideologia</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-01</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-pedra-lacrimejante</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/o-crescente</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-02</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-revolta-anarquista</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-diablerie-de-lasombra</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-03</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-diablerie-de-tzimisce</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-04</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-convencao-dos-espinhos</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/raizes-e-ramificacoes</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/ritae</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/os-inconquistados</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-05</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/destino-manifesto</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-06</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/as-guerras-civis-saba</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-primeira-guerra-civil</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/os-serafins</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-07</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/o-tratado-de-sustentacao</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-inquisicao-saba</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-marca-da-mao</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-segunda-guerra-civil</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/o-codigo-de-milao</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-terceira-guerra-civil</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/as-noites-finais</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-campanha-da-costa-leste</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/ascensao-do-alamut</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-08</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-peregrinacao</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-09</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/introducao-ciganos</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://historiaswod.felideo.com.br/a-historia-dos-rom</loc>
-		<lastmod>2020-07-31T22:30:05+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://historiaswod.felideo.com.br/</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/para-w-h-de-teu-servo-mais-devotado</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/os-amaldicoados</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/nossa-verdadeira-natureza</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/os-carnicais</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/o-abraco</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/o-enigma</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/vento-infortuno</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/e-culpa-da-weaver</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/introducao-escolhidos-de-cain-a-mao-negra</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/movimentos-de-uma-mao-invisivel</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-tribo-perdida</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/ideologia</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-01</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-pedra-lacrimejante</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/o-crescente</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-02</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-revolta-anarquista</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-diablerie-de-lasombra</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-03</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-diablerie-de-tzimisce</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-04</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-convencao-dos-espinhos</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/raizes-e-ramificacoes</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/ritae</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/os-inconquistados</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-05</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/destino-manifesto</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-06</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/as-guerras-civis-saba</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-primeira-guerra-civil</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/os-serafins</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-07</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/o-tratado-de-sustentacao</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-inquisicao-saba</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-marca-da-mao</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-segunda-guerra-civil</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/o-codigo-de-milao</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-terceira-guerra-civil</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/as-noites-finais</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-campanha-da-costa-leste</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/ascensao-do-alamut</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-08</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-peregrinacao</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/escolhidos-de-caim-a-mao-negra-sem-titulo-09</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/introducao</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/a-historia-dos-rom</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/as-sementes-do-conhecimento</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/kooseren-a-semente-do-despertar-terrestre</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/jalomasin-a-semente-das-estrelas</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/ruzlekin-a-semente-das-lagrimas-de-fogo</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/eiavelan-a-semente-das-aguas-brilhantes</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/bonnerin-a-semente-da-balanca-equilibrada</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://historiaswod.felideo.com.br/os-lupinos</loc>
+  <lastmod>2020-08-03T23:32:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
 </urlset>
