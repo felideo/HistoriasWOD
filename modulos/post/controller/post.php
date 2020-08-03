@@ -86,7 +86,7 @@ class Post extends \Framework\ControllerCrud {
 		$post  = $this->model->carregar_post($parametros[0]);
 		$posts = $this->model->carregar_post(null, ["post.id_livro = '{$post[0]['livro'][0]['id']}'"]);
 
-		$this->view->assign('post', $post[0]);
+		$this->view->assign('cadastro', $post[0]);
 		$this->view->assign('posts', $posts);
 		$this->view->render_plataforma('', '', 'post', ['site_cabecalho', 'site_rodape']);
 	}
