@@ -229,19 +229,23 @@ class ControllerCrud extends \Framework\Controller {
 		}
 
 		if(!empty($this->modulo['seo']) && !empty($retorno['status'])){
-			$seo = carregar_variavel('seo');
-
-			$seo['id_controller'] = $retorno['id'];
-			$seo['controller']    = $this->modulo['modulo'];
-			$seo['ativo']         = 1;
-
-			$retorno = $this->model
-				->insert_update(
-					'seo',
-					['id_controller' => $retorno['id'], 'controller' => $this->modulo['modulo']],
-					$seo,
-					true
-				);
+			$this->cadastrar_seo($retorno);
 		}
+	}
+
+	protected function cadastrar_seo($retorno){
+		$seo = carregar_variavel('seo');
+
+		$seo['id_controller'] = $retorno['id'];
+		$seo['controller']    = $this->modulo['modulo'];
+		$seo['ativo']         = 1;
+
+		$retorno = $this->model
+			->insert_update(
+				'seo',
+				['id_controller' => $retorno['id'], 'controller' => $this->modulo['modulo']],
+				$seo,
+				true
+			);
 	}
 }
