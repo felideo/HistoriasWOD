@@ -238,15 +238,15 @@ class ControllerCrud extends \Framework\Controller {
 	protected function cadastrar_seo($retorno){
 		$seo = carregar_variavel('seo');
 
-		if(empty($seo['title']) && !empty($this->modulo['seo']['coluna'])){
+		if(empty(trim($seo['title'])) && !empty($this->modulo['seo']['coluna'])){
 			$seo['title'] = $retorno['dados'][$this->modulo['seo']['coluna']];
 		}
 
-		if(empty($seo['robots']) && !empty($this->modulo['seo']['robots_padrao'])){
+		if(empty(trim($seo['robots'])) && !empty($this->modulo['seo']['robots_padrao'])){
 			$seo['robots'] = $this->modulo['seo']['robots_padrao'];
 		}
 
-		if(empty($seo['revise']) && !empty($this->modulo['seo']['revise_padrao'])){
+		if(empty(trim($seo['revise'])) && !empty($this->modulo['seo']['revise_padrao'])){
 			$seo['revise'] = $this->modulo['seo']['revise_padrao'];
 		}
 
