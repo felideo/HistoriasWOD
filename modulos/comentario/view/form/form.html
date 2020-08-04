@@ -1,0 +1,16 @@
+{include file='views/back/form_padrao/header.html'}
+<div class="form-group col-xs-12 col-sm-12 col-md-11 col-lg-12">
+	<label for="autor">Nome * :</label>
+	<input class="form-control" type="text" name="{$modulo.modulo}[nome]"  value="{if isset($cadastro)}{$cadastro.nome}{/if}" required>
+</div>
+<div class="form-group col-xs-12 col-sm-12 col-md-11 col-lg-12">
+	<label for="autor">Site * :</label>
+	<input class="form-control" type="text" name="{$modulo.modulo}[site]"  value="{if isset($cadastro)}{$cadastro.site}{/if}" >
+</div>
+<div class="form-group col-xs-12 col-sm-12 col-md-11 col-lg-12">
+	<label for="autor">Comentario * :</label>
+	<br>
+	<textarea class="col-xs-12 col-sm-12 col-md-11 col-lg-12" name="{$modulo.modulo}[commentario]" rows="10" required>{if isset($cadastro)}{$cadastro.serie}{/if}</textarea>
+</div>
+
+{include file='views/back/form_padrao/footer.html'}

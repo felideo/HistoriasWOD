@@ -97,5 +97,15 @@ CREATE TABLE `seo` (
 PRIMARY  KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
+CREATE TABLE `comentario` (
+  	`id` 			INT(11) 		NOT NULL AUTO_INCREMENT,
+	`nome`          VARCHAR(256) 	NULL,
+	`site`          VARCHAR(512) 	NULL,
+	`commentario`   TEXT 			NULL,
+	`id_controller` INT(11) 		NULL,
+	`controller`    VARCHAR(256) 	NULL,
+  	`ativo`  		TINYINT(1) 		NOT NULL DEFAULT '1',
+PRIMARY  KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 

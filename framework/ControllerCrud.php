@@ -50,6 +50,7 @@ class ControllerCrud extends \Framework\Controller {
 		$this->universe->permission->check($this->modulo['modulo'], "criar");
 
 		$dados   = carregar_variavel($this->modulo['modulo']);
+		$dados   = $this->before_insert($dados);
 		$retorno = $this->insert_update($dados, []);
 
 		if(!empty($retorno)){
@@ -82,7 +83,8 @@ class ControllerCrud extends \Framework\Controller {
 
 		$this->check_if_exists($id[0]);
 
-		$dados   = carregar_variavel($this->modulo['modulo']);
+		$dados = carregar_variavel($this->modulo['modulo']);
+		$dados = $this->before_update($dados, $where);
 		$retorno = $this->insert_update($dados, ['id' => $id[0]]);
 
 		if(!empty($retorno['status'])){
@@ -213,6 +215,14 @@ class ControllerCrud extends \Framework\Controller {
 	protected function middle_delete($id){
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
 		return $this->model->delete($table, ['id' => $id]);
+	}
+
+	protected function before_insert($dados){
+		return $dados;
+	}
+
+	protected function before_update($dados, $where){
+		return $dados;
 	}
 
 	protected function after_insert($retorno){
