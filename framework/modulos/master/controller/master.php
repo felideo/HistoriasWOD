@@ -35,16 +35,16 @@ class Master extends \Framework\Controller {
 			'git log -5 --pretty=format:"%h - %cn (%ce) - %s (%ci)"',
 		];
 
-		$output = '';
+		$retorno = '';
 
 		foreach($commands AS $command){
 			$tmp = shell_exec($command);
 
-			$output .= "<span style=\"color: #6BE234;\">\$</span><span style=\"color: #729FCF;\">{$command}\n</span><br />";
-			$output .= htmlentities(trim($tmp)) . "\n<br /><br />";
+			$retorno .= "<span style=\"color: #6BE234;\">\$</span><span style=\"color: #729FCF;\">{$command}\n</span><br />";
+			$retorno .= htmlentities(trim($tmp)) . "\n<br /><br />";
 		}
 
-		$this->view->assign('output', $output);
+		$this->view->assign('output', $retorno);
 		$this->view->render(false, $this->modulo['modulo'] . '/view/deploy');
 		exit;
 	}
