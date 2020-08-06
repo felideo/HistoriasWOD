@@ -34,7 +34,6 @@ class Master extends \Framework\Controller {
 			'git reset --hard origin/master',
 			'git pull --rebase',
 			'git log -5 --pretty=format:"%h - %cn (%ce) - %s (%ci)"',
-			'composer update -v',
 		];
 
 		$retorno = '';

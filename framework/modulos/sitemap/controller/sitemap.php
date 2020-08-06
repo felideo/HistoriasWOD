@@ -26,5 +26,8 @@ class Sitemap extends \Framework\Controller {
 		}
 
 		$sitemap->write();
+
+		echo 'Ok';
+		exit;
 	}
 }

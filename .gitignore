@@ -10,3 +10,4 @@ config.php
 vendor/*
 composer.lock
 views/template_compile/*
+sitemap.xml
