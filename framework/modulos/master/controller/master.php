@@ -44,7 +44,7 @@ class Master extends \Framework\Controller {
 			$retorno .= htmlentities(trim($tmp)) . "\n<br /><br />";
 		}
 
-		$this->view->assign('output', $retorno);
+		$this->view->assign('retorno', $retorno);
 		$this->view->render(false, $this->modulo['modulo'] . '/view/deploy');
 		exit;
 	}
