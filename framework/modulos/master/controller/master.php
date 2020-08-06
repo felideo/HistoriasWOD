@@ -31,7 +31,7 @@ class Master extends \Framework\Controller {
 			'git fetch --all',
 			'git status',
 			'git reset --hard origin/master',
-			'git pull --rebase',
+			'git pull',
 			'git log -5 --pretty=format:"%h - %cn (%ce) - %s (%ci)"',
 		];
 
