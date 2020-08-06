@@ -255,6 +255,10 @@ class Data implements IDataProvider
      */
     public function __get($name)
     {
+    	if($name == '*'){
+    		return $this->data;
+    	}
+
         if (isset($this->data[$name])) {
             return $this->data[$name];
         } else {

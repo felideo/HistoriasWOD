@@ -8,6 +8,7 @@ class Post extends \Framework\Model{
 				post.id,
 				post.titulo,
 				post.pagina,
+				post.id_livro,
 
 				url.url,
 				arquivo.endereco,

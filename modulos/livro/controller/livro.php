@@ -1,20 +1,24 @@
 <?php
 namespace Controller;
 
-use Libs;
-
 class Livro extends \Framework\ControllerCrud {
 
 	protected $modulo = [
 		'modulo'      => 'livro',
 		'name'        => 'livro',
 		'table'       => 'livro',
-		'send'        => null,
+		'send'        => 'livro',
 		'localizador' => null,
+		'seo'         => [
+			'habilitado'    => true,
+			'title_padrao'  => 'titulo',
+			'robots_padrao' => 'index, follow',
+			'revise_padrao' => '2 days',
+		],
 		'url'         => [
-			'coluna'    => null,
-			'metodo'    => null,
-			'atualizar' => false
+			'coluna'    => 'titulo',
+			'metodo'    => 'exibir_front',
+			'atualizar' => true
 		],
 	];
 
@@ -45,5 +49,9 @@ class Livro extends \Framework\ControllerCrud {
 		}
 
 		return $retorno;
+	}
+
+	public function exibir_front($parametros){
+
 	}
 }

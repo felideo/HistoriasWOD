@@ -109,3 +109,6 @@ PRIMARY  KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 
+ALTER TABLE configuracao
+DROP COLUMN cor_padrao,
+DROP COLUMN politica_aprovacao;

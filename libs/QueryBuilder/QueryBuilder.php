@@ -622,7 +622,7 @@ class QueryBuilder{
 
 	private function get_height_nodes(){
 		$join_on = [];
-		$levels = 0;
+		$levels  = 0;
 
 		while(count($join_on) != count($this->join_on)) {
 			foreach ($this->join_on as $indice => $table) {

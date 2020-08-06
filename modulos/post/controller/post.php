@@ -1,19 +1,17 @@
 <?php
 namespace Controller;
 
-use Libs;
-
 class Post extends \Framework\ControllerCrud {
 
 	protected $modulo = [
 		'modulo'      => 'post',
 		'name'        => 'Post',
 		'table'       => 'post',
-		'send'        => null,
+		'send'        => 'post',
 		'localizador' => null,
 		'seo'         => [
 			'habilitado'    => true,
-			'coluna'        => 'titulo',
+			'title_padrao'  => 'titulo',
 			'robots_padrao' => 'index, follow',
 			'revise_padrao' => '2 days',
 		],
@@ -89,10 +87,10 @@ class Post extends \Framework\ControllerCrud {
 
 	public function exibir_post($parametros){
 		$post  = $this->model->carregar_post($parametros[0]);
-		$posts = $this->model->carregar_post(null, ["post.id_livro = '{$post[0]['livro'][0]['id']}'"]);
 
 		$this->view->assign('cadastro', $post[0]);
-		$this->view->assign('posts', $posts);
-		$this->view->render_plataforma('', '', 'post', ['site_cabecalho', 'site_rodape']);
+		$this->view->assign('posts', $this->universe->get_model('post')->carregar_post());
+		$this->view->assign('livros', $this->universe->get_model('livro')->carregar_livro());
+		$this->view->render_plataforma('', '', 'post', ['site_cabecalho', 'site_rodape', 'sidebar', 'menu', 'seo']);
 	}
 }

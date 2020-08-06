@@ -1,8 +1,6 @@
 <?php
 namespace Controller;
 
-use Libs;
-
 class Serie extends \Framework\ControllerCrud {
 
 	protected $modulo = [

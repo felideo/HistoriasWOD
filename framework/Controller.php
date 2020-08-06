@@ -28,7 +28,10 @@ abstract class Controller {
 		$this->universe->session->set('modulo_ativo',  $this->modulo['modulo']);
 
 		if(defined('DB_NAME') && defined('DB_HOST') && defined('DB_USER')  && defined('DB_PASS')){
-			$this->universe->session->set('configuracoes', $this->model->full_load_by_id('configuracao', 1));
+			$configuracoes = $this->model->full_load_by_id('configuracao', 1, 'configuracao');
+
+			$this->universe->session->set('configuracoes', $configuracoes);
+			$this->view->assign('app_name', $configuracoes['aplicacao_nome']);
 		}
 
 		$this->url = $this->universe->get_url();

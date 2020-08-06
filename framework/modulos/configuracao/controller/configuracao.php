@@ -2,11 +2,25 @@
 namespace ControllerCore;
 
 class Configuracao extends \Framework\ControllerCrud {
-	Protected $modulo = [
-		'modulo' 	=> 'configuracao',
-		'name'		=> 'Configurações de Sistema',
-		'send'		=> 'Configurações de Sistema'
+	protected $modulo = [
+		'modulo'      => 'configuracao',
+		'name'        => 'Configurações de Sistema',
+		'table'       => 'configuracao',
+		'send'        => 'Configurações de Sistema',
+		'localizador' => null,
+		'seo'         => [
+			'habilitado'    => true,
+			'title_padrao'  => 'aplicacao_nome',
+			'robots_padrao' => 'index, follow',
+			'revise_padrao' => '2 days',
+		],
+		'url'         => [
+			'coluna'    => null,
+			'metodo'    => null,
+			'atualizar' => false
+		],
 	];
+
 
 	public function listagem(){
 		$this->universe->auth->is_logged(true);

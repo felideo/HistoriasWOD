@@ -29,7 +29,7 @@ class View {
 		$this->dwoo->setCompileDir('views/template_compile');
 		$this->assign = new \Dwoo\Data();
 
-		$this->assign('app_name', @defined(APP_NAME) ? APP_NAME : '');
+		$this->assign('app_name', @defined('APP_NAME') ? APP_NAME : '');
 		return $this;
 	}
 
@@ -227,6 +227,7 @@ class View {
 			echo $this->dwoo->get($lazy_view, $this->assign);
 		}
 
+		$this->clear_template_compile_folder();
 		exit;
 	}
 
