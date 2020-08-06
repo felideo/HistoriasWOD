@@ -11,10 +11,10 @@ if(!empty(stripos($_SERVER['HTTP_USER_AGENT'], 'archive'))){
 	exit;
 }
 
-if((!isset($_SERVER['HTTP_ORIGIN']) || empty($_SERVER['HTTP_ORIGIN'])) && $_SERVER['REQUEST_METHOD'] != 'GET'){
-	header('Location: /error');
-	exit;
-}
+// if((!isset($_SERVER['HTTP_ORIGIN']) || empty($_SERVER['HTTP_ORIGIN'])) && $_SERVER['REQUEST_METHOD'] != 'GET'){
+// 	header('Location: /error');
+// 	exit;
+// }
 
 header('Content-Type: text/html; charset=utf-8');
 error_reporting(E_ALL);
