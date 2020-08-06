@@ -17,7 +17,8 @@
         "php-curl-class/php-curl-class": "^8.0",
         "elasticsearch/elasticsearch": "^5.4",
         "felideo/debug2": "^1.0",
-        "felideo/performance-check": "dev-master"
+        "felideo/performance-check": "dev-master",
+        "samdark/sitemap": "dev-master"
     },
     "autoload": {
         "psr-4": {
