@@ -32,6 +32,10 @@ class URL {
 	}
 
 	private function get_url_amigavel($url){
+		for($i = 0; $i < 3; $i++){
+			$url = strip_tags($url);
+		}
+
     	$url = Strings::remover_caracteres_especiais($url, ['-']);
 		$url = Strings::limparStringCompleto($url);
 		$url = Strings::remover_acentos($url);

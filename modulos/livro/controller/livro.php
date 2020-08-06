@@ -52,6 +52,9 @@ class Livro extends \Framework\ControllerCrud {
 	}
 
 	public function exibir_front($parametros){
-
+		$this->view->assign('cadastro', $this->universe->get_model('livro')->carregar_livro($parametros[0])[0]);
+		$this->view->assign('posts', $this->universe->get_model('post')->carregar_post());
+		$this->view->assign('livros', $this->universe->get_model('livro')->carregar_livro());
+		$this->view->render_plataforma('', '', 'livro', ['site_cabecalho', 'site_rodape', 'post_item', 'sidebar', 'menu', 'seo']);
 	}
 }

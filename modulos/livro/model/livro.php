@@ -21,8 +21,8 @@ class Livro extends \Framework\Model{
 
 			->orderBy('livro.ano ASC, post.pagina ASC');
 
-		if(isset($id) && !empty($id)){
-			$this->query->addselect("livro.id = '{$id}'");
+		if(!empty($id)){
+			$this->query->andWhere("livro.id = '{$id}'");
 		}
 
 		return $this->query->fetchArray();
