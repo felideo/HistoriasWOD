@@ -29,6 +29,7 @@ class Master extends \Framework\Controller {
 			'whoami',
 			'git checkout -- .',
 			'git fetch --all',
+			'git checkout -- .',
 			'git status',
 			'git reset --hard origin/master',
 			'git pull --rebase',
