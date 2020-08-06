@@ -48,5 +48,4 @@ class Master extends \Framework\Controller {
 		$this->view->render(false, $this->modulo['modulo'] . '/view/deploy');
 		exit;
 	}
-
 }
