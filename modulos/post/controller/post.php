@@ -73,7 +73,7 @@ class Post extends \Framework\ControllerCrud {
 		);
 
 		if(!empty($retorno['id'])){
-			$retorno_url = (new Libs\URL)->setId($retorno['id'])
+			$retorno_url = (new \Libs\URL)->setId($retorno['id'])
 				->setUrl($dados['titulo'])
 				->setController($this->modulo['modulo'])
 				->setMetodo('exibir_post')

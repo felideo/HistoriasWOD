@@ -83,8 +83,8 @@ class ControllerCrud extends \Framework\Controller {
 
 		$this->check_if_exists($id[0]);
 
-		$dados = carregar_variavel($this->modulo['modulo']);
-		$dados = $this->before_update($dados, $where);
+		$dados   = carregar_variavel($this->modulo['modulo']);
+		$dados   = $this->before_update($dados, ['id' => $id[0]]);
 		$retorno = $this->insert_update($dados, ['id' => $id[0]]);
 
 		if(!empty($retorno['status'])){
