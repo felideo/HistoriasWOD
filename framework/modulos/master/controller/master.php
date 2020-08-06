@@ -24,7 +24,27 @@ class Master extends \Framework\Controller {
 			exit;
 		}
 
-		echo shell_exec("sh " . DEPLOY_FOLDER . "automatic_deploy.sh");
+		$commands = [
+			'echo $PWD',
+			'whoami',
+			'git checkout -- .',
+			'git fetch --all',
+			'git status',
+			'git reset --hard origin/master',
+			'git pull --rebase',
+		];
+
+		$output = '';
+
+		foreach($commands AS $command){
+			$tmp = shell_exec($command);
+
+			$output .= "<span style=\"color: #6BE234;\">\$</span><span style=\"color: #729FCF;\">{$command}\n</span><br />";
+			$output .= htmlentities(trim($tmp)) . "\n<br /><br />";
+		}
+
+		$this->view->assign('output', $output);
+		$this->view->render(false, $this->modulo['modulo'] . '/view/deploy');
 		exit;
 	}
 }
