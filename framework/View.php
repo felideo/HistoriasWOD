@@ -209,10 +209,7 @@ class View {
 			mkdir('views/plataforma');
 		}
 
-
-
 		file_put_contents('views/plataforma/' . $identificador . '.html', $pagina);
-
 
 		$this->render_plataforma_arquivo($identificador);
 	}
