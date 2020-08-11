@@ -79,7 +79,8 @@ class pagina_institucional extends \Framework\ControllerCrud {
 		$front_controller = $this->carregar_front();
 
 		// $this->view->render('front/cabecalho_rodape', $this->modulo['modulo'] . '/view/front/front');
-		$this->view->render_plataforma('header', 'footer', 'pagina_institucional');
+		// $this->view->render_plataforma('', '', 'pagina_institucional');
+		$this->view->render_plataforma('', '', 'pagina_institucional', ['site_cabecalho', 'site_rodape', 'sidebar', 'menu', 'seo']);
 	}
 
 	public function load_source_code_ajax(){
