@@ -27,13 +27,13 @@ class Master extends \Framework\Controller {
 		$commands = [
 			'echo $PWD',
 			'whoami',
-			'git checkout -- .',
-			'git fetch --all',
-			'git checkout -- .',
-			'git status',
-			'git reset --hard origin/master',
-			'git pull --rebase',
-			'git log -5 --pretty=format:"%h - %cn (%ce) - %s (%ci)"',
+			'/usr/bin/git checkout -- .',
+			'/usr/bin/git fetch --all',
+			'/usr/bin/git checkout -- .',
+			'/usr/bin/git status',
+			'/usr/bin/git reset --hard origin/master',
+			'/usr/bin/git pull --rebase',
+			'/usr/bin/git log -5 --pretty=format:"%h - %cn (%ce) - %s (%ci)"',
 		];
 
 		$retorno = '';
