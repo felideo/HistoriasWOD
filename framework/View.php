@@ -139,6 +139,10 @@ class View {
 	public function processar_includes($includes){
 		$includes = $this->carregar_include($includes);
 
+		if(empty($includes)){
+			return;
+		}
+
 		foreach($includes as $indice => $include){
 			if(!file_exists('views/plataforma/' . $include['plataforma'][0]['identificador'] . '.html')){
 				file_put_contents('views/plataforma/' . $include['plataforma'][0]['identificador'] . '.html', $include['html']);
