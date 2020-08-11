@@ -20,8 +20,7 @@ class Acesso extends \Framework\Controller{
 
 	public function logout() {
 		$this->universe->session->destroy();
-		header('location: /');
-		exit;
+		$this->redirect('/');
 	}
 
 	private function run_front($acesso){
@@ -30,13 +29,11 @@ class Acesso extends \Framework\Controller{
 
 		if($this->model->run_front($acesso)){
 			$this->view->alert_js('Seja bem vindo!', 'sucesso');
-			header('location: /');
-			exit;
+			$this->redirect('/');
 		}
 
 		$this->view->alert_js('Usúario ou Senha inválido...', 'erro');
-		header('location: /acesso');
-		exit;
+		$this->redirect('/acesso');
 	}
 
 	public function cadastrar(){
@@ -53,8 +50,7 @@ class Acesso extends \Framework\Controller{
 
 		if(!empty($usuario) && !empty([$usuario['ativo']])){
 			$this->view->alert_js('usuario ja cadastrado no sistema...', 'erro');
-			header('location: /acesso');
-			exit;
+			$this->redirect('/acesso');
 		}
 
 		$hierarquia_usuario_front = $this->model->query
@@ -68,8 +64,7 @@ class Acesso extends \Framework\Controller{
 
 		if(!isset($acesso['status']) || empty($acesso['status'])){
 			$this->view->alert_js('Ocorreu um erro ao efetuar o cadastro...', 'erro');
-			header('location: /acesso');
-			exit;
+			$this->redirect('/acesso');
 		}
 
 		$bkp_acesso['email'] = $bkp_acesso['usuario']['email'];
@@ -80,8 +75,7 @@ class Acesso extends \Framework\Controller{
 
 	public function admin($parametros){
 		if($this->universe->auth->is_logged(false)){
-			header('location: /painel_controle/listagem');
-			exit;
+			$this->redirect('/painel_controle/listagem');
 		}
 
 		http_response_code(404);
@@ -89,18 +83,16 @@ class Acesso extends \Framework\Controller{
 	}
 
 	public function run_back(){
-		$acesso = carregar_variavel('acesso');
+		$acesso          = carregar_variavel('acesso');
 		$acesso['email'] = $this->tratar_email($acesso['email']);
 		$this->validar_email($acesso['email'], '/acesso');
 
 		if($this->model->run_back($acesso)){
-			header('location: /painel_controle/listagem');
-			exit;
+			$this->redirect("/painel_controle/listagem");
 		}
 
 		$this->view->alert_js('Usúario ou Senha inválido...', 'erro');
-		header('location: ' . \Libs\Redirect::getUrl());
-		exit;
+		$this->redirect(\Libs\Redirect::getUrl());
 	}
 
 	private function tratar_email($email){
@@ -112,8 +104,7 @@ class Acesso extends \Framework\Controller{
 
 		if(!empty($redirect) && empty($validacao)){
 			$this->view->alert_js('Email inválido...', 'erro');
-			header("location: {$redirect}");
-			exit;
+			$this->redirect($redirect);
 		}
 
 		return $validacao;
