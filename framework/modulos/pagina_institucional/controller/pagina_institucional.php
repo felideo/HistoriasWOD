@@ -41,7 +41,7 @@ class pagina_institucional extends \Framework\ControllerCrud {
 	}
 
 	protected function before_insert($dados){
-		if(!empty(carregar_variavel('tipo_formulario'))){
+		if(empty(carregar_variavel('tipo_formulario'))){
 			$dados['conteudo'] = $dados['editor_texto'];
 			unset($dados['editor_texto']);
 		}
@@ -49,7 +49,7 @@ class pagina_institucional extends \Framework\ControllerCrud {
 	}
 
 	protected function before_update($dados, $where){
-		if(!empty(carregar_variavel('tipo_formulario'))){
+		if(empty(carregar_variavel('tipo_formulario'))){
 			$dados['conteudo'] = $dados['editor_texto'];
 			unset($dados['editor_texto']);
 		}
