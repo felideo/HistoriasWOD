@@ -7,9 +7,10 @@ class pagina_institucional extends \Framework\ControllerCrud {
 		'modulo' => 'pagina_institucional',
 		'name'   => 'Paginas Institucionais',
 		'send'   => 'Pagina Institucional',
-		'url'    => [
-			'url'    => 'titulo',
-			'metodo' => 'visualizar_front'
+		'url'         => [
+			'coluna'    => 'titulo',
+			'metodo'    => 'visualizar_front',
+			'atualizar' => true
 		],
 		'html_cloud_editor_column' => 'conteudo'
 	];
