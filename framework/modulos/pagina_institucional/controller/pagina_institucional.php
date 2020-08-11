@@ -41,14 +41,18 @@ class pagina_institucional extends \Framework\ControllerCrud {
 	}
 
 	protected function before_insert($dados){
-		$dados['conteudo'] = $dados['editor_texto'];
-		unset($dados['editor_texto']);
+		if(!empty(carregar_variavel('tipo_formulario'))){
+			$dados['conteudo'] = $dados['editor_texto'];
+			unset($dados['editor_texto']);
+		}
 		return $dados;
 	}
 
 	protected function before_update($dados, $where){
-		$dados['conteudo'] = $dados['editor_texto'];
-		unset($dados['editor_texto']);
+		if(!empty(carregar_variavel('tipo_formulario'))){
+			$dados['conteudo'] = $dados['editor_texto'];
+			unset($dados['editor_texto']);
+		}
 		return $dados;
 	}
 
