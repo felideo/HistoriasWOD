@@ -45,7 +45,7 @@ class Post extends \Framework\Model{
 
 		if(!empty($where)){
 			foreach ($where as $indice => $item){
-				$this->query->andWhere($item);
+				$this->query->andWhere("{$indice} = '{$item}'");
 			}
 		}
 
@@ -58,5 +58,27 @@ class Post extends \Framework\Model{
 		}
 
 		return $posts;
+	}
+
+	public function carregar_ultimos_posts(){
+		$this->query
+			->select('
+				post.id,
+				post.titulo,
+				post.pagina,
+
+				livro.titulo,
+
+				url.url,
+			')
+			->from('post post')
+			->leftJoin('url url ON url.id_controller = post.id AND url.ativo = 1')
+			->leftJoin('livro livro ON livro.id = post.id_livro AND livro.ativo = 1')
+			->where('post.ativo = 1')
+			->limitFrom(10)
+			->orderBy('post.id DESC');
+
+
+		return $this->query->fetchArray();
 	}
 }

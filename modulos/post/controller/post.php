@@ -89,8 +89,27 @@ class Post extends \Framework\ControllerCrud {
 		$post  = $this->model->carregar_post($parametros[0]);
 
 		$this->view->assign('cadastro', $post[0]);
-		$this->view->assign('posts', $this->universe->get_model('post')->carregar_post());
+		$this->view->assign('anterior_post_posterior', $this->carregar_post_proximo_anterior($post[0]));
 		$this->view->assign('livros', $this->universe->get_model('livro')->carregar_livro());
 		$this->view->render_plataforma('', '', 'post', ['site_cabecalho', 'site_rodape', 'sidebar', 'menu', 'seo']);
+	}
+
+	private function carregar_post_proximo_anterior($post){
+		$posts     = $this->universe->get_model('post')->carregar_post(null, ['post.id_livro' => $post['id_livro']]);
+		$ordenados = [];
+
+		foreach ($posts as $indice => $item) {
+			$ordenados[$item['id']] = $item;
+		}
+
+		$indices   = array_flip(array_keys($ordenados));
+		$ordenados = array_values($ordenados);
+
+		$anterior_proximo = [
+			'anterior'  => @$ordenados[$indices[$post['id']] - 1],
+			'posterior' => @$ordenados[$indices[$post['id']] + 1],
+		];
+
+		return $anterior_proximo;
 	}
 }
