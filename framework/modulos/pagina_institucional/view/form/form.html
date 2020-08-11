@@ -37,23 +37,23 @@
 			<strong>Texto ou HTML:</strong>
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="tipo_formulario" value="1" checked required> HTML
+			<input class="tipo_formulario" data-tipo_editor="tipo_html" type="radio" name="tipo_formulario" value="1" required> HTML
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="tipo_formulario" value="0" required> Texto
+			<input class="tipo_formulario" data-tipo_editor="tipo_texto" type="radio" name="tipo_formulario" value="0" checked required> Texto
 		</label>
 	</div>
 </div>
-<div data-tipo="tipo_texto" id="tipo_texto" class="tipo_editor form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" style="display: none;">
-    {include file="$core_modulo/$modulo.modulo/view/form/texto.html"}
+<div id="tipo_texto" class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    {include file='views/back/includes/editor_texto.html'}
 </div>
-<div data-tipo="tipo_html" id="tipo_html" class="tipo_editor form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="tipo_html" class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" style="display: none;">
     {include file='views/back/html_cloud_editor_padrao/html_cloud_editor.html'}
 </div>
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('.data-tipo').on('click', function(){
+		$('.tipo_formulario').on('click', function(){
 			if($(this).data('tipo_editor') == 'tipo_texto'){
 				$('#tipo_texto').show();
 				$('#tipo_html').hide();
@@ -63,7 +63,6 @@
 			}
 		})
 	});
-
 </script>
 
 {include file='views/back/form_padrao/footer.html'}

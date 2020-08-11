@@ -40,6 +40,34 @@ class pagina_institucional extends \Framework\ControllerCrud {
 		return $retorno;
 	}
 
+	protected function before_insert($dados){
+		$dados['conteudo'] = $dados['editor_texto'];
+		unset($dados['editor_texto']);
+		return $dados;
+	}
+
+	protected function before_update($dados, $where){
+		$dados['conteudo'] = $dados['editor_texto'];
+		unset($dados['editor_texto']);
+		return $dados;
+	}
+
+	protected function middle_editar($id){
+		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
+		$cadastro = $this->model->full_load_by_id($table, $id, $this->modulo['modulo']);
+		$cadastro['editor_texto'] = $cadastro['conteudo'];
+
+		$this->view->assign('cadastro', $cadastro);
+	}
+
+	protected function middle_visualizar($id){
+		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
+		$cadastro = $this->model->full_load_by_id($table, $id, $this->modulo['modulo']);
+		$cadastro['editor_texto'] = $cadastro['conteudo'];
+
+		$this->view->assign('cadastro', $cadastro);
+	}
+
 	public function carregar_conteudo($id){
 		$this->check_if_exists($id);
 		$this->view->assign('cadastro', $this->model->full_load_by_id($this->modulo['modulo'], $id[0]));

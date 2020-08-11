@@ -57,8 +57,22 @@ class Post extends \Framework\ControllerCrud {
 	}
 
 	public function middle_editar($id){
-		parent::middle_editar($id);
+		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
+		$cadastro = $this->model->full_load_by_id($table, $id, $this->modulo['modulo']);
+		$cadastro['editor_texto'] = $cadastro['post'];
 
+		$this->view->assign('cadastro', $cadastro);
+		$this->view->assign('series', $this->model->load_active_list('serie', 'id, serie'));
+		$this->view->assign('livros', $this->model->load_active_list('livro', 'id, titulo, titulo_original'));
+	}
+
+
+	public function middle_visualizar($id){
+		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
+		$cadastro = $this->model->full_load_by_id($table, $id, $this->modulo['modulo']);
+		$cadastro['editor_texto'] = $cadastro['post'];
+
+		$this->view->assign('cadastro', $cadastro);
 		$this->view->assign('series', $this->model->load_active_list('serie', 'id, serie'));
 		$this->view->assign('livros', $this->model->load_active_list('livro', 'id, titulo, titulo_original'));
 	}
@@ -111,5 +125,17 @@ class Post extends \Framework\ControllerCrud {
 		];
 
 		return $anterior_proximo;
+	}
+
+	protected function before_insert($dados){
+		$dados['post'] = $dados['editor_texto'];
+		unset($dados['editor_texto']);
+		return $dados;
+	}
+
+	protected function before_update($dados, $where){
+		$dados['post'] = $dados['editor_texto'];
+		unset($dados['editor_texto']);
+		return $dados;
 	}
 }
