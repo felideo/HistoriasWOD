@@ -78,7 +78,6 @@ class Post extends \Framework\Model{
 			->limitFrom(10)
 			->orderBy('post.id DESC');
 
-
 		return $this->query->fetchArray();
 	}
 }

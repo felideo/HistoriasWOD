@@ -334,18 +334,23 @@ class QueryBuilder{
 			}
 		}
 
+		if(!empty($this->parametros['order_by'])){
+			$this->parametros['limit_from']['order'] = $this->parametros['order_by'];
+		}
+
 		if(!empty($this->parametros['limit_from']['order'])){
 			if(strtolower($this->parametros['limit_from']['order']) == 'rand()' || strtolower($this->parametros['limit_from']['order']) == 'rand'){
 				$query .= " ORDER BY RAND()";
 			}else{
-				$query .= " ORDER BY '{$this->parametros['limit_from']['order']}'";
+				$query .= " ORDER BY {$this->parametros['limit_from']['order']}";
 			}
 		}
 
-		$query .= ' LIMIT ' . $this->parametros['limit_from']['limit']
-			. ' OFFSET ' . $this->parametros['limit_from']['offset'];
+		$query .= ' LIMIT ' . $this->parametros['limit_from']['limit'];
+		$query .= ' OFFSET ' . $this->parametros['limit_from']['offset'];
 
 		$where = $this->execute_sql_query($query);
+
 		$cu = [];
 		if(!empty($where)){
 			foreach ($where as $indice => $item) {
