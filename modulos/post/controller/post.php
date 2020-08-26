@@ -138,4 +138,34 @@ class Post extends \Framework\ControllerCrud {
 		unset($dados['editor_texto']);
 		return $dados;
 	}
+
+	protected function cadastrar_seo($retorno){
+		$retorno = parent::cadastrar_seo($retorno);
+
+		unset($retorno['dados']['post']);
+
+		$livro = $this->universe->get_model('livro')->carregar_livro($retorno['dados']['id_livro'])[0];
+
+		$update = false;
+
+		if(empty($retorno['seo']['dados']['keywords'])){
+			$update = true;
+			$retorno['seo']['dados']['keywords'] = "Mundo das Trevas: {$livro['titulo']}, World of Darkness: {$livro['titulo_original']}, World of Darkness, Mundo das Trevas, Portugues, Traduzido, Tradução, RPG";
+		}
+
+		if(empty($retorno['seo']['dados']['description'])){
+			$update = true;
+			$retorno['seo']['dados']['description'] = "{$retorno['dados']['titulo']} do Livro {$livro['titulo']} (book {$livro['titulo_original']})";
+		}
+
+		if(!empty($update)){
+			$retorno['seo'] = $this->model
+				->insert_update(
+					'seo',
+					['id_controller' => $retorno['id'], 'controller' => $this->modulo['modulo']],
+					$retorno['seo']['dados'],
+					true
+				);
+		}
+	}
 }

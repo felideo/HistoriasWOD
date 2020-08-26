@@ -264,12 +264,14 @@ class ControllerCrud extends \Framework\Controller {
 		$seo['controller']    = $this->modulo['modulo'];
 		$seo['ativo']         = 1;
 
-		$retorno = $this->model
+		$retorno['seo'] = $this->model
 			->insert_update(
 				'seo',
 				['id_controller' => $retorno['id'], 'controller' => $this->modulo['modulo']],
 				$seo,
 				true
 			);
+
+		return $retorno;
 	}
 }
