@@ -23,16 +23,16 @@ class Post extends \Framework\ControllerCrud {
 	];
 
 	protected $datatable = [
-		'colunas'                => ['ID', 'Titulo', 'Ações'],
-		'select'                 => ['id', 'titulo'],
+		'colunas'                => ['ID', 'Titulo', 'Livro', 'Ações'],
+		'select'                 => ['id', 'titulo', 'id_livro'],
 		'from'                   => 'post',
-		'search'                 => ['id', 'titulo'],
+		'search'                 => ['id', 'titulo', 'id_livro'],
 		'ordenacao_desabilitada' => ''
 	];
 
 	protected function carregar_dados_listagem_ajax($busca){
-		$busca['length'] = 1000;
-		$busca['limit']  = 100;
+		// $busca['length'] = 1000;
+		// $busca['limit']  = 100;
 		$query           = $this->model->carregar_listagem($busca, $this->datatable);
 		$retorno         = [
 			'dados' => [],
@@ -43,6 +43,7 @@ class Post extends \Framework\ControllerCrud {
 			$retorno['dados'][] = [
 				$item['id'],
 				$item['titulo'],
+				$item['id_livro'],
 				$this->view->default_buttons_listagem($item['id'], true, true, true)
 			];
 		}
