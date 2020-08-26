@@ -31,6 +31,8 @@
 	<input class="form-control" type="text" name="{$modulo.modulo}[pagina]"  value="{if isset($cadastro)}{$cadastro.pagina}{/if}" required>
 </div>
 
+{*debug2($cadastro)*}
+
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -44,23 +46,17 @@
 					</div>
 					<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div id="upload_trabalho" class="row">
-							{if isset($cadastro.trabalho_relaciona_arquivo.0.arquivo.0) && !empty($cadastro.trabalho_relaciona_arquivo.0.arquivo.0)}
+							{if !empty($cadastro.arquivo.0.endereco)}
 								<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-								   <div class="panel panel-default">
-									   <div class="panel-body">
-											<a href="/{$cadastro.trabalho_relaciona_arquivo.0.arquivo.0.endereco}" target="_blank">
-												{if isset($cadastro.trabalho_relaciona_arquivo.0.thumb.0) && !empty($cadastro.trabalho_relaciona_arquivo.0.thumb.0)}
-													<img style="width: 100%;" src="/{$cadastro.trabalho_relaciona_arquivo.0.thumb.0.endereco}">
-													<input type="hidden" value="{$cadastro.trabalho_relaciona_arquivo.0.thumb.0.id}" name="trabalho[arquivo][0][id_arquivo_thumb]">
-												{else}
-													<p class="text-center" style="font-size: 150px"><i class="fa fa-file-pdf-o text-center"></i></p>
-												{/if}
-												<h3 class="text-center">{$cadastro.trabalho_relaciona_arquivo.0.arquivo.0.nome}  {$cadastro.trabalho_relaciona_arquivo.0.arquivo.0.extensao}</h3>
-												<input type="hidden" value="{$cadastro.trabalho_relaciona_arquivo.0.arquivo.0.id}" name="trabalho[arquivo][0][id_arquivo]">
-											</a>
-									   </div>
-								   </div>
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<img style="width: 50%; margin-left: 25%;" src="{$cadastro.arquivo.0.endereco}">
+											<h3 class="text-center">{$cadastro.arquivo.0.nome} {$cadastro.arquivo.0.extensao}</h3>
+											<input type="hidden" value="{$cadastro.arquivo.0.id}" name="post[id_arquivo]" />
+										</div>
+									</div>
 								</div>
+								<div class="clearfix"></div>
 							{/if}
 						</div>
 					</div>

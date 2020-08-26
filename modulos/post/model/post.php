@@ -7,11 +7,17 @@ class Post extends \Framework\Model{
 			->select('
 				post.id,
 				post.titulo,
-				post.pagina,
+				post.id_serie,
 				post.id_livro,
+				post.pagina,
+
+
 
 				url.url,
 				arquivo.endereco,
+				arquivo.nome,
+				arquivo.extensao,
+
 
 				livro.titulo,
 				livro.ano,

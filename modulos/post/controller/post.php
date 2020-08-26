@@ -59,7 +59,7 @@ class Post extends \Framework\ControllerCrud {
 
 	public function middle_editar($id){
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
-		$cadastro = $this->model->full_load_by_id($table, $id, $this->modulo['modulo']);
+		$cadastro = $this->model->carregar_post($id)[0];
 		$cadastro['editor_texto'] = $cadastro['post'];
 
 		$this->view->assign('cadastro', $cadastro);
@@ -70,7 +70,7 @@ class Post extends \Framework\ControllerCrud {
 
 	public function middle_visualizar($id){
 		$table = isset($this->modulo['table']) ? $this->modulo['table'] : $this->modulo['modulo'];
-		$cadastro = $this->model->full_load_by_id($table, $id, $this->modulo['modulo']);
+		$cadastro = $this->model->carregar_post($id)[0];
 		$cadastro['editor_texto'] = $cadastro['post'];
 
 		$this->view->assign('cadastro', $cadastro);
