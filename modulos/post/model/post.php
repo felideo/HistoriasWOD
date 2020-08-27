@@ -32,7 +32,7 @@ class Post extends \Framework\Model{
 				seo.keywords,
 			')
 			->from('post post')
-			->leftJoin('url url ON url.id_controller = post.id AND url.ativo = 1')
+			->leftJoin('url url ON url.id_controller = post.id AND controller = "post" AND url.ativo = 1')
 			->leftJoin('arquivo arquivo ON arquivo.id = post.id_arquivo AND arquivo.ativo = 1')
 			->leftJoin('livro livro ON livro.id = post.id_livro AND livro.ativo = 1')
 			->leftJoin('arquivo capa_livro ON capa_livro.id = livro.id_arquivo AND capa_livro.ativo = 1')
